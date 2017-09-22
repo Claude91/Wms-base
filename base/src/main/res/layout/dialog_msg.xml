@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_dialogMsg"
+        android:padding="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_dialogTrue"
+            android:text="确认(F1)"
+            style="@style/bottomBtnStyle"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginRight="1dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_dialogFalse"
+            android:layout_marginLeft="1dp"
+            android:text="取消(F1)"
+            style="@style/bottomBtnStyle"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shqtn.enter.HomeActivity">
+
+    <FrameLayout
+        android:id="@+id/home_fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/home_bottom_btn_group" />
+
+
+    <com.shqtn.base.widget.RadioGroupView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/home_bottom_btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <com.shqtn.base.widget.ImageTextButton
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:id="@+id/home_btn_function"
+            app:labelTColor="@drawable/slt_home_label_color"
+            app:src="@drawable/slt_home_function"
+            android:layout_width="0dp"
+            app:labelT="功能"
+            app:isSelect="true"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.shqtn.base.widget.ImageTextButton
+            android:id="@+id/home_btn_userDetails"
+            android:layout_width="0dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:src="@drawable/slt_home_user_details"
+            app:labelTColor="@drawable/slt_home_label_color"
+            app:labelT="用户" />
+
+    </com.shqtn.base.widget.RadioGroupView>
+</RelativeLayout>

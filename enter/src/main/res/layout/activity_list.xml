@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/activity_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:title="列表集合" />
+
+    <com.shqtn.base.widget.SystemEditText xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_list_set_input_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_list_title"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:hintContent="测试"
+        android:layout_marginTop="10dp" />
+
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/activity_list_pulllv"
+        android:layout_width="match_parent"
+        android:divider="@color/gray"
+        android:dividerHeight="10dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_list_set_input_code"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="6dp"/>
+
+</RelativeLayout>

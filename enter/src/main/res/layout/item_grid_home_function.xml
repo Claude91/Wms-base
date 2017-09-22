@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:paddingTop="@dimen/x6"
+    android:background="#92f2f2f2"
+    android:paddingBottom="@dimen/x6"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_marginLeft="@dimen/x8"
+        android:id="@+id/item_grid_home_img"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/home_take_box"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="@dimen/x50" />
+
+    <TextView
+        android:textColor="@color/colorBlue"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/item_grid_home_tv_text"
+        android:gravity="center"
+        android:text="@string/take_delivery"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
+</LinearLayout>
