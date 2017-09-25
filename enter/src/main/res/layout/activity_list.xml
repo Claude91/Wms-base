@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,23 +15,30 @@
         android:id="@+id/activity_list_set_input_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_list_title"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        app:hintContent="测试"
         android:layout_marginTop="10dp" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/activity_list_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        app:labelText="收货单"
+        android:visibility="gone" />
 
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/activity_list_pulllv"
         android:layout_width="match_parent"
-        android:divider="@color/gray"
-        android:dividerHeight="10dp"
         android:layout_height="match_parent"
-        android:layout_below="@+id/activity_list_set_input_code"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="6dp"/>
+        android:layout_marginTop="6dp"
+        android:divider="@color/gray"
+        android:dividerHeight="10dp" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -8,8 +8,10 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shqtn.base.BaseActivity;
+import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.utils.StringUtils;
+import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.enter.controller.CodeController;
@@ -21,14 +23,14 @@ import com.shqtn.enter.controller.impl.CodePresenterImpl;
  */
 
 public class ListActivity extends BaseActivity implements CodeController.View, ListActivityController.View {
-    public final static String CONTROLLER = "controller";
 
-    public final static String PRESENTER = "presenter";
-    public final static String DECODE_CALLBACK = "decodeCallback";
 
     private PullToRefreshListView pullLv;
     private TitleView mTitleView;
     private SystemEditText setInputCode;
+    private LabelTextView labelTextView;
+
+
     private CodeController.Presenter mCodePresenter;
     private CodeController.DecodeCallback mDecodeCallback;
     private ListActivityController.Presenter mListActivityPresenter;
@@ -37,19 +39,25 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
 
     public static <T extends ListActivityController.Presenter, D extends CodeController.DecodeCallback> Bundle createListActivityBundle(Class<T> p, Class<D> decodeImpl) {
         Bundle bundle = new Bundle();
-        bundle.putString(PRESENTER, p.getCanonicalName());
-        bundle.putString(DECODE_CALLBACK, decodeImpl.getCanonicalName());
+        bundle.putString(C.PRESENTER, p.getCanonicalName());
+        bundle.putString(C.DECODE_CALLBACK, decodeImpl.getCanonicalName());
         return bundle;
     }
 
     public String getListActivityPresenter() {
         Bundle bundle = getBundle();
-        return bundle.getString(PRESENTER);
+        if (bundle == null) {
+            return null;
+        }
+        return bundle.getString(C.PRESENTER);
     }
 
     public String getDecodeCallbackName() {
         Bundle bundle = getBundle();
-        return bundle.getString(DECODE_CALLBACK);
+        if (bundle == null) {
+            return null;
+        }
+        return bundle.getString(C.DECODE_CALLBACK);
     }
 
     @Override
@@ -88,6 +96,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         pullLv = (PullToRefreshListView) findViewById(R.id.activity_list_pulllv);
         mTitleView = (TitleView) findViewById(R.id.activity_list_title);
         setInputCode = (SystemEditText) findViewById(R.id.activity_list_set_input_code);
+
     }
 
     @Override
@@ -107,7 +116,9 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
                 mListActivityPresenter.clickItem(i);
             }
         });
-        pullLv.setRefreshing();
+        if (mListActivityPresenter.isOpenStartRefreshing()) {
+            pullLv.setRefreshing();
+        }
         pullLv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -122,6 +133,8 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
 
         mListActivityPresenter.init();
     }
+
+
 
     @Override
     public void clickBack() {
@@ -155,6 +168,26 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     }
 
     @Override
+    public void setLabelName(String labelName) {
+        labelTextView.setLabelText(labelName);
+    }
+
+    @Override
+    public void setLabelContent(String content) {
+        labelTextView.setText(content);
+    }
+
+    @Override
+    public void displayLabel() {
+        labelTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLabel() {
+        labelTextView.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onRefreshComplete() {
         if (action == null) {
             action = new Runnable() {
@@ -175,6 +208,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
 
     @Override
     protected void onStart() {
+        super.onStart();
         pullLv.setRefreshing();
         mListActivityPresenter.refresh();
     }

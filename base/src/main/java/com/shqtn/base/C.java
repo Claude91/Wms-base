@@ -21,4 +21,6 @@ public class C {
     public static final Gson sGson = new Gson();
 
     public static final String MANIFEST_STR = "manifest_str";
+    public static final String PRESENTER = "presenter";
+    public static final String DECODE_CALLBACK = "decode_callback";
 }

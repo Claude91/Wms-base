@@ -37,9 +37,10 @@ public class CodePresenterImpl extends CodeCallback implements CodeController.Pr
             return;
         }
         isDecoding = true;
-
+        mView.displayProgressDialog("解码中");
         CodeModel.queryCode(code, this);
     }
+
 
     @Override
     public void onGoods(CodeGoods goods) {

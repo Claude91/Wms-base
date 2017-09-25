@@ -32,5 +32,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
     compile 'com.zhy:okhttputils:2.0.0'
     compile project(':pullToRefresh')
+    compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':bindview')
 }

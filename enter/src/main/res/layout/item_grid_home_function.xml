@@ -13,7 +13,7 @@
         android:src="@drawable/home_take_box"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="@dimen/x50" />
+        android:layout_height="50dp" />
 
     <TextView
         android:textColor="@color/colorBlue"

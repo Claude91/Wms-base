@@ -26,9 +26,24 @@ public interface ListActivityController {
          */
         void setListViewModel(PullToRefreshBase.Mode mode);
 
+        void setLabelName(String labelName);
+
+        void setLabelContent(String content);
+
+        /**
+         * 显示 一个文本框，在输入框下方
+         */
+        void displayLabel();
+
+        /**
+         * 隐藏文本框
+         */
+        void hideLabel();
+
+
         void onRefreshComplete();
 
-        void setScanningType(int ...type);
+        void setScanningType(int... type);
     }
 
     public interface Presenter extends BasePresenter {
@@ -55,5 +70,6 @@ public interface ListActivityController {
         void refresh();
 
 
+        boolean isOpenStartRefreshing();
     }
 }

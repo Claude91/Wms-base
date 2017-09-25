@@ -17,7 +17,7 @@ import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
-import com.shqtn.enter.ActivityLoad;
+import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.controller.impl.ListActivityPresenterImpl;
@@ -118,15 +118,18 @@ public class TakeDeliveryManifestPresenter extends ListActivityPresenterImpl {
     }
 
     private void toGoodsListActivity(String manifest) {
-        Class<BaseActivity> goodsListActivityName = ActivityLoad.getInstance().getActivityLoad().getGoodsListActivityName();
+        Class<BaseActivity> goodsListActivityName = InfoLoadUtils.getInstance().getActivityLoad().getTakeDelGoodsListActivity();
+        Class takeDelGoodsListPresenter = InfoLoadUtils.getInstance().getPresenterLoad().getTakeDelGoodsListPresenter();
         Bundle bundle = new Bundle();
-        bundle.putString(C.MANIFEST_STR,manifest);
-        getAty().startActivity(goodsListActivityName,bundle);
+        bundle.putString(C.MANIFEST_STR, manifest);
+        bundle.putString(C.PRESENTER, takeDelGoodsListPresenter.getCanonicalName());
+        getAty().startActivity(goodsListActivityName, bundle);
     }
 
     @Override
     public void decodeManifest(final CodeManifest manifest) {
         super.decodeManifest(manifest);
+        getView().displayProgressDialog("进行匹配中");
         ModelService.post(ApiUrl.URL_TAKE_DELIVERY_GOODS_LIST + manifest.getDocNo(), null, new ResultCallback() {
             @Override
             public void onAfter() {
@@ -166,6 +169,12 @@ public class TakeDeliveryManifestPresenter extends ListActivityPresenterImpl {
 
     @Override
     public void refresh() {
+        mManifestList.clear();
         onPullDownToRefresh();
+    }
+
+    @Override
+    public boolean isOpenStartRefreshing() {
+        return true;
     }
 }

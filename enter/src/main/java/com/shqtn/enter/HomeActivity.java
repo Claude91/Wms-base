@@ -9,6 +9,7 @@ import com.shqtn.base.BaseFragment;
 import com.shqtn.base.widget.RadioGroupView;
 import com.shqtn.enter.frag.FunctionFragment;
 import com.shqtn.enter.frag.UserDetailsFragment;
+import com.shqtn.enter.info.impl.FunctionLoadImpl;
 
 
 public class HomeActivity extends BaseActivity {

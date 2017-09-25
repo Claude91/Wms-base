@@ -1,17 +1,28 @@
 package com.shqtn.enter.frag;
 
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.shqtn.base.BaseActivity;
 import com.shqtn.base.BaseFragment;
+import com.shqtn.base.C;
 import com.shqtn.base.GridAdapter;
-import com.shqtn.base.bean.FunctionBean;
+import com.shqtn.base.utils.StringUtils;
+import com.shqtn.enter.FunctionBean;
 import com.shqtn.base.utils.RecycleViewDivider;
+import com.shqtn.enter.EventBusFactory;
+import com.shqtn.enter.FunctionChangeEvent;
+import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.R;
+import com.shqtn.enter.info.IFunctionLoad;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +43,9 @@ public class FunctionFragment extends BaseFragment {
     private List<FunctionBean> mExitFunctionList;
 
     public static FunctionFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         FunctionFragment fragment = new FunctionFragment();
         fragment.setArguments(args);
         return fragment;
@@ -54,14 +65,23 @@ public class FunctionFragment extends BaseFragment {
 
             } else if (i == R.id.function_in) {
                 bean = mInFunctionList.get(position);
-
             }
             if (bean == null) {
                 return;
             }
             Intent intent = new Intent();
-            intent.setClassName(getActivity(), bean.getClazzName());
-            intent.putExtra(ListActivity.CONTROLLER, bean.getControllerName());
+            intent.setClassName(getActivity(), bean.getAtyClazzName());
+            Bundle bundle = new Bundle();
+
+            String decodeCallbackName = bean.getDecodeCallbackName();
+            if (!StringUtils.isEmpty(decodeCallbackName)) {
+                bundle.putString(C.DECODE_CALLBACK, decodeCallbackName);
+            }
+            String controllerName = bean.getControllerName();
+            if (!StringUtils.isEmpty(controllerName)) {
+                bundle.putString(C.PRESENTER, controllerName);
+            }
+            intent.putExtra(BaseActivity.INTENT_BUNDLE, bundle);
             startActivity(intent);
         }
     };
@@ -78,9 +98,14 @@ public class FunctionFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        mInFunctionList = getInFunctionList();
-        mEnterFunctionList = getEnterFunctionList();
-        mExitFunctionList = getExitFunctionList();
+        FunctionChangeEvent.getInstance().register(this);
+        IFunctionLoad functionLoad = InfoLoadUtils.getInstance().getFunctionLoad();
+        if (functionLoad != null) {
+            mInFunctionList = functionLoad.getInDepotFunction();
+            mEnterFunctionList = functionLoad.getEnterFunction();
+            mExitFunctionList = functionLoad.getExitFunction();
+        }
+
         mInAdapter = new GridAdapter<FunctionBean>(getContext(), null, R.layout.item_grid_home_function) {
 
             @Override
@@ -115,6 +140,13 @@ public class FunctionFragment extends BaseFragment {
                 holder.setImageView(R.id.item_grid_home_img, functionBean.getIconId());
             }
         };
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        FunctionChangeEvent.getInstance().unregister(this);
     }
 
     @Override
@@ -124,46 +156,15 @@ public class FunctionFragment extends BaseFragment {
         rvIn = view.findViewById(R.id.frag_home_depot_in_recyclerView);
     }
 
-    /**
-     * 添加库内功能
-     *
-     * @return
-     */
-    private List<FunctionBean> getInFunctionList() {
-        List<FunctionBean> list = new ArrayList<>();
-       /* list.add(FunctionBean.newListViewFunction("盘点", R.drawable.home_rack_down, CheckQuantityManifestController.class));
-        list.add(FunctionBean.newListViewFunction("货位调整", R.drawable.home_rack_down, GoodsAdjustRackQueryController.class));
-        list.add(FunctionBean.newListViewFunction("入托", R.drawable.home_pallet_manager, PalletHaveCodeInLpnQueryController.class));*/
-        return list;
-    }
 
-    /**
-     * 添加入库功能
-     *
-     * @return
-     */
-    private List<FunctionBean> getEnterFunctionList() {
-        List<FunctionBean> list = new ArrayList<>();
-
-   /*     list.add(FunctionBean.newListViewFunction("收货", R.drawable.home_take_delivery, TakeDeliveryManifestController.class));
-        list.add(FunctionBean.newListViewFunction("上架", R.drawable.home_rack_up, RackUpGoodsListController.class));
-        list.add(FunctionBean.newListViewFunction("质检", R.drawable.home_rack_up, QualityInspectionGoodsController.class));
-        list.add(FunctionBean.newListViewFunction("装箱", R.drawable.home_take_box, TakeBoxQueryController.class));*/
-        return list;
-    }
-
-    /**
-     * 添加出库功能
-     *
-     * @return
-     */
-    private List<FunctionBean> getExitFunctionList() {
-        List<FunctionBean> list = new ArrayList<>();
-        /*list.add(FunctionBean.newListViewFunction("下架", R.drawable.home_rack_down, RackDownManifestController.class));
-        list.add(FunctionBean.newListViewFunction("分拣", R.drawable.home_depot_out, SortingManifestController.class));
-        list.add(FunctionBean.newListViewFunction("包装", R.drawable.home_depot_out, PackingManifestContoller.class));
-        list.add(FunctionBean.newFunction("出库", R.drawable.home_depot_out, DepotOutActivity.class));*/
-        return list;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(IFunctionLoad iFunctionLoad) {
+        mEnterFunctionList = iFunctionLoad.getEnterFunction();
+        mExitFunctionList = iFunctionLoad.getExitFunction();
+        mInFunctionList = iFunctionLoad.getInDepotFunction();
+        mEnterAdapter.update(mEnterFunctionList);
+        mExitAdapter.update(mExitFunctionList);
+        mInAdapter.update(mInFunctionList);
     }
 
     @Override

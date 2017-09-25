@@ -3,6 +3,7 @@ package com.shqtn.wms;
 import android.os.Bundle;
 
 import com.shqtn.base.BaseActivity;
+import com.shqtn.enter.HomeActivity;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.LoginActivity;
 import com.shqtn.enter.presenter.TakeDeliveryManifestPresenter;
@@ -41,8 +42,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void toHomeAty() {
-        Bundle listActivityBundle = ListActivity.createListActivityBundle(TakeDeliveryManifestPresenter.class, TakeDeliveryManifestPresenter.class);
-        startActivity(ListActivity.class,listActivityBundle);
+       // Bundle listActivityBundle = ListActivity.createListActivityBundle(TakeDeliveryManifestPresenter.class, TakeDeliveryManifestPresenter.class);
+        startActivity(HomeActivity.class);
         finish();
     }
 }

@@ -1,7 +1,4 @@
-package com.shqtn.base.bean;
-
-
-import android.app.ListActivity;
+package com.shqtn.enter;
 
 import com.shqtn.base.BaseActivity;
 
@@ -11,17 +8,17 @@ import com.shqtn.base.BaseActivity;
 
 public class FunctionBean {
     /**
-     * @param name       功能名称
+     * @param label       功能名称
      * @param srcId      显示图片
      * @param controller 操作
      * @return
      */
-    public static FunctionBean newListViewFunction(String name, int srcId, Class controller) {
+    public static FunctionBean newListViewFunction(String label, int srcId, Class controller) {
         FunctionBean function = new FunctionBean();
-        function.setClazzName(ListActivity.class.getCanonicalName());
+        function.setAtyClazzName(ListActivity.class.getCanonicalName());
         function.setControllerName(controller.getCanonicalName());
         function.setIconId(srcId);
-        function.setName(name);
+        function.setName(label);
         return function;
     }
 
@@ -29,7 +26,7 @@ public class FunctionBean {
 
         FunctionBean fragment = new FunctionBean();
         fragment.setName(title);
-        fragment.setClazzName(aty.getCanonicalName());
+        fragment.setAtyClazzName(aty.getCanonicalName());
         fragment.setIconId(srcId);
         return fragment;
     }
@@ -38,18 +35,27 @@ public class FunctionBean {
     public FunctionBean() {
     }
 
-    public FunctionBean(String name, String title, int iconId, String clazzName) {
+    public FunctionBean(String name, String title, int iconId, String atyClazzName) {
         this.name = name;
         this.title = title;
         this.iconId = iconId;
-        this.clazzName = clazzName;
+        this.atyClazzName = atyClazzName;
     }
 
     private String name;
     private String title;
     private int iconId;
-    private String clazzName;
+    private String atyClazzName;
     private String controllerName;
+    private String decodeCallbackName;
+
+    public String getDecodeCallbackName() {
+        return decodeCallbackName;
+    }
+
+    public void setDecodeCallbackName(String decodeCallbackName) {
+        this.decodeCallbackName = decodeCallbackName;
+    }
 
     public String getControllerName() {
         return controllerName;
@@ -83,11 +89,11 @@ public class FunctionBean {
         this.iconId = iconId;
     }
 
-    public String getClazzName() {
-        return clazzName;
+    public String getAtyClazzName() {
+        return atyClazzName;
     }
 
-    public void setClazzName(String clazzName) {
-        this.clazzName = clazzName;
+    public void setAtyClazzName(String atyClazzName) {
+        this.atyClazzName = atyClazzName;
     }
 }
