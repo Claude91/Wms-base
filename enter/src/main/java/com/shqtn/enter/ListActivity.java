@@ -3,6 +3,7 @@ package com.shqtn.enter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -29,7 +30,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     private TitleView mTitleView;
     private SystemEditText setInputCode;
     private LabelTextView labelTextView;
-
+    private Button btnClearSelect;
 
     private CodeController.Presenter mCodePresenter;
     private CodeController.DecodeCallback mDecodeCallback;
@@ -103,6 +104,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         mTitleView = (TitleView) findViewById(R.id.activity_list_title);
         setInputCode = (SystemEditText) findViewById(R.id.activity_list_set_input_code);
         labelTextView = (LabelTextView) findViewById(R.id.activity_list_label);
+        btnClearSelect = (Button) findViewById(R.id.activity_list_btn_clear_select);
     }
 
     @Override
@@ -137,9 +139,21 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
             }
         });
 
+        btnClearSelect.setOnClickListener(this);
+
         mListActivityPresenter.init(getBundle());
     }
 
+
+    @Override
+    public void widgetClick(View v) {
+        super.widgetClick(v);
+        int i = v.getId();
+        if (i == R.id.activity_list_btn_clear_select) {
+            mListActivityPresenter.clickClearSelect();
+
+        }
+    }
 
     @Override
     public void clickBack() {
@@ -204,6 +218,21 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         }
         pullLv.postDelayed(action, 1000);
 
+    }
+
+    @Override
+    public void setRefreshing() {
+        pullLv.setRefreshing();
+    }
+
+    @Override
+    public void displayBtnClear() {
+        btnClearSelect.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBtnClear() {
+        btnClearSelect.setVisibility(View.GONE);
     }
 
     @Override

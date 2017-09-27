@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/item_goods_or_lpn_goods_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:orientation="vertical"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_or_lpn_goods_ltv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            app:color="@color/text_white_color"
+            app:labelText="@string/name"
+            app:size="14sp" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_or_lpn_goods_ltv_sku_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_white_color"
+            app:labelText="@string/sku"
+            app:size="14sp" />
+
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_or_lpn_goods_ltv_batch_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_white_color"
+            app:labelText="@string/batch_no"
+            app:size="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/item_goods_or_lpn_goods_ltv_unit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:layout_weight="1"
+                app:color="@color/text_white_color"
+                app:labelText="@string/unit"
+                app:size="14sp" />
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/item_goods_or_lpn_goods_ltv_std"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:layout_weight="1"
+                app:color="@color/text_white_color"
+                app:labelText="@string/std"
+                app:size="14sp" />
+        </LinearLayout>
+
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_or_lpn_goods_ltv_plan_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_white_color"
+            app:labelText="@string/quantity"
+            app:size="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_goods_or_lpn_lpn_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_top_normal"
+        android:paddingTop="@dimen/margin_top_normal"
+        android:visibility="gone">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_or_lpn_lpn_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_white_color"
+            app:labelText="@string/lpnName"
+            app:size="14sp" />
+    </LinearLayout>
+
+</FrameLayout>

@@ -8,5 +8,5 @@
     <dimen name="margin_normal">8dp</dimen>
 
     <dimen name="titleHeight">40dp</dimen>
-    <dimen name="margin_top_normal">4dp</dimen>
+    <dimen name="margin_top_normal">6dp</dimen>
 </resources>

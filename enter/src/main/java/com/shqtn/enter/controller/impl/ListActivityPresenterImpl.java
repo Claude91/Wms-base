@@ -106,4 +106,9 @@ public abstract class ListActivityPresenterImpl implements ListActivityControlle
     public void decodeOther(AllotBean code) {
 
     }
+
+    @Override
+    public void clickClearSelect() {
+
+    }
 }

@@ -11,23 +11,42 @@
         android:layout_height="40dp"
         app:title="列表集合" />
 
-    <com.shqtn.base.widget.SystemEditText xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/activity_list_set_input_code"
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="10dp" />
+        android:layout_height="wrap_content">
+
+        <com.shqtn.base.widget.SystemEditText xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/activity_list_set_input_code"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/activity_list_btn_clear_select"
+            style="@style/label_text_style"
+            android:background="@color/colorBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="清空选项" />
+    </LinearLayout>
+
 
     <com.shqtn.base.widget.LabelTextView
         android:id="@+id/activity_list_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginLeft="@dimen/margin_normal"
         android:layout_marginRight="@dimen/margin_normal"
-        app:labelText="收货单"
-        android:visibility="gone" />
+        android:layout_marginTop="4dp"
+        android:visibility="visible"
+        app:labelText="收货单" />
 
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView

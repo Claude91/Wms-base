@@ -54,4 +54,5 @@
     <string name="noGoosOfManifest">当前任务单中不包含该货品</string>
     <string name="bosSubmitSuccess">箱子提交成功</string>
     <string name="noHaveGoodsFromBoxOfManifest">箱子没有所要存放的货品</string>
+    <string name="operateQty">操作数量</string>
 </resources>

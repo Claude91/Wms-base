@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.NameTextView;
 
 import java.util.List;
@@ -125,7 +126,7 @@ public abstract class CommonAdapter<E> extends BaseAdapter {
             return this;
         }
         public ViewHolder setLabelText(int viewId,CharSequence text){
-            ((NameTextView)getViewById(viewId)).setText(text);
+            ((LabelTextView)getViewById(viewId)).setText(text);
             return this;
         }
 

@@ -40,6 +40,12 @@ public interface ListActivityController {
 
         void onRefreshComplete();
 
+        void setRefreshing();
+
+        void displayBtnClear();
+
+        void hideBtnClear();
+
         void setScanningType(int... type);
     }
 
@@ -64,5 +70,10 @@ public interface ListActivityController {
 
 
         boolean isOpenStartRefreshing();
+
+        /**
+         * 点击清空选择
+         */
+        void clickClearSelect();
     }
 }

@@ -71,7 +71,7 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         for (int i = 0; i < indexCount; i++) {
             int index = typedArray.getIndex(i);
             if (index == R.styleable.SystemEditText_hintContent) {
-                et.setText(typedArray.getString(index));
+                et.setHint(typedArray.getString(index));
             }
         }
         typedArray.recycle();
