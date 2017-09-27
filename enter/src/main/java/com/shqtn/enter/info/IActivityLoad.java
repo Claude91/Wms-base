@@ -22,4 +22,11 @@ public interface IActivityLoad {
      * @return
      */
     Class getTakeDelGoodsListActivity();
+
+    /**
+     * 获得货品操作的Activity();
+     *
+     * @return
+     */
+    Class getTakeDelGoodsOperateActivity();
 }

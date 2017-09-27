@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_take_del_goods_operate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shqtn.enter.activity.TakeDelGoodsOperateActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="@string/take_delivery" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/take_del_goods_operate_set_input_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="4dp" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/take_del_goods_operate_ltv_operate_manifest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/take_del_goods_operate_set_input_code"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        app:labelText="操作任务单号" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/take_del_goods_operate_ltv_operate_manifest"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_top_or_bottom"
+        android:background="@color/colorBlue"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_left_or_right">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/take_del_goods_operate_ltv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_white_color"
+            app:labelText="货品名称"
+            app:size="@dimen/text_label_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_or_bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/label_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="批次号" />
+
+            <TextView
+                style="@style/label_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <EditText
+                android:id="@+id/take_del_goods_operate_et_input_batch_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_top_normal"
+                android:background="@drawable/shape_edit_div"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/take_del_goods_operate_ltv_unit_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_or_bottom"
+            app:color="@color/text_white_color"
+            app:labelText="单位名称"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/take_del_goods_operate_ltv_plan_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_or_bottom"
+            app:color="@color/text_white_color"
+            app:labelText="预收货数量"
+            app:size="@dimen/text_label_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_or_bottom">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收货数量"
+                android:textColor="@color/text_white_color"
+                android:textSize="@dimen/text_label_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textColor="@color/text_white_color"
+                android:textSize="@dimen/text_label_size" />
+
+            <TextView
+                android:id="@+id/take_del_goods_operate_tv_take_qty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_top_normal"
+                android:layout_weight="1"
+                android:background="@color/colorWhite"
+                android:clickable="true"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:singleLine="true"
+                android:text="0" />
+
+            <TextView
+                style="@style/label_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(F2)" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBlue">
+
+        <TextView
+            android:id="@+id/take_del_goods_operate_tv_submit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="提交(F1)"
+            android:textColor="@color/text_white_color"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</RelativeLayout>

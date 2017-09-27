@@ -2,6 +2,7 @@ package com.shqtn.enter.info.impl;
 
 import com.shqtn.base.BaseActivity;
 import com.shqtn.enter.ListActivity;
+import com.shqtn.enter.activity.TakeDelGoodsOperateActivity;
 import com.shqtn.enter.info.IActivityLoad;
 
 /**
@@ -17,6 +18,11 @@ public class ActivityLoadImpl implements IActivityLoad {
 
     @Override
     public Class getTakeDelGoodsListActivity() {
-        return null;
+        return ListActivity.class;
+    }
+
+    @Override
+    public Class getTakeDelGoodsOperateActivity() {
+        return TakeDelGoodsOperateActivity.class;
     }
 }

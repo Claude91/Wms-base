@@ -7,7 +7,7 @@ import android.os.Bundle;
  * Created by android on 2017/9/22.
  */
 
-public interface IContext {
+public interface IAty {
     void startActivity(Class clazz);
 
     void startActivity(Class clazz, Bundle bundle);

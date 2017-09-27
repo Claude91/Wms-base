@@ -1,6 +1,7 @@
 package com.shqtn.enter.info.impl;
 
 import com.shqtn.enter.info.IDecodeCallbackLoad;
+import com.shqtn.enter.presenter.TakeDeliveryGoodsPresenter;
 import com.shqtn.enter.presenter.TakeDeliveryManifestPresenter;
 
 /**
@@ -15,6 +16,6 @@ public class DecodeCallbackLoadImpl implements IDecodeCallbackLoad {
 
     @Override
     public Class getTakeDelGoodsListDecodeCallback() {
-        return null;
+        return TakeDeliveryGoodsPresenter.class;
     }
 }

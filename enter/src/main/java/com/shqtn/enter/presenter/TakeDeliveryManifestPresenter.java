@@ -129,7 +129,7 @@ public class TakeDeliveryManifestPresenter extends ListActivityPresenterImpl {
     @Override
     public void decodeManifest(final CodeManifest manifest) {
         super.decodeManifest(manifest);
-        getView().displayProgressDialog("进行匹配中");
+        getView().displayProgressDialog(getAty().getString(R.string.matching));
         ModelService.post(ApiUrl.URL_TAKE_DELIVERY_GOODS_LIST + manifest.getDocNo(), null, new ResultCallback() {
             @Override
             public void onAfter() {
@@ -146,7 +146,7 @@ public class TakeDeliveryManifestPresenter extends ListActivityPresenterImpl {
             public void onSuccess(ResultBean response) {
                 ArrayList<TakeDeliveryGoods> arrayList = getData(response.getData(), TakeDeliveryGoods.class);
                 if (arrayList == null || arrayList.size() == 0) {
-                    getView().displayMsgDialog("当前任务单中无货品");
+                    getView().displayMsgDialog(getAty().getString(R.string.noGoodsOfManifest));
                 } else {
                     toGoodsListActivity(manifest.getDocNo());
                 }

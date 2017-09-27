@@ -47,4 +47,11 @@
     <string name="please_input_manifest">请输入任务单据号</string>
     <string name="not_manifest">没有任务单</string>
     <string name="not_more_manifest">没有更多任务单</string>
+    <string name="noGoodsOfManifest">当前任务单中无货品</string>
+    <string name="matching">进行匹配中</string>
+    <string name="operateManifest">操作任务单</string>
+    <string name="DoneByGoods">该货品已经全部操作完毕</string>
+    <string name="noGoosOfManifest">当前任务单中不包含该货品</string>
+    <string name="bosSubmitSuccess">箱子提交成功</string>
+    <string name="noHaveGoodsFromBoxOfManifest">箱子没有所要存放的货品</string>
 </resources>

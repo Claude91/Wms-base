@@ -44,6 +44,7 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
     private OnToTextSearchListener mOnToTextSearchListener;
     private String text;
+    private OnTextChangeListener mOnTextChangeListener;
 
     public SystemEditText(Context context) {
         super(context);
@@ -89,6 +90,9 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
             @Override
             public void afterTextChanged(Editable s) {
+                if (mOnTextChangeListener != null) {
+                    mOnTextChangeListener.afterTextChanged(s.toString());
+                }
                 if (mModeType == MODE_AUTO || mModeType == MODE_SYSTEM) {
                     if (mTextChangeManager == null) {
                         createTextChangeManager();
@@ -126,6 +130,10 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
     public void setOnToTextSearchListener(OnToTextSearchListener mOnToTextSearchListener) {
         this.mOnToTextSearchListener = mOnToTextSearchListener;
+    }
+
+    public void setOnTextChangeListener(OnTextChangeListener l) {
+        mOnTextChangeListener = l;
     }
 
     @Override
@@ -248,8 +256,17 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         et.setText(content);
     }
 
+    public void setText(String text) {
+        this.text = text;
+        et.setText(text);
+    }
+
 
     public interface OnToTextSearchListener {
         void onSearchText(String content);
+    }
+
+    public interface OnTextChangeListener {
+        void afterTextChanged(String text);
     }
 }

@@ -70,14 +70,20 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         super.initData();
 
         String decodeCallbackName = getDecodeCallbackName();
+        String listActivityPresenter = getListActivityPresenter();
         try {
-            if (!StringUtils.isEmpty(decodeCallbackName))
-                mDecodeCallback = (CodeController.DecodeCallback) Class.forName(decodeCallbackName).newInstance();
-
-            mListActivityPresenter = (ListActivityController.Presenter) Class.forName(getListActivityPresenter()).newInstance();
+            mListActivityPresenter = (ListActivityController.Presenter) Class.forName(listActivityPresenter).newInstance();
             mListActivityPresenter.setAty(this);
             mListActivityPresenter.setView(this);
-            mListActivityPresenter.setBundle(getBundle());
+
+            if (!StringUtils.isEmpty(decodeCallbackName)) {
+                if (decodeCallbackName.equals(listActivityPresenter) && mListActivityPresenter instanceof CodeController.DecodeCallback) {
+                    mDecodeCallback = (CodeController.DecodeCallback) mListActivityPresenter;
+                } else {
+                    mDecodeCallback = (CodeController.DecodeCallback) Class.forName(decodeCallbackName).newInstance();
+                }
+            }
+
 
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -96,7 +102,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         pullLv = (PullToRefreshListView) findViewById(R.id.activity_list_pulllv);
         mTitleView = (TitleView) findViewById(R.id.activity_list_title);
         setInputCode = (SystemEditText) findViewById(R.id.activity_list_set_input_code);
-
+        labelTextView = (LabelTextView) findViewById(R.id.activity_list_label);
     }
 
     @Override
@@ -131,9 +137,8 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
             }
         });
 
-        mListActivityPresenter.init();
+        mListActivityPresenter.init(getBundle());
     }
-
 
 
     @Override

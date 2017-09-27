@@ -19,7 +19,7 @@ import android.widget.EditText;
 
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.DialogFactory;
-import com.shqtn.base.controller.view.IContext;
+import com.shqtn.base.controller.view.IAty;
 import com.shqtn.base.controller.view.IDialogView;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
@@ -29,7 +29,8 @@ import com.shqtn.base.widget.dialog.EditQuantityDialog;
 /**
  * 基准Activity
  */
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, IDialogView, TitleView.OnClickToBackListener, IContext {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, IDialogView, TitleView.OnClickToBackListener, IAty {
+    public static final int RESULT_CODE_CLOSE = 0x11;
     public static final String INTENT_BUNDLE = "bundle";
     private ProgressDialog mProgressDialog;
     private AskMsgDialog mAskMsgDialog;
@@ -270,10 +271,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    public void displayEditQty() {
+    public void displayEditQty(EditQuantityDialog.OnResultListener resultListener) {
         if (!isFinishing()) {
             if (mEditQuantityDialog == null) {
                 mEditQuantityDialog = DialogFactory.createEditQuantityDialog(this);
+                mEditQuantityDialog.setOnResultListener(resultListener);
             }
             mEditQuantityDialog.show();
         }

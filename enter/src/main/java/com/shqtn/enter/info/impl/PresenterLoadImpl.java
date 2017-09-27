@@ -1,6 +1,7 @@
 package com.shqtn.enter.info.impl;
 
 import com.shqtn.enter.info.IPresenterLoad;
+import com.shqtn.enter.presenter.TakeDeliveryGoodsPresenter;
 import com.shqtn.enter.presenter.TakeDeliveryManifestPresenter;
 
 /**
@@ -16,6 +17,6 @@ public class PresenterLoadImpl implements IPresenterLoad {
 
     @Override
     public Class getTakeDelGoodsListPresenter() {
-        return null;
+        return TakeDeliveryGoodsPresenter.class;
     }
 }

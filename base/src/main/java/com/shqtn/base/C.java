@@ -23,4 +23,6 @@ public class C {
     public static final String MANIFEST_STR = "manifest_str";
     public static final String PRESENTER = "presenter";
     public static final String DECODE_CALLBACK = "decode_callback";
+    public static final java.lang.String SCANNING_GOODS_QTY = "scanning_qty";
+    public static final String OPERATE_GOODS = "operate_goods";
 }

@@ -1,13 +1,10 @@
 package com.shqtn.enter.controller;
 
-import android.os.Bundle;
-import android.view.View;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.controller.presenter.BasePresenter;
 import com.shqtn.base.controller.view.IBaseView;
-import com.shqtn.base.controller.view.IContext;
+import com.shqtn.base.controller.view.IAty;
 
 /**
  * Created by android on 2017/9/21.
@@ -48,8 +45,6 @@ public interface ListActivityController {
 
     public interface Presenter extends BasePresenter {
 
-        void init();
-
         /**
          * 点击item
          *
@@ -57,9 +52,7 @@ public interface ListActivityController {
          */
         void clickItem(int position);
 
-        void setAty(IContext context);
-
-        void setBundle(Bundle bundle);
+        void setAty(IAty context);
 
         void setView(View v);
 

@@ -1,5 +1,7 @@
 package com.shqtn.enter.controller.impl;
 
+import android.os.Bundle;
+
 import com.shqtn.base.info.code.AllotBean;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeLpn;
@@ -92,6 +94,11 @@ public class CodePresenterImpl extends CodeCallback implements CodeController.Pr
     @Override
     public void setDecodeCallback(CodeController.DecodeCallback decodeCallback) {
         this.mDecodeCallback = decodeCallback;
+    }
+
+    @Override
+    public void init(Bundle bundle) {
+
     }
 
     @Override

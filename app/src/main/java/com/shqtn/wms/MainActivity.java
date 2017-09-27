@@ -17,7 +17,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
         super.initData();
-        toHomeAty();
+        toLoginAty();
       /*  boolean isLogin = LoginUtils.isLogin(getApplicationContext());
         LoginInfo loginInfo = new LoginInfo();
         String ip = IpChangeUtils.getIp(this);

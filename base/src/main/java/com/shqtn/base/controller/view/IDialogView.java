@@ -1,6 +1,7 @@
 package com.shqtn.base.controller.view;
 
 import com.shqtn.base.widget.dialog.AskMsgDialog;
+import com.shqtn.base.widget.dialog.EditQuantityDialog;
 
 /**
  * Created by android on 2017/9/20.
@@ -28,7 +29,7 @@ public interface IDialogView {
 
     void displayEditQty(Double maxQty);
 
-    void displayEditQty();
+    void displayEditQty(EditQuantityDialog.OnResultListener resultListener);
 
     void cancelEditQty();
 }

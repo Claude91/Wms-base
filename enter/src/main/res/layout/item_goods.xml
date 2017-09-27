@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_normal"
+    android:layout_marginRight="@dimen/margin_normal"
+    android:padding="@dimen/margin_normal"
+    android:background="@drawable/shape_btn_blue_normal"
+    android:orientation="vertical">
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/item_goods_sku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:color="@color/text_white_color"
+        app:labelText="@string/sku"
+        app:size="12sp"
+        app:textColor="@color/text_orange_color"
+        app:textMarginLeft="4dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/div_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x6"
+        android:orientation="horizontal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:color="@color/text_white_color"
+            app:labelText="@string/name"
+            app:size="12sp"
+            app:textMarginLeft="4dp" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:color="@color/text_white_color"
+            app:labelText="@string/unit"
+            app:size="12sp"
+            app:textMarginLeft="4dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x6"
+        android:orientation="horizontal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_batch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:color="@color/text_white_color"
+            app:labelText="@string/batch_no"
+            app:size="12sp"
+            app:textColor="@color/text_green_color"
+            app:textMarginLeft="4dp" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_in_depot_qty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:color="@color/text_white_color"
+            app:labelText="@string/take_delivery_qty"
+            app:size="12sp"
+            app:textMarginLeft="4dp"
+            app:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>
