@@ -15,14 +15,14 @@ public interface IFunctionLoad {
      *
      * @return
      */
-    List<FunctionBean> getEnterFunction();
+    void addEnterFunction(List<FunctionBean> list);
 
     /**
      * 获得出库 功能
      *
      * @return
      */
-    List<FunctionBean> getExitFunction();
+    void addExitFunction(List<FunctionBean> list);
 
 
     /**
@@ -30,5 +30,5 @@ public interface IFunctionLoad {
      *
      * @return
      */
-    List<FunctionBean> getInDepotFunction();
+    void addInDepotFunction(List<FunctionBean> list);
 }

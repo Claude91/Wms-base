@@ -1,6 +1,7 @@
 package com.shqtn.base.utils;
 
 import com.shqtn.base.bean.base.IGoods;
+import com.shqtn.base.info.code.CodeGoods;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,6 +114,14 @@ public class GoodsUtils {
                 arrayList.add(t);
         }
         return arrayList;
+    }
+
+    public static double getGoodsQty(CodeGoods goods) {
+        if (goods.getGoodsQty() <=0){
+            return 1;
+        }
+
+        return goods.getGoodsQty();
     }
 
 

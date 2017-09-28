@@ -1,5 +1,7 @@
 package com.shqtn.enter.info;
 
+import android.content.Intent;
+
 import com.shqtn.base.BaseActivity;
 
 /**
@@ -29,4 +31,22 @@ public interface IActivityLoad {
      * @return
      */
     Class getTakeDelGoodsOperateActivity();
+
+    /**
+     * RackUpGoods   C.OPERATE_GOODS
+     *
+     * @return
+     */
+    Class getRackUpLpnOperateActivity();
+
+    /**
+     * RackUpGoods   C.OPERATE_GOODS
+     *
+     * @return
+     */
+    Class getRackUpGoodsOperateActivity();
+
+    Class getRackUpGoodsListActivity();
+
+    Class getDepotSelectActivity();
 }

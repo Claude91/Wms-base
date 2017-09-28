@@ -42,4 +42,5 @@ public class DepotUtils {
         DepotBean depotBean = sGson.fromJson(json, DepotBean.class);
         return depotBean;
     }
+
 }

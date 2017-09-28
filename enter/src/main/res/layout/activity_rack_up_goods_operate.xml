@@ -23,13 +23,25 @@
         android:layout_marginTop="@dimen/margin_top_normal"
         app:hintContent="请输入货品或货位" />
 
+    <com.shqtn.base.widget.LabelTextView
+
+        android:id="@+id/activity_rack_up_goods_operate_ltv_manifest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_rack_up_goods_operate_set_input_code"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/margin_normal"
+        app:labelText="任务单号"
+        app:size="@dimen/text_label_size" />
+
     <LinearLayout
         android:id="@+id/activity_rack_up_goods_operate_rack_code_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/activity_rack_up_goods_operate_set_input_code"
+        android:layout_below="@+id/activity_rack_up_goods_operate_ltv_manifest"
+        android:layout_marginTop="@dimen/margin_top_normal"
         android:background="@color/colorWhite"
         android:orientation="vertical"
         android:paddingBottom="@dimen/margin_top_normal"
@@ -38,10 +50,10 @@
         android:paddingTop="@dimen/margin_top_normal">
 
         <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_rack_up_goods_operate_ltv_recommend_rack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:labelText="推荐货位"
-            android:id="@+id/activity_rack_up_goods_operate_ltv_recommend_rack"
             app:size="@dimen/text_label_size" />
 
         <com.shqtn.base.widget.LabelTextView

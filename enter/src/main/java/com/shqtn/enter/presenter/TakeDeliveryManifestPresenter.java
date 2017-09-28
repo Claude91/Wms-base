@@ -21,6 +21,7 @@ import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.controller.impl.ListActivityPresenterImpl;
+import com.shqtn.enter.utils.NormalInitView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,10 +102,10 @@ public class TakeDeliveryManifestPresenter extends ListActivityPresenterImpl {
         mManifestAdapter.update(mManifestList);
 
         if (depot == null) {
+            NormalInitView.notSelectDepot(getView());
             return;
         }
         mManifestParams.setWhCode(depot.getWhcode());
-        onLoadMoreData();
     }
 
     private void onLoadMoreData() {
@@ -169,6 +170,9 @@ public class TakeDeliveryManifestPresenter extends ListActivityPresenterImpl {
 
     @Override
     public void refresh() {
+        if (mManifestParams.getWhCode() == null) {
+            return;
+        }
         mManifestList.clear();
         onPullDownToRefresh();
     }

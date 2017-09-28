@@ -3,7 +3,6 @@ package com.shqtn.wms;
 import com.shqtn.base.BaseApp;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.info.impl.ActivityLoadImpl;
-import com.shqtn.enter.info.impl.DecodeCallbackLoadImpl;
 import com.shqtn.enter.info.impl.FunctionLoadImpl;
 import com.shqtn.enter.info.impl.PresenterLoadImpl;
 
@@ -31,8 +30,7 @@ public class MyApp extends BaseApp {
         InfoLoadUtils.Config loadConfig = new InfoLoadUtils.Config();
         loadConfig.setActivityLoad(new ActivityLoadImpl())
                 .setPresenterLoad(new PresenterLoadImpl())
-                .setFunctionLoad(new FunctionLoadImpl())
-                .setDecodeCallbackLoad(new DecodeCallbackLoadImpl());
+                .setFunctionLoad(new FunctionLoadImpl());
 
     }
 

@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -282,6 +283,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
+    public void displayEditQty(double maxQty, EditQuantityDialog.OnResultListener resultListener) {
+        if (!isFinishing()) {
+            if (mEditQuantityDialog == null) {
+                mEditQuantityDialog = DialogFactory.createEditQuantityDialog(this);
+                mEditQuantityDialog.setMaxQuantity(maxQty);
+                mEditQuantityDialog.setOnResultListener(resultListener);
+            }
+            mEditQuantityDialog.show();
+        }
+    }
+
+    @Override
     public void cancelEditQty() {
         if (!isFinishing()) {
             if (mEditQuantityDialog != null) {
@@ -359,5 +372,74 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_F1) {
+            return onKeyF1();
+        } else if (keyCode == KeyEvent.KEYCODE_F2) {
+            return onKeyF2();
+        } else if (keyCode == KeyEvent.KEYCODE_F3) {
+            return onKeyF3();
+        } else if (keyCode == KeyEvent.KEYCODE_F4) {
+            return onKeyF4();
+        } else if (keyCode == KeyEvent.KEYCODE_F5) {
+            return onKeyF5();
+        } else if (keyCode == KeyEvent.KEYCODE_F6) {
+            return onKeyF6();
+        } else if (keyCode == KeyEvent.KEYCODE_F7) {
+            return onKeyF7();
+        } else if (keyCode == KeyEvent.KEYCODE_F8) {
+            return onKeyF8();
+        } else if (keyCode == KeyEvent.KEYCODE_F9) {
+            return onKeyF9();
+        } else if (keyCode == KeyEvent.KEYCODE_F10) {
+            return onKeyF10();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public boolean onKeyF10() {
+        return false;
+    }
+
+    public boolean onKeyF9() {
+        return false;
+    }
+
+    public boolean onKeyF8() {
+        return false;
+    }
+
+    public boolean onKeyF7() {
+        return false;
+    }
+
+    public boolean onKeyF6() {
+        return false;
+    }
+
+
+    public boolean onKeyF5() {
+        return false;
+    }
+
+    public boolean onKeyF4() {
+        return false;
+    }
+
+
+    public boolean onKeyF3() {
+        return false;
+    }
+
+    public boolean onKeyF2() {
+        return false;
+    }
+
+
+    public boolean onKeyF1() {
+        return false;
     }
 }

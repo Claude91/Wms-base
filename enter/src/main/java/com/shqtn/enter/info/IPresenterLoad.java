@@ -15,4 +15,5 @@ public interface IPresenterLoad {
      */
     Class getTakeDelGoodsListPresenter();
 
+    Class getRackUpGoodsListPresenter();
 }

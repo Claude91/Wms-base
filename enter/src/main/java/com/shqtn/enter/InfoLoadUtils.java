@@ -1,7 +1,6 @@
 package com.shqtn.enter;
 
 import com.shqtn.enter.info.IActivityLoad;
-import com.shqtn.enter.info.IDecodeCallbackLoad;
 import com.shqtn.enter.info.IFunctionLoad;
 import com.shqtn.enter.info.IPresenterLoad;
 
@@ -29,12 +28,6 @@ public class InfoLoadUtils {
 
     private IFunctionLoad iFunctionLoad;
 
-    private IDecodeCallbackLoad iDecodeCallbackLoad;
-
-    public IDecodeCallbackLoad getDecodeCallbackLoad() {
-        return iDecodeCallbackLoad;
-    }
-
     public IActivityLoad getActivityLoad() {
         return iActivityLoad;
     }
@@ -46,6 +39,8 @@ public class InfoLoadUtils {
     public IPresenterLoad getPresenterLoad() {
         return iPresenterLoad;
     }
+
+
 
     public static class Config {
 
@@ -61,11 +56,6 @@ public class InfoLoadUtils {
 
         public Config setFunctionLoad(IFunctionLoad f) {
             getInstance().iFunctionLoad = f;
-            return this;
-        }
-
-        public Config setDecodeCallbackLoad(IDecodeCallbackLoad d) {
-            getInstance().iDecodeCallbackLoad = d;
             return this;
         }
 

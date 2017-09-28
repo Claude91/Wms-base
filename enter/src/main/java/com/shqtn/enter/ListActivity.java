@@ -32,8 +32,14 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     private LabelTextView labelTextView;
     private Button btnClearSelect;
 
+    /**
+     * 用于处理解码操作
+     */
     private CodeController.Presenter mCodePresenter;
     private CodeController.DecodeCallback mDecodeCallback;
+    /**
+     * 该接口实现了 解码的回调方法，用于接收解码后的结果
+     */
     private ListActivityController.Presenter mListActivityPresenter;
     private Runnable action;
 
@@ -53,14 +59,6 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         return bundle.getString(C.PRESENTER);
     }
 
-    public String getDecodeCallbackName() {
-        Bundle bundle = getBundle();
-        if (bundle == null) {
-            return null;
-        }
-        return bundle.getString(C.DECODE_CALLBACK);
-    }
-
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_list);
@@ -70,20 +68,13 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     public void initData() {
         super.initData();
 
-        String decodeCallbackName = getDecodeCallbackName();
         String listActivityPresenter = getListActivityPresenter();
         try {
             mListActivityPresenter = (ListActivityController.Presenter) Class.forName(listActivityPresenter).newInstance();
             mListActivityPresenter.setAty(this);
             mListActivityPresenter.setView(this);
 
-            if (!StringUtils.isEmpty(decodeCallbackName)) {
-                if (decodeCallbackName.equals(listActivityPresenter) && mListActivityPresenter instanceof CodeController.DecodeCallback) {
-                    mDecodeCallback = (CodeController.DecodeCallback) mListActivityPresenter;
-                } else {
-                    mDecodeCallback = (CodeController.DecodeCallback) Class.forName(decodeCallbackName).newInstance();
-                }
-            }
+            mDecodeCallback = mListActivityPresenter;
 
 
         } catch (InstantiationException e) {
@@ -217,7 +208,6 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
             };
         }
         pullLv.postDelayed(action, 1000);
-
     }
 
     @Override

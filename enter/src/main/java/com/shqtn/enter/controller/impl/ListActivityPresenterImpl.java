@@ -18,7 +18,7 @@ import com.shqtn.enter.controller.ListActivityController;
  * Created by android on 2017/9/22.
  */
 
-public abstract class ListActivityPresenterImpl implements ListActivityController.Presenter, CodeController.DecodeCallback {
+public abstract class ListActivityPresenterImpl extends ListActivityController.Presenter {
 
     private IAty mContext;
 

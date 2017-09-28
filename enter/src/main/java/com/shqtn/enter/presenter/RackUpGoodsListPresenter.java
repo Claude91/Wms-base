@@ -1,11 +1,12 @@
 package com.shqtn.enter.presenter;
 
-import android.media.MediaCodecInfo;
-import android.support.v7.view.menu.MenuAdapter;
+import android.os.Bundle;
 import android.view.View;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
+import com.shqtn.base.bean.DepotBean;
 import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.bean.enter.RackUpGoods;
 import com.shqtn.base.bean.params.RackUpGoodsListParams;
@@ -15,11 +16,16 @@ import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.info.code.help.CodeCallback;
+import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.GoodsUtils;
 import com.shqtn.base.utils.ToastUtils;
+import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
+import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.controller.impl.ListActivityPresenterImpl;
+import com.shqtn.enter.controller.impl.lpn.RackUpLpnSubmitPresenter;
+import com.shqtn.enter.utils.NormalInitView;
 
 import java.util.ArrayList;
 
@@ -39,9 +45,9 @@ public class RackUpGoodsListPresenter extends ListActivityPresenterImpl {
     private ResultCallback mGoodsListCallback = new ResultCallback() {
         @Override
         public void onAfter() {
-            super.onAfter();
-            getView().onRefreshComplete();
             getView().cancelProgressDialog();
+            getView().onRefreshComplete();
+
         }
 
         @Override
@@ -60,6 +66,7 @@ public class RackUpGoodsListPresenter extends ListActivityPresenterImpl {
 
         }
     };
+    private DepotBean mDepot;
 
     @Override
     public void init() {
@@ -102,13 +109,21 @@ public class RackUpGoodsListPresenter extends ListActivityPresenterImpl {
 
         ListActivityController.View view = getView();
         view.setTitle("上架货品列表");
-        getView().setListViewModel(PullToRefreshBase.Mode.PULL_FROM_END);
+        getView().setListViewModel(PullToRefreshBase.Mode.PULL_FROM_START);
         view.setScanningType(CodeCallback.TAG_GOODS, CodeCallback.TAG_LPN);
         view.hideLabel();
         view.setEditTextHint("请输入货品编码");
         view.setAdapter(mRackUpGoodsAdapter);
 
-        refresh();
+
+        mDepot = DepotUtils.getDepot(getAty().getContext());
+        if (mDepot != null) {
+            mGoodsListParams.setWhcode(mDepot.getWhcode());
+        } else {
+            NormalInitView.notSelectDepot(getView());
+        }
+
+
     }
 
     @Override
@@ -123,11 +138,17 @@ public class RackUpGoodsListPresenter extends ListActivityPresenterImpl {
     }
 
     private void toRackUpLpnOperateActivity(RackUpGoods rackUpGoods) {
-
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(C.OPERATE_LPN, rackUpGoods);
+        Bundle presenter = LpnSubmitActivity.createPresenter(RackUpLpnSubmitPresenter.class);
+        bundle.putAll(presenter);
+        getAty().startActivity(InfoLoadUtils.getInstance().getActivityLoad().getRackUpLpnOperateActivity(), bundle, 12);
     }
 
     private void toRackUpGoodsOperateActivity(RackUpGoods rackUpGoods) {
-
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(C.OPERATE_GOODS, rackUpGoods);
+        getAty().startActivity(InfoLoadUtils.getInstance().getActivityLoad().getRackUpGoodsOperateActivity(), 12);
     }
 
     @Override
@@ -176,6 +197,9 @@ public class RackUpGoodsListPresenter extends ListActivityPresenterImpl {
 
     @Override
     public void refresh() {
+        if (mGoodsListParams.getWhcode() == null) {
+            return;
+        }
         ModelService.post(ApiUrl.URL_RACK_UP_DEPOT_GOODS_LIST, mGoodsListParams, mGoodsListCallback);
     }
 
@@ -193,7 +217,7 @@ public class RackUpGoodsListPresenter extends ListActivityPresenterImpl {
     @Override
     public void clickClearSelect() {
         super.clickClearSelect();
-        getView().setListViewModel(PullToRefreshBase.Mode.PULL_FROM_END);
+        getView().setListViewModel(PullToRefreshBase.Mode.PULL_FROM_START);
         mRackUpGoodsAdapter.update(mGoodsList);
 
     }

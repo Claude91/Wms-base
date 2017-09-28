@@ -182,4 +182,8 @@ public class LabelTextView extends LinearLayout {
         tvContent.setTextColor(color);
         tvSymbol.setTextColor(color);
     }
+
+    public String getText() {
+        return tvContent.getText().toString();
+    }
 }

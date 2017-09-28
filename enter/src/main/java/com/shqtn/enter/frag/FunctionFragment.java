@@ -1,7 +1,6 @@
 package com.shqtn.enter.frag;
 
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,10 +13,8 @@ import com.shqtn.base.GridAdapter;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.enter.FunctionBean;
 import com.shqtn.base.utils.RecycleViewDivider;
-import com.shqtn.enter.EventBusFactory;
 import com.shqtn.enter.FunctionChangeEvent;
 import com.shqtn.enter.InfoLoadUtils;
-import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.R;
 import com.shqtn.enter.info.IFunctionLoad;
 
@@ -71,16 +68,7 @@ public class FunctionFragment extends BaseFragment {
             }
             Intent intent = new Intent();
             intent.setClassName(getActivity(), bean.getAtyClazzName());
-            Bundle bundle = new Bundle();
-
-            String decodeCallbackName = bean.getDecodeCallbackName();
-            if (!StringUtils.isEmpty(decodeCallbackName)) {
-                bundle.putString(C.DECODE_CALLBACK, decodeCallbackName);
-            }
-            String controllerName = bean.getControllerName();
-            if (!StringUtils.isEmpty(controllerName)) {
-                bundle.putString(C.PRESENTER, controllerName);
-            }
+            Bundle bundle = bean.getBundle();
             intent.putExtra(BaseActivity.INTENT_BUNDLE, bundle);
             startActivity(intent);
         }
@@ -101,9 +89,12 @@ public class FunctionFragment extends BaseFragment {
         FunctionChangeEvent.getInstance().register(this);
         IFunctionLoad functionLoad = InfoLoadUtils.getInstance().getFunctionLoad();
         if (functionLoad != null) {
-            mInFunctionList = functionLoad.getInDepotFunction();
-            mEnterFunctionList = functionLoad.getEnterFunction();
-            mExitFunctionList = functionLoad.getExitFunction();
+            mInFunctionList = new ArrayList<>();
+            functionLoad.addInDepotFunction(mInFunctionList);
+            mEnterFunctionList = new ArrayList<>();
+            functionLoad.addEnterFunction(mEnterFunctionList);
+            mExitFunctionList = new ArrayList<>();
+            functionLoad.addExitFunction(mExitFunctionList);
         }
 
         mInAdapter = new GridAdapter<FunctionBean>(getContext(), null, R.layout.item_grid_home_function) {
@@ -159,9 +150,12 @@ public class FunctionFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(IFunctionLoad iFunctionLoad) {
-        mEnterFunctionList = iFunctionLoad.getEnterFunction();
-        mExitFunctionList = iFunctionLoad.getExitFunction();
-        mInFunctionList = iFunctionLoad.getInDepotFunction();
+        mEnterFunctionList.clear();
+        mExitFunctionList.clear();
+        mInFunctionList.clear();
+        iFunctionLoad.addEnterFunction(mEnterFunctionList);
+        iFunctionLoad.addExitFunction(mExitFunctionList);
+        iFunctionLoad.addInDepotFunction(mInFunctionList);
         mEnterAdapter.update(mEnterFunctionList);
         mExitAdapter.update(mExitFunctionList);
         mInAdapter.update(mInFunctionList);

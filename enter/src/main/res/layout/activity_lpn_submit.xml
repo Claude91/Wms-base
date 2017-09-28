@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lpn_submit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shqtn.enter.activity.LpnSubmitActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="LPN提交" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/activity_lpn_submit_set_input_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        app:hintContent="请扫描货位" />
+
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/activity_lpn_submit_ltv_rack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_lpn_submit_set_input_code"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        app:color="@color/text_white_color"
+        app:labelText="货位"
+        app:size="14sp" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/activity_lpn_submit_ltv_lpn_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_lpn_submit_ltv_rack"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        app:color="@color/text_white_color"
+        app:labelText="操作LPN号"
+        app:size="14sp" />
+
+    <ListView
+        android:id="@+id/activity_lpn_submit_lv_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/activity_lpn_submit_tv_submit"
+        android:layout_below="@+id/activity_lpn_submit_ltv_lpn_no"
+        android:layout_marginBottom="@dimen/margin_top_normal"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_top_normal" />
+
+    <TextView
+        android:id="@+id/activity_lpn_submit_tv_submit"
+        style="@style/label_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBlue"
+        android:clickable="true"
+        android:gravity="center"
+        android:paddingBottom="@dimen/padding_top_or_bottom"
+        android:paddingTop="@dimen/padding_top_or_bottom"
+        android:text="@string/submitF1" />
+
+</RelativeLayout>

@@ -5,6 +5,7 @@ import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.controller.presenter.BasePresenter;
 import com.shqtn.base.controller.view.IBaseView;
 import com.shqtn.base.controller.view.IAty;
+import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 
 /**
  * Created by android on 2017/9/21.
@@ -49,31 +50,31 @@ public interface ListActivityController {
         void setScanningType(int... type);
     }
 
-    public interface Presenter extends BasePresenter {
+    public abstract class Presenter extends DecodeCallbackImpl implements BasePresenter {
 
         /**
          * 点击item
          *
          * @param position
          */
-        void clickItem(int position);
+        public abstract void clickItem(int position);
 
-        void setAty(IAty context);
+        public abstract void setAty(IAty context);
 
-        void setView(View v);
+        public abstract void setView(View v);
 
-        void onPullDownToRefresh();
+        public abstract void onPullDownToRefresh();
 
-        void onPullUpToRefresh();
+        public abstract void onPullUpToRefresh();
 
-        void refresh();
+        public abstract void refresh();
 
 
-        boolean isOpenStartRefreshing();
+        public abstract boolean isOpenStartRefreshing();
 
         /**
          * 点击清空选择
          */
-        void clickClearSelect();
+        public abstract void clickClearSelect();
     }
 }

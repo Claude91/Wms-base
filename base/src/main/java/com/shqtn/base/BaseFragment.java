@@ -56,6 +56,10 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         intent.putExtra(BaseActivity.INTENT_BUNDLE,bundle);
         startActivity(intent);
     }
+    public void startActivity(Class aty){
+        Intent intent = new Intent(getActivity(),aty);
+        startActivity(intent);
+    }
 
     public void startActivity(Class aty ,Bundle bundle ,int requestCode){
         Intent intent = new Intent(getActivity(),aty);

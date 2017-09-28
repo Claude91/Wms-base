@@ -1,6 +1,9 @@
 package com.shqtn.enter;
 
+import android.os.Bundle;
+
 import com.shqtn.base.BaseActivity;
+import com.shqtn.base.C;
 
 /**
  * Created by android on 2017/7/13.
@@ -8,7 +11,7 @@ import com.shqtn.base.BaseActivity;
 
 public class FunctionBean {
     /**
-     * @param label       功能名称
+     * @param label      功能名称
      * @param srcId      显示图片
      * @param controller 操作
      * @return
@@ -22,7 +25,7 @@ public class FunctionBean {
         return function;
     }
 
-    public static<T extends BaseActivity> FunctionBean newFunction(String title, int srcId, Class<T> aty) {
+    public static <T extends BaseActivity> FunctionBean newFunction(String title, int srcId, Class<T> aty) {
 
         FunctionBean fragment = new FunctionBean();
         fragment.setName(title);
@@ -35,26 +38,25 @@ public class FunctionBean {
     public FunctionBean() {
     }
 
-    public FunctionBean(String name, String title, int iconId, String atyClazzName) {
-        this.name = name;
-        this.title = title;
-        this.iconId = iconId;
-        this.atyClazzName = atyClazzName;
-    }
-
+    private Bundle bundle;
     private String name;
     private String title;
     private int iconId;
     private String atyClazzName;
     private String controllerName;
-    private String decodeCallbackName;
 
-    public String getDecodeCallbackName() {
-        return decodeCallbackName;
+    public Bundle getBundle() {
+        return bundle;
     }
 
-    public void setDecodeCallbackName(String decodeCallbackName) {
-        this.decodeCallbackName = decodeCallbackName;
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
+    }
+    public void putPresenterName(Class presenter){
+        if (bundle == null){
+            bundle = new Bundle();
+        }
+        bundle.putString(C.PRESENTER,presenter.getCanonicalName());
     }
 
     public String getControllerName() {

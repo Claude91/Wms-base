@@ -1,5 +1,6 @@
 package com.shqtn.enter.frag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,10 +8,16 @@ import android.widget.TextView;
 
 import com.shqtn.base.BaseFragment;
 import com.shqtn.base.bean.DepotBean;
+import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.bean.UserClientBean;
+import com.shqtn.base.http.ModelService;
+import com.shqtn.base.http.ResultCallback;
+import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.UserClientUtils;
 import com.shqtn.base.widget.TitleView;
+import com.shqtn.enter.InfoLoadUtils;
+import com.shqtn.enter.LoginActivity;
 import com.shqtn.enter.R;
 
 /**
@@ -81,15 +88,24 @@ public class UserDetailsFragment extends BaseFragment {
         super.onClick(view);
         int i = view.getId();
         if (i == R.id.frag_user_details_tv_changeDepot) {
-
+            Class depotSelectActivity = InfoLoadUtils.getInstance().getActivityLoad().getDepotSelectActivity();
+            startActivity(depotSelectActivity);
         } else if (i == R.id.frag_user_details_btn_quit) {
+            ModelService.post(ApiUrl.URL_LOGOUT, null, new ResultCallback() {
+                @Override
+                public void onFailed(String msg) {
 
+                }
+
+                @Override
+                public void onSuccess(ResultBean response) {
+
+                }
+            });
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
         }
     }
-
-
-
-
 
 
 }

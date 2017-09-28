@@ -12,7 +12,9 @@
         <activity android:name=".IPChangeAty" />
         <activity android:name=".ListActivity" />
         <activity android:name=".activity.TakeDelGoodsOperateActivity" />
-        <activity android:name=".activity.RackUpGoodsOperateActivity"></activity>
+        <activity android:name=".activity.RackUpGoodsOperateActivity" />
+        <activity android:name=".activity.LpnSubmitActivity"></activity>
+        <activity android:name=".activity.DepotChangeAty"></activity>
     </application>
 
 </manifest>
