@@ -1,4 +1,4 @@
-package com.shqtn.enter.presenter;
+package com.shqtn.enter.presenter.enter;
 
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +23,7 @@ import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.controller.ListActivityController;
-import com.shqtn.enter.controller.impl.ListActivityPresenterImpl;
+import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
 import com.shqtn.enter.controller.impl.lpn.RackUpLpnSubmitPresenter;
 import com.shqtn.enter.utils.NormalInitView;
 
@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * Created by android on 2017/9/27.
  */
 
-public class RackUpGoodsListPresenter extends ListActivityPresenterImpl {
+public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
 
 
     private CommonAdapter<RackUpGoods> mRackUpGoodsAdapter;

@@ -10,6 +10,7 @@ import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.CodeRack;
+import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.ListActivityController;
@@ -18,11 +19,13 @@ import com.shqtn.enter.controller.ListActivityController;
  * Created by android on 2017/9/22.
  */
 
-public abstract class ListActivityPresenterImpl extends ListActivityController.Presenter {
+public abstract class AbstractListActivityPresenter extends ListActivityController.Presenter {
 
     private IAty mContext;
 
     private ListActivityController.View mView;
+
+    private ListActivityController.BottomView mBottomView;
 
     private Bundle mBundle;
 
@@ -33,6 +36,15 @@ public abstract class ListActivityPresenterImpl extends ListActivityController.P
     }
 
     public void init() {
+    }
+
+    @Override
+    public void setBottomView(ListActivityController.BottomView v) {
+        this.mBottomView = v;
+    }
+
+    public ListActivityController.BottomView getBottomView() {
+        return mBottomView;
     }
 
     @Override

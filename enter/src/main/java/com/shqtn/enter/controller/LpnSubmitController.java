@@ -3,6 +3,7 @@ package com.shqtn.enter.controller;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.controller.presenter.BasePresenter;
 import com.shqtn.base.controller.view.IAty;
+import com.shqtn.base.controller.view.IBaseView;
 import com.shqtn.base.controller.view.IDialogView;
 import com.shqtn.base.info.code.AllotBean;
 import com.shqtn.base.info.code.CodeGoods;
@@ -16,7 +17,7 @@ import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 
 public interface LpnSubmitController {
 
-    interface View extends IDialogView {
+    interface View extends IBaseView {
         void closeActivity();
 
         void setLpnNo(String lpnNo);

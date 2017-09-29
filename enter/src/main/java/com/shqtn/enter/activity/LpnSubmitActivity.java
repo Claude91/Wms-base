@@ -57,7 +57,13 @@ public class LpnSubmitActivity extends BaseActivity implements SystemEditText.On
         super.initData();
         mLpnOperatePresenter = getLpnOperatePresenter();
         if (mLpnOperatePresenter == null) {
-            mLpnOperatePresenter = new LpnSubmitPresenterImpl();
+            mLpnOperatePresenter = new LpnSubmitPresenterImpl(){
+
+                @Override
+                public void init() {
+
+                }
+            };
         }
         mCodePresenter = new CodePresenterImpl(this);
         mCodePresenter.setDecodeType(CodeCallback.TAG_RACK);

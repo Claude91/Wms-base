@@ -1,17 +1,19 @@
 package com.shqtn.enter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shqtn.base.BaseActivity;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
-import com.shqtn.base.utils.StringUtils;
+import com.shqtn.base.controller.presenter.ActivityResultCallback;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
@@ -23,7 +25,7 @@ import com.shqtn.enter.controller.impl.CodePresenterImpl;
  * Created by android on 2017/9/21.
  */
 
-public class ListActivity extends BaseActivity implements CodeController.View, ListActivityController.View {
+public class ListActivity extends BaseActivity implements CodeController.View, ListActivityController.View, ListActivityController.BottomView {
 
 
     private PullToRefreshListView pullLv;
@@ -31,6 +33,10 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     private SystemEditText setInputCode;
     private LabelTextView labelTextView;
     private Button btnClearSelect;
+
+    private View bottomGroup;
+    private TextView tvLeft;
+    private TextView tvRight;
 
     /**
      * 用于处理解码操作
@@ -42,12 +48,12 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
      */
     private ListActivityController.Presenter mListActivityPresenter;
     private Runnable action;
+    private ActivityResultCallback mActivityResultCallback;
 
 
-    public static <T extends ListActivityController.Presenter, D extends CodeController.DecodeCallback> Bundle createListActivityBundle(Class<T> p, Class<D> decodeImpl) {
+    public static <T extends ListActivityController.Presenter> Bundle createListActivityBundle(Class<T> p) {
         Bundle bundle = new Bundle();
         bundle.putString(C.PRESENTER, p.getCanonicalName());
-        bundle.putString(C.DECODE_CALLBACK, decodeImpl.getCanonicalName());
         return bundle;
     }
 
@@ -73,7 +79,9 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
             mListActivityPresenter = (ListActivityController.Presenter) Class.forName(listActivityPresenter).newInstance();
             mListActivityPresenter.setAty(this);
             mListActivityPresenter.setView(this);
-
+            mListActivityPresenter.setBottomView(this);
+            setActivityResultCallback(mListActivityPresenter);
+            setOnKeyDownPresenter(mListActivityPresenter);
             mDecodeCallback = mListActivityPresenter;
 
 
@@ -96,6 +104,10 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         setInputCode = (SystemEditText) findViewById(R.id.activity_list_set_input_code);
         labelTextView = (LabelTextView) findViewById(R.id.activity_list_label);
         btnClearSelect = (Button) findViewById(R.id.activity_list_btn_clear_select);
+        bottomGroup = findViewById(R.id.activity_list_bottom_group);
+        tvLeft = (TextView) findViewById(R.id.activity_list_bottom_tv_right);
+        tvRight = (TextView) findViewById(R.id.activity_list_bottom_tv_right);
+
     }
 
     @Override
@@ -189,12 +201,21 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
 
     @Override
     public void displayLabel() {
-        labelTextView.setVisibility(View.VISIBLE);
+        if (labelTextView.getVisibility() != View.VISIBLE) {
+            labelTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideLabel() {
-        labelTextView.setVisibility(View.GONE);
+        if (labelTextView.getVisibility() != View.GONE)
+            labelTextView.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override
@@ -217,12 +238,14 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
 
     @Override
     public void displayBtnClear() {
-        btnClearSelect.setVisibility(View.VISIBLE);
+        if (btnClearSelect.getVisibility() != View.VISIBLE)
+            btnClearSelect.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideBtnClear() {
-        btnClearSelect.setVisibility(View.GONE);
+        if (btnClearSelect.getVisibility() != View.GONE)
+            btnClearSelect.setVisibility(View.GONE);
     }
 
     @Override
@@ -236,4 +259,51 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         pullLv.setRefreshing();
         mListActivityPresenter.refresh();
     }
+
+    @Override
+    public void displayBottomGroup() {
+        if (bottomGroup.getVisibility() != View.VISIBLE) {
+            bottomGroup.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void hideBottomGroup() {
+        if (bottomGroup.getVisibility() != View.GONE) {
+            bottomGroup.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void setRightText(String text) {
+        tvRight.setText(text);
+    }
+
+    @Override
+    public void setLeftText(String text) {
+        tvLeft.setText(text);
+    }
+
+    @Override
+    public void hideRightText() {
+        tvRight.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideLeftText() {
+        tvLeft.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setRightTextOnClickListener(View.OnClickListener l) {
+        tvRight.setOnClickListener(l);
+    }
+
+    @Override
+    public void setLeftTextOnClickListener(View.OnClickListener l) {
+        tvLeft.setOnClickListener(l);
+    }
+
+
+
 }

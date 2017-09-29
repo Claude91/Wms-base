@@ -1,4 +1,4 @@
-package com.shqtn.enter.presenter;
+package com.shqtn.enter.presenter.enter;
 
 import android.os.Bundle;
 

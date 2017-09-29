@@ -26,4 +26,6 @@ public class C {
     public static final java.lang.String SCANNING_GOODS_QTY = "scanning_qty";
     public static final String OPERATE_GOODS = "operate_goods";
     public static final String OPERATE_LPN = "operate_lpn";
+    public static final java.lang.String RACK_NO = "RACK_NO";//货位编号
+    public static final String GOODS_LIST = "GOODS_LIST";
 }

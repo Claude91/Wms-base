@@ -18,6 +18,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.shqtn.base.controller.presenter.ActivityResultCallback;
+import com.shqtn.base.controller.presenter.IKeyDownPresenter;
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.DialogFactory;
 import com.shqtn.base.controller.view.IAty;
@@ -39,6 +41,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private EditQuantityDialog mEditQuantityDialog;
     private AlertDialog mMsgDialog;
     private BaseFragment currentKJFragment;
+
+    private IKeyDownPresenter mKeyDownPresenter;
+    private ActivityResultCallback activityResultCallback;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -376,6 +382,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (mKeyDownPresenter != null && mKeyDownPresenter.onKeyDown(keyCode, event)) {
+            return true;
+        }
         if (keyCode == KeyEvent.KEYCODE_F1) {
             return onKeyF1();
         } else if (keyCode == KeyEvent.KEYCODE_F2) {
@@ -441,5 +450,21 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public boolean onKeyF1() {
         return false;
+    }
+
+    public void setOnKeyDownPresenter(IKeyDownPresenter p) {
+        mKeyDownPresenter = p;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (activityResultCallback != null) {
+            activityResultCallback.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    public void setActivityResultCallback(ActivityResultCallback activityResultCallback) {
+        this.activityResultCallback = activityResultCallback;
     }
 }

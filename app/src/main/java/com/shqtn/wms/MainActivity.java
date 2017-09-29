@@ -1,12 +1,8 @@
 package com.shqtn.wms;
 
-import android.os.Bundle;
-
 import com.shqtn.base.BaseActivity;
 import com.shqtn.enter.HomeActivity;
-import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.LoginActivity;
-import com.shqtn.enter.presenter.TakeDeliveryManifestPresenter;
 
 public class MainActivity extends BaseActivity {
     @Override

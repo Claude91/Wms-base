@@ -13,8 +13,9 @@
         <activity android:name=".ListActivity" />
         <activity android:name=".activity.TakeDelGoodsOperateActivity" />
         <activity android:name=".activity.RackUpGoodsOperateActivity" />
-        <activity android:name=".activity.LpnSubmitActivity"></activity>
-        <activity android:name=".activity.DepotChangeAty"></activity>
+        <activity android:name=".activity.LpnSubmitActivity" />
+        <activity android:name=".activity.DepotChangeAty" />
+        <activity android:name=".activity.in.GoodsAdjustTargetRackActivity"></activity>
     </application>
 
 </manifest>

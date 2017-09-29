@@ -12,7 +12,7 @@ import com.shqtn.enter.R;
 import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.enter.TakeDelGoodsOperateController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
-import com.shqtn.enter.presenter.TakeDeliveryGoodsOperatePresenter;
+import com.shqtn.enter.presenter.enter.TakeDeliveryGoodsOperatePresenter;
 
 public class TakeDelGoodsOperateActivity extends BaseActivity implements TakeDelGoodsOperateController.View, CodeController.View {
 

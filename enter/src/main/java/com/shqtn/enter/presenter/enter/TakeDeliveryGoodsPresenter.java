@@ -1,4 +1,4 @@
-package com.shqtn.enter.presenter;
+package com.shqtn.enter.presenter.enter;
 
 import android.os.Bundle;
 
@@ -24,7 +24,7 @@ import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.ListActivityController;
-import com.shqtn.enter.controller.impl.ListActivityPresenterImpl;
+import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Created by android on 2017/9/25.
  */
-public class TakeDeliveryGoodsPresenter extends ListActivityPresenterImpl {
+public class TakeDeliveryGoodsPresenter extends AbstractListActivityPresenter {
 
     private List<TakeDeliveryGoods> mGoodsList;
     private String mOperateManifest;//操作 任务单；

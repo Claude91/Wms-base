@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_goods_adjust_target_rack"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shqtn.enter.activity.in.GoodsAdjustTargetRackActivity">
+
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:rightText="提交F1"
+        app:title="货位调整" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/activity_goods_adjust_target_rack_set_input_code"
+        style="@style/systemInputEditStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintContent="输入目标货位" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/activity_goods_adjust_target_rack_ltv_target_rack_no"
+        style="@style/systemInputEditStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        app:color="@color/text_white_color"
+        app:labelText="目标货位"
+        app:size="@dimen/text_label_size"
+        app:text="请添加目标货位" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/activity_goods_adjust_target_rack_ltv_src_rack_no"
+        style="@style/systemInputEditStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        app:color="@color/text_white_color"
+        app:labelText="源货位"
+        app:size="@dimen/text_label_size" />
+
+    <TextView
+        style="@style/label_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:text="调整货品" />
+
+    <ListView
+        android:id="@+id/activity_goods_adjust_target_rack_move_goods_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
