@@ -13,6 +13,7 @@ import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.CodeRack;
+import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.widget.LabelTextView;
@@ -20,14 +21,15 @@ import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.R;
+import com.shqtn.enter.bean.ItemGoods;
 import com.shqtn.enter.controller.CodeController;
+import com.shqtn.enter.controller.impl.CodePresenterImpl;
 import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
-import com.shqtn.enter.presenter.in.GoodsAdjustAddMoveGoodsPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustRackPresenter;
 
 import java.util.ArrayList;
 
-public class GoodsAdjustTargetRackActivity extends BaseActivity {
+public class GoodsAdjustTargetRackActivity extends BaseActivity implements CodeController.View {
 
     private TitleView titleView;
     private LabelTextView ltvTargetRackNo;
@@ -35,8 +37,8 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity {
     private ListView lvMoveGoods;
     SystemEditText setInputCode;
 
-    private ArrayList<GoodsAdjustAddMoveGoodsPresenter.ItemGoods> mMoveGoodsList;
-    private CommonAdapter<GoodsAdjustAddMoveGoodsPresenter.ItemGoods> mGoodsAdapter;
+    private ArrayList<ItemGoods> mMoveGoodsList;
+    private CommonAdapter<ItemGoods> mGoodsAdapter;
     private String mSrcRackNo;
     private String mTargetRackNo;
 
@@ -62,6 +64,9 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity {
         mMoveGoodsList = getBundle().getParcelableArrayList(C.GOODS_LIST);
         mSrcRackNo = getBundle().getString(C.RACK_NO);
 
+        mCodePresenter = new CodePresenterImpl(this);
+        mCodePresenter.setDecodeCallback(mDecodeCallback);
+        mCodePresenter.setDecodeType(CodeCallback.TAG_RACK);
     }
 
     @Override
@@ -95,7 +100,7 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity {
             GoodsAdjustGoodsSubmitParams submitParams = new GoodsAdjustGoodsSubmitParams();
             ArrayList<GoodsAdjustGoodsSubmitParams.SubmitMovePro> l = new ArrayList<>();
 
-            for (GoodsAdjustAddMoveGoodsPresenter.ItemGoods itemGoods : mMoveGoodsList) {
+            for (ItemGoods itemGoods : mMoveGoodsList) {
                 GoodsAdjustGoodsSubmitParams.SubmitMovePro goods = new GoodsAdjustGoodsSubmitParams.SubmitMovePro();
                 goods.setSkuCode(itemGoods.getSkuCode());
                 goods.setWhCode(DepotUtils.getDepot(this).getWhcode());
@@ -152,4 +157,13 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void setTitle(String title) {
+        titleView.setTitle(title);
+    }
+
+    @Override
+    public void setEditTextHint(String hint) {
+        setInputCode.setHintText(hint);
+    }
 }

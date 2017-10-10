@@ -140,15 +140,14 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
     private void toRackUpLpnOperateActivity(RackUpGoods rackUpGoods) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.OPERATE_LPN, rackUpGoods);
-        Bundle presenter = LpnSubmitActivity.createPresenter(RackUpLpnSubmitPresenter.class);
-        bundle.putAll(presenter);
-        getAty().startActivity(InfoLoadUtils.getInstance().getActivityLoad().getRackUpLpnOperateActivity(), bundle, 12);
+
+        getAty().startActivity(InfoLoadUtils.getInstance().getInActivityLoad().getRackUpLpnOperateActivity(bundle), bundle, 12);
     }
 
     private void toRackUpGoodsOperateActivity(RackUpGoods rackUpGoods) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.OPERATE_GOODS, rackUpGoods);
-        getAty().startActivity(InfoLoadUtils.getInstance().getActivityLoad().getRackUpGoodsOperateActivity(), 12);
+        getAty().startActivity(InfoLoadUtils.getInstance().getInActivityLoad().getRackUpGoodsOperateActivity(bundle),bundle, 12);
     }
 
     @Override

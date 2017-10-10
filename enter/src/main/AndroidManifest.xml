@@ -11,11 +11,12 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".IPChangeAty" />
         <activity android:name=".ListActivity" />
-        <activity android:name=".activity.TakeDelGoodsOperateActivity" />
-        <activity android:name=".activity.RackUpGoodsOperateActivity" />
+        <activity android:name=".activity.enter.TakeDelGoodsOperateActivity" />
+        <activity android:name=".activity.enter.RackUpGoodsOperateActivity" />
         <activity android:name=".activity.LpnSubmitActivity" />
         <activity android:name=".activity.DepotChangeAty" />
-        <activity android:name=".activity.in.GoodsAdjustTargetRackActivity"></activity>
+        <activity android:name=".activity.in.GoodsAdjustTargetRackActivity" />
+        <activity android:name=".activity.enter.QualityInspectionGoodsOperateActivity"></activity>
     </application>
 
 </manifest>

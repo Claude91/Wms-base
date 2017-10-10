@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_quality_inspection_goods_operate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shqtn.enter.activity.enter.QualityInspectionGoodsOperateActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="质检操作" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:paddingBottom="@dimen/margin_top_or_bottom"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingTop="@dimen/margin_top_normal"
+        android:text="货品详情"
+        android:textColor="@color/text_white_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_normal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_black_color"
+            app:labelText="@string/name"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_black_color"
+            app:labelText="@string/sku"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_black_color"
+            app:labelText="@string/batch_no"
+            app:size="@dimen/text_label_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            android:orientation="horizontal">
+
+            <com.shqtn.base.widget.LabelTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:color="@color/text_black_color"
+                app:labelText="@string/unit"
+                app:size="@dimen/text_label_size" />
+
+            <com.shqtn.base.widget.LabelTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:color="@color/text_black_color"
+                app:labelText="@string/std"
+                app:size="@dimen/text_label_size" />
+        </LinearLayout>
+
+        <com.shqtn.base.widget.LabelTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_black_color"
+            app:labelText="@string/quantity"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_black_color"
+            app:labelText="@string/srcManifest"
+            app:size="@dimen/text_label_size" />
+    </LinearLayout>
+
+    <TextView
+        android:text=""
+        android:textColor="@color/text_white_color"
+        android:background="@color/colorBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:paddingBottom="@dimen/margin_top_normal"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingRight="@dimen/margin_normal"
+        android:paddingTop="@dimen/margin_top_normal" />
+
+</LinearLayout>

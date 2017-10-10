@@ -55,4 +55,5 @@
     <string name="bosSubmitSuccess">箱子提交成功</string>
     <string name="noHaveGoodsFromBoxOfManifest">箱子没有所要存放的货品</string>
     <string name="operateQty">操作数量</string>
+    <string name="srcManifest">来源订单</string>
 </resources>

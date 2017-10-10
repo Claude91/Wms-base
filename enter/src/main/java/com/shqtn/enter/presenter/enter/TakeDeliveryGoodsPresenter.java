@@ -258,7 +258,7 @@ public class TakeDeliveryGoodsPresenter extends AbstractListActivityPresenter {
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.OPERATE_GOODS, takeDeliveryGoods);
         bundle.putString(C.MANIFEST_STR, mOperateManifest);
-        getAty().startActivity(InfoLoadUtils.getInstance().getActivityLoad().getTakeDelGoodsOperateActivity(), bundle);
+        getAty().startActivity(InfoLoadUtils.getInstance().getEnterActivityLoad().getTakeDelGoodsOperateActivity(bundle), bundle);
     }
 
     @Override

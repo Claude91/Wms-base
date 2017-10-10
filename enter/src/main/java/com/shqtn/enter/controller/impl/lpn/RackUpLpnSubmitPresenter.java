@@ -73,6 +73,11 @@ public class RackUpLpnSubmitPresenter extends LpnSubmitPresenterImpl {
     }
 
     @Override
+    public void init() {
+
+    }
+
+    @Override
     public void clickToBack() {
         getAty().closeActivity();
     }

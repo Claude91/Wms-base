@@ -119,11 +119,10 @@ public class TakeDeliveryManifestPresenter extends AbstractListActivityPresenter
     }
 
     private void toGoodsListActivity(String manifest) {
-        Class<BaseActivity> goodsListActivityName = InfoLoadUtils.getInstance().getActivityLoad().getTakeDelGoodsListActivity();
-        Class takeDelGoodsListPresenter = InfoLoadUtils.getInstance().getPresenterLoad().getTakeDelGoodsListPresenter();
         Bundle bundle = new Bundle();
         bundle.putString(C.MANIFEST_STR, manifest);
-        bundle.putString(C.PRESENTER, takeDelGoodsListPresenter.getCanonicalName());
+        Class<BaseActivity> goodsListActivityName = InfoLoadUtils.getInstance().getEnterActivityLoad().getTakeDelGoodsListActivity(bundle);
+
         getAty().startActivity(goodsListActivityName, bundle);
     }
 

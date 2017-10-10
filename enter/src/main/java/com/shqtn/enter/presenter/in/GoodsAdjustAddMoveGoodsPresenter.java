@@ -3,17 +3,14 @@ package com.shqtn.enter.presenter.in;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.View;
 
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.ResultBean;
-import com.shqtn.base.bean.base.IGoods;
 import com.shqtn.base.bean.in.GoodsAdjustGoods;
 import com.shqtn.base.bean.params.GoodsAdjustGoodsParams;
-import com.shqtn.base.controller.view.IAty;
+import com.shqtn.base.bean.params.GoodsAdjustGoodsSubmitParams;
 import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
@@ -22,9 +19,9 @@ import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.GoodsUtils;
 import com.shqtn.base.utils.NumberUtils;
+import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
-import com.shqtn.enter.activity.LpnSubmitActivity;
-import com.shqtn.enter.controller.ListActivityController;
+import com.shqtn.enter.bean.ItemGoods;
 import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
 
 import java.util.ArrayList;
@@ -117,7 +114,11 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
         getBottomView().setRightTextOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2017/9/29 添加转移到的目标货位
+                /*
+                锁定货位上货品 ，锁定成功后再进行下一步
+                 */
+                toLockMoveGoods(mAddMoveGoodsList);
+
             }
         });
 
@@ -131,14 +132,71 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
         });
     }
 
+    /**
+     * 去锁定货品
+     *
+     * @param addMoveGoodsList
+     */
+    private void toLockMoveGoods(ArrayList<ItemGoods> addMoveGoodsList) {
+        getView().displayProgressDialog("锁定货品中");
+        ArrayList<GoodsAdjustGoodsSubmitParams.SubmitMovePro> list = new ArrayList<>();
+        for (int m = 0; m < addMoveGoodsList.size(); m++) {
+            ItemGoods bean = addMoveGoodsList.get(m);
+            GoodsAdjustGoodsSubmitParams.SubmitMovePro submitBean = new GoodsAdjustGoodsSubmitParams.SubmitMovePro();
+            //  5.batchNo;--批次号
+            submitBean.setBatchNo(bean.getBatchNo());
+            //2.skuCode;--存货编码
+            submitBean.setSkuCode(bean.getSkuCode());
+            // 4.locCode;--货位编码
+            submitBean.setLocCode(mOperateRackNo);
+            //  6.skuIkey;--存货IKEY
+            submitBean.setSkuIkey(bean.getSkuIkey());
+            //1.ownerId;--货主ID
+            submitBean.setOwnerId(bean.getOwnerId());
+            // 3.whCode;--仓库编码
+            submitBean.setWhCode(DepotUtils.getDepot(getAty().getContext()).getWhcode());
+            //7.adjQty;--货位调整数量
+            submitBean.setAdjQty(bean.getAdjQty());
+            list.add(submitBean);
+        }
+        GoodsAdjustGoodsSubmitParams httpBean = new GoodsAdjustGoodsSubmitParams();
+        httpBean.setStockposSearchList(list);
+
+        ModelService.post(ApiUrl.URL_GOODS_ADJUST_LOCK_RACK, httpBean, new ResultCallback() {
+            @Override
+            public void onAfter() {
+                super.onAfter();
+                getView().cancelProgressDialog();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                getView().displayMsgDialog(msg);
+            }
+
+            @Override
+            public void onSuccess(ResultBean response) {
+                toInputTargetRackActivity();
+            }
+        });
+    }
+
+    private void toInputTargetRackActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(C.GOODS_LIST, mAddMoveGoodsList);
+        bundle.putString(C.RACK_NO, mOperateRackNo);
+        Class aty = InfoLoadUtils.getInstance().getInActivityLoad().getGoodsAdjustTargetRackActivity(bundle);
+        getAty().startActivity(aty, bundle, REQUEST_CODE);
+    }
+
     @Override
     public void decodeLpn(CodeLpn lpn) {
         super.decodeLpn(lpn);
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.OPERATE_LPN, lpn);
-        Bundle presenter = LpnSubmitActivity.createPresenter(GoodsAdjustLpnSubmitPresenter.class);
-        bundle.putAll(presenter);
-        getAty().startActivity(LpnSubmitActivity.class, bundle);
+        bundle.putString(C.RACK_NO, mOperateRackNo);
+        Class aty = InfoLoadUtils.getInstance().getInActivityLoad().getGoodsAdjustLpnSubmitActivity(bundle);
+        getAty().startActivity(aty, bundle);
     }
 
     @Override
@@ -165,150 +223,6 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
         return false;
     }
 
-
-    public static class ItemGoods extends IGoods implements Parcelable {
-
-        public ItemGoods(GoodsAdjustGoods goods, double qty) {
-            ownerId = goods.getOwnerId();
-            skuCode = goods.getSkuCode();
-            skuName = goods.getSkuName();
-            batchNo = goods.getBatchNo();
-            skuIkey = goods.getSkuIkey();
-            unitName = goods.getUnitName();
-            adjQty = qty;
-            this.qty = goods.getAvailableQty();
-        }
-
-        //1.ownerId;--货主ID
-        private String ownerId;
-        //2.skuCode;--存货编码
-        private String skuCode;
-        //5.batchNo;--批次号
-        private String batchNo;
-        //6.skuIkey;--存货IKEY
-        private long skuIkey;
-
-        private double qty;
-        //7.adjQty;--货位调整数量
-        private double adjQty;
-
-        private String skuName;
-        private String unitName;
-
-        public double getQty() {
-            return qty;
-        }
-
-        public void setQty(double qty) {
-            this.qty = qty;
-        }
-
-        @Override
-        public String getGoodsSku() {
-            return skuCode;
-        }
-
-        @Override
-        public String getGoodsBatchNo() {
-            return batchNo;
-        }
-
-        public String getOwnerId() {
-            return ownerId;
-        }
-
-        public void setOwnerId(String ownerId) {
-            this.ownerId = ownerId;
-        }
-
-        public String getSkuCode() {
-            return skuCode;
-        }
-
-        public void setSkuCode(String skuCode) {
-            this.skuCode = skuCode;
-        }
-
-        public String getBatchNo() {
-            return batchNo;
-        }
-
-        public void setBatchNo(String batchNo) {
-            this.batchNo = batchNo;
-        }
-
-        public long getSkuIkey() {
-            return skuIkey;
-        }
-
-        public void setSkuIkey(long skuIkey) {
-            this.skuIkey = skuIkey;
-        }
-
-        public double getAdjQty() {
-            return adjQty;
-        }
-
-        public void setAdjQty(double adjQty) {
-            this.adjQty = adjQty;
-        }
-
-        public String getSkuName() {
-            return skuName;
-        }
-
-        public void setSkuName(String skuName) {
-            this.skuName = skuName;
-        }
-
-        public String getUnitName() {
-            return unitName;
-        }
-
-        public void setUnitName(String unitName) {
-            this.unitName = unitName;
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.ownerId);
-            dest.writeString(this.skuCode);
-            dest.writeString(this.batchNo);
-            dest.writeLong(this.skuIkey);
-            dest.writeDouble(this.qty);
-            dest.writeDouble(this.adjQty);
-            dest.writeString(this.skuName);
-            dest.writeString(this.unitName);
-        }
-
-        protected ItemGoods(Parcel in) {
-            this.ownerId = in.readString();
-            this.skuCode = in.readString();
-            this.batchNo = in.readString();
-            this.skuIkey = in.readLong();
-            this.qty = in.readDouble();
-            this.adjQty = in.readDouble();
-            this.skuName = in.readString();
-            this.unitName = in.readString();
-        }
-
-        public static final Parcelable.Creator<ItemGoods> CREATOR = new Parcelable.Creator<ItemGoods>() {
-            @Override
-            public ItemGoods createFromParcel(Parcel source) {
-                return new ItemGoods(source);
-            }
-
-            @Override
-            public ItemGoods[] newArray(int size) {
-                return new ItemGoods[size];
-            }
-        };
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

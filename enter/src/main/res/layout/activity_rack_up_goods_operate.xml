@@ -5,7 +5,7 @@
     android:id="@+id/activity_rack_up_goods_operate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.shqtn.enter.activity.RackUpGoodsOperateActivity">
+    tools:context="com.shqtn.enter.activity.enter.RackUpGoodsOperateActivity">
 
     <com.shqtn.base.widget.TitleView
         android:id="@+id/titleView"

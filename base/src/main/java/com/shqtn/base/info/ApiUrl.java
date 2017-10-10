@@ -242,6 +242,8 @@ public class ApiUrl {
          */
         URL_GOODS_ADJUST_GOODS_SUBMIT = BASE_URL + "lm/locAdjust/locAdjustSubmit";
 
+        URL_GOODS_ADJUST_LOCK_RACK = BASE_URL + "lm/locAdjust/lockBySkuCode";
+
         /**
          * 盘点 盘点的理货单
          */
@@ -293,6 +295,8 @@ public class ApiUrl {
         URL_DOB_SUBMIT = BASE_URL + "os/deliverByBox/assignOutStockByPackageTask";
 
         URL_PACKING_DEPOT_OF_MANIFEST = BASE_URL + "os/deliverByBox/getPackageBox";
+
+
     }
 
 
@@ -531,7 +535,10 @@ public class ApiUrl {
      * 货位调整:根据货位编码获取货位库存量(带分页的)
      */
     public static String URL_GOODS_ADJUST_PALLET_LIST = BASE_URL + "lm/locAdjust/pageStockPosSkuList";
-
+    /**
+     * 货位调整：锁定当前货位上的货品
+     */
+    public static String URL_GOODS_ADJUST_LOCK_RACK = BASE_URL + "lm/locAdjust/lockBySkuCode";
     /**
      * 货位调整：用于查询货品是否在当前货位上。
      */

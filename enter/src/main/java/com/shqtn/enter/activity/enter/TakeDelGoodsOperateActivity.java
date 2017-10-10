@@ -1,4 +1,4 @@
-package com.shqtn.enter.activity;
+package com.shqtn.enter.activity.enter;
 
 import android.view.View;
 import android.widget.EditText;

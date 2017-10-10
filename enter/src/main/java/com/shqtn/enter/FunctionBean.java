@@ -38,7 +38,7 @@ public class FunctionBean {
     public FunctionBean() {
     }
 
-    private Bundle bundle;
+    private Bundle bundle = new Bundle();
     private String name;
     private String title;
     private int iconId;

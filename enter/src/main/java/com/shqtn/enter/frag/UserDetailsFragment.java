@@ -88,8 +88,9 @@ public class UserDetailsFragment extends BaseFragment {
         super.onClick(view);
         int i = view.getId();
         if (i == R.id.frag_user_details_tv_changeDepot) {
-            Class depotSelectActivity = InfoLoadUtils.getInstance().getActivityLoad().getDepotSelectActivity();
-            startActivity(depotSelectActivity);
+            Bundle bundle = new Bundle();
+            Class depotSelectActivity = InfoLoadUtils.getInstance().getFunctionMainActivityLoad().getDepotSelectActivity(bundle);
+            startActivity(depotSelectActivity,bundle);
         } else if (i == R.id.frag_user_details_btn_quit) {
             ModelService.post(ApiUrl.URL_LOGOUT, null, new ResultCallback() {
                 @Override

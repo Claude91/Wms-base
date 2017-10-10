@@ -2,9 +2,11 @@ package com.shqtn.wms;
 
 import com.shqtn.base.BaseApp;
 import com.shqtn.enter.InfoLoadUtils;
-import com.shqtn.enter.info.impl.ActivityLoadImpl;
+import com.shqtn.enter.info.impl.EnterActivityLoadImpl;
+import com.shqtn.enter.info.impl.ExitActivityLoadImpl;
 import com.shqtn.enter.info.impl.FunctionLoadImpl;
-import com.shqtn.enter.info.impl.PresenterLoadImpl;
+import com.shqtn.enter.info.impl.FunctionMainActivityLoadImpl;
+import com.shqtn.enter.info.impl.InActivityLoadImpl;
 
 
 /**
@@ -28,8 +30,11 @@ public class MyApp extends BaseApp {
     public void init() {
         mMyApp = this;
         InfoLoadUtils.Config loadConfig = new InfoLoadUtils.Config();
-        loadConfig.setActivityLoad(new ActivityLoadImpl())
-                .setPresenterLoad(new PresenterLoadImpl())
+        loadConfig
+                .setEnterActivityLoad(new EnterActivityLoadImpl())
+                .setExitActivityLoad(new ExitActivityLoadImpl())
+                .setInActivityLoad(new InActivityLoadImpl())
+                .setFunctionMainLoad(new FunctionMainActivityLoadImpl())
                 .setFunctionLoad(new FunctionLoadImpl());
 
     }
