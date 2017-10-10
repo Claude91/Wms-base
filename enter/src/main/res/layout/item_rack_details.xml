@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBlue"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+    <!--  private String locationCode;//货位编码
+      private String posno;//货架号
+      private String floors;//层
+      private String colums;//列
+      private double totalLocNum;//货架上需要下架的总数量
+      private String locationName;//货位名称-->
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/item_rack_details_ltv_rack_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_normal"
+        app:color="@color/text_white_color"
+        app:labelText="货位名称"
+        app:size="@dimen/text_label_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/div_color" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingRight="@dimen/margin_normal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_rack_details_ltv_rack_sku"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:color="@color/text_white_color"
+            app:labelText="货位编码"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_rack_details_ltv_rack_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:color="@color/text_white_color"
+            app:labelText="货架号"
+            app:size="@dimen/text_label_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingRight="@dimen/margin_normal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_rack_details_ltv_rack_floors"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:color="@color/text_white_color"
+            app:labelText="层"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_rack_details_ltv_rack_colums"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:color="@color/text_white_color"
+            app:labelText="列"
+            app:size="@dimen/text_label_size" />
+    </LinearLayout>
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/item_rack_details_ltv_rack_down_total_qty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingRight="@dimen/margin_normal"
+        app:color="@color/text_white_color"
+        app:labelText="下架总数量"
+        app:size="@dimen/text_label_size" />
+</LinearLayout>

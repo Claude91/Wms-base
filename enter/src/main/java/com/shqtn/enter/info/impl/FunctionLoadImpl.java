@@ -70,8 +70,12 @@ public class FunctionLoadImpl implements IFunctionLoad {
     @Override
     public void addExitFunction(List<FunctionBean> mExitFunctionList) {
         //下架
-        FunctionBean rackDownMain = getRackDownMain(functionMainActivityLoad);
-        mExitFunctionList.add(rackDownMain);
+        try {
+            FunctionBean rackDownMain = getRackDownMain(functionMainActivityLoad);
+            mExitFunctionList.add(rackDownMain);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         try {
             //分拣
             FunctionBean sortingMain = getSortingMain(functionMainActivityLoad);

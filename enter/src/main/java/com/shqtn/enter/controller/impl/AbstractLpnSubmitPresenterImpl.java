@@ -12,7 +12,7 @@ import com.shqtn.enter.controller.LpnSubmitController;
  * Created by android on 2017/9/28.
  */
 
-public abstract class LpnSubmitPresenterImpl extends LpnSubmitController.AbstractPresenter {
+public abstract class AbstractLpnSubmitPresenterImpl extends LpnSubmitController.AbstractPresenter {
 
     private LpnSubmitController.View mView;
     private Bundle mBundle;

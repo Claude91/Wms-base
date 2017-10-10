@@ -5,14 +5,15 @@
     android:orientation="horizontal">
 
     <com.shqtn.base.widget.LabelTextView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/item_manifest_ltv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="6dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="6dp"
-        app:symbolTextMarginLeft="6dp"
         app:labelSize="@dimen/text_label_size"
         app:labelText="任务单据号"
+        app:symbolTextMarginLeft="6dp"
         app:textSize="@dimen/text_content_size" />
 </FrameLayout>

@@ -1,7 +1,5 @@
 package com.shqtn.enter.controller.impl.lpn;
 
-import android.widget.Toast;
-
 import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.bean.enter.RackUpGoods;
 import com.shqtn.base.bean.params.RackUpLpnSubmitParams;
@@ -14,7 +12,7 @@ import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.LpnSubmitController;
-import com.shqtn.enter.controller.impl.LpnSubmitPresenterImpl;
+import com.shqtn.enter.controller.impl.AbstractLpnSubmitPresenterImpl;
 
 import java.util.ArrayList;
 
@@ -22,7 +20,7 @@ import java.util.ArrayList;
  * Created by android on 2017/9/28.
  */
 
-public class RackUpLpnSubmitPresenter extends LpnSubmitPresenterImpl {
+public class RackUpAbstractLpnSubmitPresenter extends AbstractLpnSubmitPresenterImpl {
 
     private RackUpGoods mOperateLpn;
     AskMsgDialog.OnAskClickListener listener = new AskMsgDialog.OnAskClickListener() {

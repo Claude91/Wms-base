@@ -28,4 +28,7 @@ public class C {
     public static final String OPERATE_LPN = "operate_lpn";
     public static final java.lang.String RACK_NO = "RACK_NO";//货位编号
     public static final String GOODS_LIST = "GOODS_LIST";
+    public static final String RACK_BEAN = "RACK_BEAN";
+    public static final java.lang.String RECOMMEND_RACK_NO = "RECOMMEND_RACK_NO";
+    public static final java.lang.String OPERATE_RACK_NO = "OPERATE_RACK_NO";
 }

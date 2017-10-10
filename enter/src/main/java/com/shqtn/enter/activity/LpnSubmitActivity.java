@@ -7,11 +7,6 @@ import android.widget.TextView;
 
 import com.shqtn.base.BaseActivity;
 import com.shqtn.base.CommonAdapter;
-import com.shqtn.base.info.code.AllotBean;
-import com.shqtn.base.info.code.CodeGoods;
-import com.shqtn.base.info.code.CodeLpn;
-import com.shqtn.base.info.code.CodeManifest;
-import com.shqtn.base.info.code.CodeRack;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.widget.LabelTextView;
@@ -21,7 +16,7 @@ import com.shqtn.enter.R;
 import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.LpnSubmitController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
-import com.shqtn.enter.controller.impl.LpnSubmitPresenterImpl;
+import com.shqtn.enter.controller.impl.AbstractLpnSubmitPresenterImpl;
 
 public class LpnSubmitActivity extends BaseActivity implements SystemEditText.OnToTextSearchListener, CodeController.View, LpnSubmitController.View {
 
@@ -57,7 +52,7 @@ public class LpnSubmitActivity extends BaseActivity implements SystemEditText.On
         super.initData();
         mLpnOperatePresenter = getLpnOperatePresenter();
         if (mLpnOperatePresenter == null) {
-            mLpnOperatePresenter = new LpnSubmitPresenterImpl(){
+            mLpnOperatePresenter = new AbstractLpnSubmitPresenterImpl(){
 
                 @Override
                 public void init() {

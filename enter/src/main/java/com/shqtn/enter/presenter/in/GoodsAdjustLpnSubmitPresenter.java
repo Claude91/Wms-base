@@ -12,13 +12,13 @@ import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.ToastUtils;
-import com.shqtn.enter.controller.impl.LpnSubmitPresenterImpl;
+import com.shqtn.enter.controller.impl.AbstractLpnSubmitPresenterImpl;
 
 /**
  * Created by android on 2017/9/29.
  */
 
-public class GoodsAdjustLpnSubmitPresenter extends LpnSubmitPresenterImpl {
+public class GoodsAdjustLpnSubmitPresenter extends AbstractLpnSubmitPresenterImpl {
 
     private CodeLpn mOperateLpn;
     private String mSrcRackNo;

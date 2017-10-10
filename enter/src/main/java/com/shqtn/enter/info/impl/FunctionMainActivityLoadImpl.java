@@ -9,6 +9,7 @@ import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.enter.QualityInspectionQueryGoodsController;
 import com.shqtn.enter.presenter.enter.RackUpGoodsListPresenter;
 import com.shqtn.enter.presenter.enter.TakeDeliveryManifestPresenter;
+import com.shqtn.enter.presenter.exit.RackDownManifestListPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustRackPresenter;
 
 /**
@@ -59,7 +60,9 @@ public class FunctionMainActivityLoadImpl implements IActivityLoad.FunctionMainA
 
     @Override
     public Class getRackDownMain(Bundle bundle) {
-        return null;
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(RackDownManifestListPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
     }
 
     @Override

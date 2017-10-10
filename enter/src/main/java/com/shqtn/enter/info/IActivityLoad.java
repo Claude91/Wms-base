@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.shqtn.base.BaseActivity;
+import com.shqtn.base.bean.exit.RackDownGoods;
 
 /**
  * Created by android on 2017/9/22.
@@ -129,5 +130,48 @@ public interface IActivityLoad {
 
 
     public interface ExitActivityLoad {
+        /**
+         * 下架中，跳转到货位列表
+         * C.MANIFEST_STR  String 任务单据号
+         *
+         * @param bundle
+         * @return
+         */
+        Class getRackDownRackListActivity(Bundle bundle);
+
+        /**
+         * C.MANIFEST_STR string 任务单据号
+         * C.RACK_NO string 货位编码;
+         *
+         * @param bundle
+         * @return
+         */
+        Class getRackDownGoodsListActivity(Bundle bundle);
+
+        /**
+         * C.MANIFEST_STR string 任务单据号
+         * C.RACK_NO string 货位编码
+         * C.OPERATE_GOODS RackDownGoods 操作货品详情
+         * C.SCANNING_QTY double qty 扫描数量
+         *
+         * @param bundle
+         * @return
+         * @see RackDownGoods
+         */
+        Class getRackDownGoodsOperateActivity(Bundle bundle);
+
+        /**
+         * bundle.putParcelableArrayList(C.GOODS_LIST, mGoodsList);
+         * bundle.putString(C.OPERATE_RACK_NO, mOperateRack);
+         * bundle.putString(C.MANIFEST_STR, mOperateManifest);
+         * bundle.putParcelable(C.OPERATE_LPN,lpn);
+         * CodeLpn
+         *
+         * @param bundle
+         * @return
+         * @see RackDownGoods
+         */
+        Class getRackDownLpnSubmitActivity(Bundle bundle);
+
     }
 }

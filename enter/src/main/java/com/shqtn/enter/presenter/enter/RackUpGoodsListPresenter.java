@@ -21,10 +21,8 @@ import com.shqtn.base.utils.GoodsUtils;
 import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
-import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
-import com.shqtn.enter.controller.impl.lpn.RackUpLpnSubmitPresenter;
 import com.shqtn.enter.utils.NormalInitView;
 
 import java.util.ArrayList;
