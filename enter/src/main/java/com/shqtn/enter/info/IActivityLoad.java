@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.shqtn.base.BaseActivity;
 import com.shqtn.base.bean.exit.DepotOutManifest;
 import com.shqtn.base.bean.exit.RackDownGoods;
+import com.shqtn.base.bean.exit.SortingGoods;
 
 /**
  * Created by android on 2017/9/22.
@@ -195,5 +196,23 @@ public interface IActivityLoad {
         Class getDepotOutGoodsOperateActivity(Bundle bundle);
 
         Class getDepotOutGoodsListActivity(Bundle bundle);
+
+        /**
+         * C.MANIFEST_STR string  任务单据号
+         *
+         * @param bundle
+         * @return
+         */
+        Class getSortingGoodsListActivity(Bundle bundle);
+
+        /**
+         * bundle.putParcelable(C.OPERATE_GOODS,sortingGoods);//SortingGoods
+         * bundle.putDouble(C.SCANNING_GOODS_QTY,goodsQty);
+         *
+         * @param bundle
+         * @return
+         * @see SortingGoods
+         */
+        Class getSortingGoodsOperateActivity(Bundle bundle);
     }
 }

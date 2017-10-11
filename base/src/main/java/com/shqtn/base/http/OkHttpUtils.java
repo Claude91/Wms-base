@@ -13,9 +13,9 @@ public class OkHttpUtils {
 
     private OkHttpUtils(){
         OkHttpClient okHttpClient = com.zhy.http.okhttp.OkHttpUtils.getInstance().getOkHttpClient();
-        okHttpClient.setConnectTimeout(20_000, TimeUnit.MILLISECONDS);
-        okHttpClient.setReadTimeout(20_000, TimeUnit.MILLISECONDS);
-        okHttpClient.setWriteTimeout(20_000, TimeUnit.MILLISECONDS);
+        okHttpClient.setConnectTimeout(40_000, TimeUnit.MILLISECONDS);
+        okHttpClient.setReadTimeout(40_000, TimeUnit.MILLISECONDS);
+        okHttpClient.setWriteTimeout(40_000, TimeUnit.MILLISECONDS);
     }
     public static void addHeaderParams(Map<String,String> headerParams){
         PostStringBuilder.setInitHeaderParams(headerParams);

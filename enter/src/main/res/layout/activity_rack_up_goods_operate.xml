@@ -223,14 +223,10 @@
 
     <TextView
         android:id="@+id/activity_rack_up_goods_operate_tv_submit"
-        style="@style/label_text_style"
+        style="@style/bottomBtnStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorBlue"
-        android:gravity="center"
-        android:paddingBottom="@dimen/margin_top_normal"
-        android:paddingTop="@dimen/margin_top_normal"
         android:text="@string/submitF1" />
 
 

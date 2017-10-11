@@ -6,6 +6,7 @@ import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.activity.exit.DepotOutGoodsOperateActivity;
 import com.shqtn.enter.activity.exit.RackDownGoodsOperateActivity;
+import com.shqtn.enter.activity.exit.SortingGoodsOperateActivity;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.exit.DepotOutAreaListPresenter;
 import com.shqtn.enter.presenter.exit.DepotOutGoodsListPresenter;
@@ -13,6 +14,7 @@ import com.shqtn.enter.presenter.exit.DepotOutManifestListPresenter;
 import com.shqtn.enter.presenter.exit.RackDownGoodsListPresenter;
 import com.shqtn.enter.presenter.exit.RackDownLpnSubmitPresenter;
 import com.shqtn.enter.presenter.exit.RackDownRackListPresenter;
+import com.shqtn.enter.presenter.exit.SortingGoodsListPresenter;
 
 /**
  * Created by android on 2017/9/30.
@@ -71,5 +73,17 @@ public class ExitActivityLoadImpl implements IActivityLoad.ExitActivityLoad {
         Bundle listActivityBundle = ListActivity.createListActivityBundle(DepotOutGoodsListPresenter.class);
         bundle.putAll(listActivityBundle);
         return ListActivity.class;
+    }
+
+    @Override
+    public Class getSortingGoodsListActivity(Bundle bundle) {
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(SortingGoodsListPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
+    }
+
+    @Override
+    public Class getSortingGoodsOperateActivity(Bundle bundle) {
+        return SortingGoodsOperateActivity.class;
     }
 }
