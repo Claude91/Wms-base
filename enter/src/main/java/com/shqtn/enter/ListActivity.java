@@ -14,6 +14,7 @@ import com.shqtn.base.BaseActivity;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.controller.presenter.ActivityResultCallback;
+import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
@@ -48,7 +49,6 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
      */
     private ListActivityController.Presenter mListActivityPresenter;
     private Runnable action;
-    private ActivityResultCallback mActivityResultCallback;
 
 
     public static <T extends ListActivityController.Presenter> Bundle createListActivityBundle(Class<T> p) {
@@ -80,8 +80,12 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
             mListActivityPresenter.setAty(this);
             mListActivityPresenter.setView(this);
             mListActivityPresenter.setBottomView(this);
+
+            //设置resultCallback 回调
             setActivityResultCallback(mListActivityPresenter);
+            //设置监听键盘点击
             setOnKeyDownPresenter(mListActivityPresenter);
+            //设置解码的回调
             mDecodeCallback = mListActivityPresenter;
 
 
@@ -212,11 +216,6 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
             labelTextView.setVisibility(View.GONE);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
 
     @Override
     public void onRefreshComplete() {
@@ -249,7 +248,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     }
 
     @Override
-    public void setScanningType(int... tag) {
+    public void setScanningType(@CodeCallback.ScanningTag int... tag) {
         mCodePresenter.setDecodeType(tag);
     }
 
@@ -303,7 +302,6 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     public void setLeftTextOnClickListener(View.OnClickListener l) {
         tvLeft.setOnClickListener(l);
     }
-
 
 
 }

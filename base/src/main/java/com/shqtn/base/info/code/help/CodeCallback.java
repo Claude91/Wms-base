@@ -1,5 +1,7 @@
 package com.shqtn.base.info.code.help;
 
+import android.support.annotation.IntDef;
+
 import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.code.AllotBean;
@@ -9,12 +11,18 @@ import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.CodeRack;
 import com.shqtn.base.info.code.CodeUtils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * Created by android on 2017/7/14.
  */
 
-public class CodeCallback extends ResultCallback {
 
+public class CodeCallback extends ResultCallback {
+    @IntDef({TAG_GOODS,TAG_LPN,TAG_RACK,TAG_MANIFEST})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ScanningTag{}
     public static final int TAG_GOODS = 0X110;
     public static final int TAG_LPN = 0X111;
     public static final int TAG_RACK = 0X112;
@@ -42,7 +50,7 @@ public class CodeCallback extends ResultCallback {
      *
      * @param tags
      */
-    public CodeCallback(int... tags) {
+    public CodeCallback(@ScanningTag int... tags) {
         mTags = tags;
     }
 

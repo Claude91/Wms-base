@@ -1,6 +1,6 @@
 package com.shqtn.base.widget;
 
-import android.content.ClipboardManager;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
     private String text;
     private OnTextChangeListener mOnTextChangeListener;
 
+    private boolean focusActivity;//附在当前Activity中是否 有焦点
+
     public SystemEditText(Context context) {
         super(context);
         init(context, null, 0);
@@ -64,7 +67,7 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         mModeType = SystemEditModeUtils.getMode(context, MODE_AUTO);
-
+        createTextChangeManager();
         initChildrenView(context);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SystemEditText, defStyleAttr, 0);
         int indexCount = typedArray.getIndexCount();
@@ -94,9 +97,6 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
                     mOnTextChangeListener.afterTextChanged(s.toString());
                 }
                 if (mModeType == MODE_AUTO || mModeType == MODE_SYSTEM) {
-                    if (mTextChangeManager == null) {
-                        createTextChangeManager();
-                    }
                     mTextChangeManager.startReaderTime();
                 }
             }
@@ -142,10 +142,11 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         ClipBoardManager.getInstance().removeListener(this);
     }
 
+    private static final String TAG = "SystemEditText";
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        ClipBoardManager.getInstance().addListener(this);
     }
 
     private void initChildrenView(Context context) {
@@ -217,12 +218,18 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         switch (modeType) {
             case MODE_AUTO:
                 vInputMode.setText("自动");
+                mTextChangeManager.setOnTimeAfterTextChangeListener(this);
+                ClipBoardManager.getInstance().addListener(this);
                 break;
             case MODE_HAND:
                 vInputMode.setText("手动");
+                mTextChangeManager.setOnTimeAfterTextChangeListener(null);
+                ClipBoardManager.getInstance().removeListener(this);
                 break;
             case MODE_SYSTEM:
                 vInputMode.setText("系统录入");
+                mTextChangeManager.setOnTimeAfterTextChangeListener(this);
+                ClipBoardManager.getInstance().addListener(this);
                 break;
         }
         SystemEditModeUtils.saveMode(getContext(), modeType);
@@ -248,12 +255,19 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
     @Override
     public void onTextChange(String content) {
+        if (!isCanReaderText()) {
+            return;
+        }
         toSearch();
     }
 
     @Override
     public void onClipContent(String content) {
+        if (!isCanReaderText()) {
+            return;
+        }
         et.setText(content);
+        toSearch();
     }
 
     public void setText(String text) {
@@ -261,6 +275,16 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         et.setText(text);
     }
 
+    public boolean isCanReaderText() {
+        return focusActivity;
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        super.onWindowFocusChanged(hasWindowFocus);
+        focusActivity = hasWindowFocus;
+
+    }
 
     public interface OnToTextSearchListener {
         void onSearchText(String content);

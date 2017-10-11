@@ -37,7 +37,7 @@
 
     <style name="bottomBtnStyle">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:background">@color/colorBlue</item>
+        <item name="android:background">@drawable/slt_btn_blue</item>
         <item name="android:paddingTop">@dimen/padding_top_or_bottom</item>
         <item name="android:textSize">@dimen/sp_16</item>
         <item name="android:paddingBottom">@dimen/padding_top_or_bottom</item>

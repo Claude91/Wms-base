@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_depot_out_goods_operate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shqtn.enter.activity.exit.DepotOutGoodsOperateActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="出库货品操作" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        android:text="货品详情"
+        android:textColor="@color/text_white_color"
+        android:textSize="@dimen/text_label_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_normal"
+        android:paddingLeft="@dimen/margin_normal">
+
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_depot_out_goods_operate_ltv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_black_color"
+            app:labelText="@string/name"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_depot_out_goods_operate_ltv_sku"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_black_color"
+            app:labelText="@string/sku"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_depot_out_goods_operate_ltv_batch_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_black_color"
+            app:labelText="@string/batch_no"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_depot_out_goods_operate_ltv_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:color="@color/text_black_color"
+            app:labelText="剩余出库数量"
+            app:size="@dimen/text_label_size" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        android:text="操作"
+        android:textColor="@color/text_white_color"
+        android:textSize="@dimen/text_label_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_normal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="出库数量:"
+            android:textColor="@color/text_black_color"
+            android:textSize="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.MaxQuantityEditText
+            android:id="@+id/activity_depot_out_goods_operate_maxQtyEditText_input_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:background="@drawable/shape_edit_div" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/activity_depot_out_goods_operate_tv_submit_f1"
+        style="@style/bottomBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="@string/submitF1" />
+
+</LinearLayout>

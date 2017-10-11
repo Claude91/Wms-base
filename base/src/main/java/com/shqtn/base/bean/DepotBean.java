@@ -1,5 +1,8 @@
 package com.shqtn.base.bean;
 
+import android.content.Context;
+import android.content.Intent;
+
 /**
  * Created by Administrator on 2017-7-10.
  */
@@ -27,4 +30,6 @@ public class DepotBean {
     public void setWhname(String whname) {
         this.whname = whname;
     }
+
+
 }

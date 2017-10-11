@@ -1,6 +1,7 @@
 package com.shqtn.enter.controller;
 
 import android.content.Intent;
+import android.support.annotation.IntDef;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import com.shqtn.base.controller.presenter.BasePresenter;
 import com.shqtn.base.controller.presenter.IKeyDownPresenter;
 import com.shqtn.base.controller.view.IBaseView;
 import com.shqtn.base.controller.view.IAty;
+import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 
 /**
@@ -53,7 +55,7 @@ public interface ListActivityController {
 
         void hideBtnClear();
 
-        void setScanningType(int... type);
+        void setScanningType(@CodeCallback.ScanningTag int... type);
     }
 
     interface BottomView {

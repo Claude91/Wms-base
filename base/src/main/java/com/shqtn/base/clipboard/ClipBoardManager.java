@@ -1,10 +1,12 @@
 package com.shqtn.base.clipboard;
 
 import android.content.ClipboardManager;
+
 import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * 剪切板管理
  * Created by android on 2017/9/20.
  */
 
@@ -44,7 +46,7 @@ public class ClipBoardManager {
      */
     public void sendMsg(String content) {
         if (mClipList.size() > 0)
-            mClipList.get(mClipList.size()-1).onClipContent(content);
+            mClipList.get(mClipList.size() - 1).onClipContent(content);
     }
 
 

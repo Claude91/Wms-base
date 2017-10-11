@@ -1,6 +1,7 @@
 package com.shqtn.enter.controller.impl;
 
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 
 import com.shqtn.base.info.code.AllotBean;
 import com.shqtn.base.info.code.CodeGoods;

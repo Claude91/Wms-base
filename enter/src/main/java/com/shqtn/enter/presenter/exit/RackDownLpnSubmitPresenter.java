@@ -71,11 +71,12 @@ public class RackDownLpnSubmitPresenter extends AbstractLpnSubmitPresenterImpl {
                 @Override
                 public void clickTrue() {
                     toSubmit();
+                    getView().cancelAskMsgDialog();
                 }
 
                 @Override
                 public void clickCancel() {
-
+                    getView().cancelAskMsgDialog();
                 }
             });
         } else {

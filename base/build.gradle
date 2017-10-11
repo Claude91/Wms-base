@@ -34,4 +34,5 @@ dependencies {
     compile project(':pullToRefresh')
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':bindview')
+    compile 'com.android.support:support-annotations:26.0.0-alpha1'
 }

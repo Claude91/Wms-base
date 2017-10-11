@@ -17,7 +17,8 @@
         <activity android:name=".activity.DepotChangeAty" />
         <activity android:name=".activity.in.GoodsAdjustTargetRackActivity" />
         <activity android:name=".activity.enter.QualityInspectionGoodsOperateActivity" />
-        <activity android:name=".activity.exit.RackDownGoodsOperateActivity"></activity>
+        <activity android:name=".activity.exit.RackDownGoodsOperateActivity" />
+        <activity android:name=".activity.exit.DepotOutGoodsOperateActivity"></activity>
     </application>
 
 </manifest>

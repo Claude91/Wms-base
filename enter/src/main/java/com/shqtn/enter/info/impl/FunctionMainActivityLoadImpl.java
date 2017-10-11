@@ -5,10 +5,12 @@ import android.os.Bundle;
 import com.shqtn.base.C;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.activity.DepotChangeAty;
+import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.enter.QualityInspectionQueryGoodsController;
 import com.shqtn.enter.presenter.enter.RackUpGoodsListPresenter;
 import com.shqtn.enter.presenter.enter.TakeDeliveryManifestPresenter;
+import com.shqtn.enter.presenter.exit.DepotOutAreaListPresenter;
 import com.shqtn.enter.presenter.exit.RackDownManifestListPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustRackPresenter;
 
@@ -72,7 +74,9 @@ public class FunctionMainActivityLoadImpl implements IActivityLoad.FunctionMainA
 
     @Override
     public Class getDepotOutMain(Bundle bundle) {
-        return null;
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(DepotOutAreaListPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
     }
 
     @Override

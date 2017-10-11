@@ -31,4 +31,6 @@ public class C {
     public static final String RACK_BEAN = "RACK_BEAN";
     public static final java.lang.String RECOMMEND_RACK_NO = "RECOMMEND_RACK_NO";
     public static final java.lang.String OPERATE_RACK_NO = "OPERATE_RACK_NO";
+    public static final String AREA_CODE = "AREA_CODE";
+    public static final String MANIFEST_BEAN = "MANIFEST_BEAN";
 }

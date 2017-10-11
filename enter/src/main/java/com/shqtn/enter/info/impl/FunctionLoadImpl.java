@@ -58,20 +58,32 @@ public class FunctionLoadImpl implements IFunctionLoad {
 
     @Override
     public void addInDepotFunction(List<FunctionBean> list) {
-        FunctionBean goodsAdjust = getGoodsAdjustMain(functionMainActivityLoad);
-        list.add(goodsAdjust);
+        try {
+            FunctionBean goodsAdjust = getGoodsAdjustMain(functionMainActivityLoad);
+            list.add(goodsAdjust);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        FunctionBean checkQuantity = getCheckQuantityMain(functionMainActivityLoad);
-        list.add(checkQuantity);
-        FunctionBean enterPallet = getEnterPalletMain(functionMainActivityLoad);
-        list.add(enterPallet);
+        try {
+            FunctionBean checkQuantity = getCheckQuantityMain(functionMainActivityLoad);
+            list.add(checkQuantity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            FunctionBean enterPallet = getEnterPalletMain(functionMainActivityLoad);
+            list.add(enterPallet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void addExitFunction(List<FunctionBean> mExitFunctionList) {
         //下架
         try {
-            FunctionBean rackDownMain = getRackDownMain(functionMainActivityLoad);
+            FunctionBean rackDownMain =  getRackDownMain(functionMainActivityLoad);
             mExitFunctionList.add(rackDownMain);
         } catch (NullPointerException e) {
             e.printStackTrace();

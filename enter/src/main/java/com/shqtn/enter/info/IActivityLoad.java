@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.shqtn.base.BaseActivity;
+import com.shqtn.base.bean.exit.DepotOutManifest;
 import com.shqtn.base.bean.exit.RackDownGoods;
 
 /**
@@ -173,5 +174,26 @@ public interface IActivityLoad {
          */
         Class getRackDownLpnSubmitActivity(Bundle bundle);
 
+        /**
+         * C.AREA_CODE ,string 区域编码
+         *
+         * @param bundle
+         * @return
+         */
+        Class getDepotOutAreaListActivity(Bundle bundle);
+
+        /**
+         * C.AREA_CODE .string 区域编码
+         * C.MANIFEST_BEAN DepotOutManifest 出库任务单数据
+         *
+         * @param bundle
+         * @return
+         * @see DepotOutManifest
+         */
+        Class getDepotOutManifestListActivity(Bundle bundle);
+
+        Class getDepotOutGoodsOperateActivity(Bundle bundle);
+
+        Class getDepotOutGoodsListActivity(Bundle bundle);
     }
 }
