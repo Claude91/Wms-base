@@ -56,4 +56,5 @@
     <string name="noHaveGoodsFromBoxOfManifest">箱子没有所要存放的货品</string>
     <string name="operateQty">操作数量</string>
     <string name="srcManifest">来源订单</string>
+    <string name="packing_ok_f2">包装完成(F2)</string>
 </resources>

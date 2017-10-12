@@ -9,6 +9,7 @@ import com.shqtn.enter.presenter.enter.QualityInspectionQueryGoodsController;
 import com.shqtn.enter.presenter.enter.RackUpGoodsListPresenter;
 import com.shqtn.enter.presenter.enter.TakeDeliveryManifestPresenter;
 import com.shqtn.enter.presenter.exit.DepotOutAreaListPresenter;
+import com.shqtn.enter.presenter.exit.PackingManifestListPresenter;
 import com.shqtn.enter.presenter.exit.RackDownManifestListPresenter;
 import com.shqtn.enter.presenter.exit.SortingManifestListPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustRackPresenter;
@@ -69,6 +70,13 @@ public class FunctionMainActivityLoadImpl implements IActivityLoad.FunctionMainA
     @Override
     public Class getSortingMain(Bundle bundle) {
         Bundle listActivityBundle = ListActivity.createListActivityBundle(SortingManifestListPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
+    }
+
+    @Override
+    public Class getPackingMain(Bundle bundle) {
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(PackingManifestListPresenter.class);
         bundle.putAll(listActivityBundle);
         return ListActivity.class;
     }

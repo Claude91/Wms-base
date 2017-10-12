@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@color/colorBlue"
+    android:paddingLeft="@dimen/x8"
+    android:paddingRight="@dimen/x8"
+    android:paddingTop="@dimen/x6"
+    android:paddingBottom="@dimen/x6"
+    android:layout_height="wrap_content">
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/item_packing_ltv_lpn_no"
+        app:color="@color/text_white_color"
+        app:size="@dimen/text_label_size"
+        app:labelText="包装编码"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/item_packing_tv_status"
+        android:textSize="@dimen/text_label_size"
+        android:textColor="@color/text_white_color"
+        android:text="未装箱"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

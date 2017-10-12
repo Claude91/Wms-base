@@ -19,7 +19,8 @@
         <activity android:name=".activity.enter.QualityInspectionGoodsOperateActivity" />
         <activity android:name=".activity.exit.RackDownGoodsOperateActivity" />
         <activity android:name=".activity.exit.DepotOutGoodsOperateActivity" />
-        <activity android:name=".activity.exit.SortingGoodsOperateActivity"></activity>
+        <activity android:name=".activity.exit.SortingGoodsOperateActivity" />
+        <activity android:name=".activity.exit.PackingAddLpnOrGoodsOperateActivity"></activity>
     </application>
 
 </manifest>

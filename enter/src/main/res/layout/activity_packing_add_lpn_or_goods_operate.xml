@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_packing_add_lpn_or_goods_operate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shqtn.enter.activity.exit.PackingAddLpnOrGoodsOperateActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="包装操作" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/activity_packing_add_lpn_or_goods_operate_set_input_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/activity_packing_add_lpn_or_goods_operate_ltv_out_lpn_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_packing_add_lpn_or_goods_operate_set_input_code"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        android:paddingBottom="@dimen/margin_normal"
+        app:color="@color/text_white_color"
+        app:labelText="外包装编号"
+        app:size="@dimen/text_label_size" />
+
+    <ListView
+        android:id="@+id/activity_packing_add_lpn_or_goods_operate_lv_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_packing_add_lpn_or_goods_operate_ltv_out_lpn_no"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:dividerHeight="4dp" />
+
+    <LinearLayout
+        android:id="@+id/activity_packing_add_lpn_or_goods_operate_btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/activity_packing_add_lpn_or_goods_operate_tv_submit_f1"
+            style="@style/bottomBtnStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/submitF1" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/activity_packing_add_lpn_or_goods_operate_tv_packing_ok_f2"
+            style="@style/bottomBtnStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/packing_ok_f2" />
+    </LinearLayout>
+
+</RelativeLayout>

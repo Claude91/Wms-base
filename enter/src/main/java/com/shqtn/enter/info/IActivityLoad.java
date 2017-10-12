@@ -58,6 +58,14 @@ public interface IActivityLoad {
 
         Class getSortingMain(Bundle bundle);
 
+        /**
+         * 出库包装
+         *
+         * @param bundle
+         * @return
+         */
+        Class getPackingMain(Bundle bundle);
+
         Class getDepotOutMain(Bundle bundle);
 
         Class getQualityInspectionMain(Bundle bundle);
@@ -214,5 +222,23 @@ public interface IActivityLoad {
          * @see SortingGoods
          */
         Class getSortingGoodsOperateActivity(Bundle bundle);
+
+
+        /**
+         * bundle.putString(C.MANIFEST_STR,packageNo);
+         *
+         * @param bundle
+         * @return
+         */
+        Class getPackingLpnListActivity(Bundle bundle);
+
+        /**
+         * bundle.putString(C.MANIFEST_STR,packageNo);
+         *
+         * @param bundle
+         * @return
+         */
+        Class getPackingAddLpnOrGoodsOperateActivity(Bundle bundle);
+
     }
 }

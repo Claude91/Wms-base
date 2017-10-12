@@ -5,12 +5,14 @@ import android.os.Bundle;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.activity.exit.DepotOutGoodsOperateActivity;
+import com.shqtn.enter.activity.exit.PackingAddLpnOrGoodsOperateActivity;
 import com.shqtn.enter.activity.exit.RackDownGoodsOperateActivity;
 import com.shqtn.enter.activity.exit.SortingGoodsOperateActivity;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.exit.DepotOutAreaListPresenter;
 import com.shqtn.enter.presenter.exit.DepotOutGoodsListPresenter;
 import com.shqtn.enter.presenter.exit.DepotOutManifestListPresenter;
+import com.shqtn.enter.presenter.exit.PackingLpnListPresenter;
 import com.shqtn.enter.presenter.exit.RackDownGoodsListPresenter;
 import com.shqtn.enter.presenter.exit.RackDownLpnSubmitPresenter;
 import com.shqtn.enter.presenter.exit.RackDownRackListPresenter;
@@ -85,5 +87,17 @@ public class ExitActivityLoadImpl implements IActivityLoad.ExitActivityLoad {
     @Override
     public Class getSortingGoodsOperateActivity(Bundle bundle) {
         return SortingGoodsOperateActivity.class;
+    }
+
+    @Override
+    public Class getPackingLpnListActivity(Bundle bundle) {
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(PackingLpnListPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
+    }
+
+    @Override
+    public Class getPackingAddLpnOrGoodsOperateActivity(Bundle bundle) {
+        return PackingAddLpnOrGoodsOperateActivity.class;
     }
 }

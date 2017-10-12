@@ -83,7 +83,7 @@ public class FunctionLoadImpl implements IFunctionLoad {
     public void addExitFunction(List<FunctionBean> mExitFunctionList) {
         //下架
         try {
-            FunctionBean rackDownMain =  getRackDownMain(functionMainActivityLoad);
+            FunctionBean rackDownMain = getRackDownMain(functionMainActivityLoad);
             mExitFunctionList.add(rackDownMain);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -95,7 +95,13 @@ public class FunctionLoadImpl implements IFunctionLoad {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
+        try {
+            //分拣
+            FunctionBean sortingMain = getPackingMain(functionMainActivityLoad);
+            mExitFunctionList.add(sortingMain);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         try {
             //出库
             FunctionBean depotOutMain = getDepotOutMain(functionMainActivityLoad);
@@ -103,6 +109,16 @@ public class FunctionLoadImpl implements IFunctionLoad {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
+
+    private FunctionBean getPackingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+        FunctionBean bean = new FunctionBean();
+        bean.setName("包装");
+        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        Bundle bundle = bean.getBundle();
+        Class takeDelManifestListActivity = functionMainActivityLoad.getPackingMain(bundle);
+        bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
+        return bean;
     }
 
 

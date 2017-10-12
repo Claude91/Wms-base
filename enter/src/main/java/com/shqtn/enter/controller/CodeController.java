@@ -7,6 +7,7 @@ import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.CodeRack;
 import com.shqtn.base.controller.view.IBaseView;
+import com.shqtn.base.info.code.help.CodeCallback;
 
 /**
  * Created by android on 2017/9/21.
@@ -41,7 +42,7 @@ public interface CodeController {
          *
          * @param type
          */
-        void setDecodeType(int... type);
+        void setDecodeType(@CodeCallback.ScanningTag int... type);
 
         void setDecodeCallback(DecodeCallback decodeCallback);
     }

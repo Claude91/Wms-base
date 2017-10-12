@@ -3,6 +3,7 @@ package com.shqtn.enter.controller.impl;
 import android.os.Bundle;
 
 import com.shqtn.base.CommonAdapter;
+import com.shqtn.base.bean.DepotBean;
 import com.shqtn.base.bean.base.IManifest;
 import com.shqtn.base.controller.view.IAty;
 import com.shqtn.base.info.code.AllotBean;
@@ -10,6 +11,7 @@ import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.CodeRack;
+import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.CodeController;
@@ -82,6 +84,14 @@ public abstract class AbstractListActivityPresenter extends ListActivityControll
 
             }
         };
+    }
+
+    public DepotBean getDepot() {
+        return DepotUtils.getDepot(getAty().getContext());
+    }
+
+    public String getDepotCode() {
+        return getDepot().getWhcode();
     }
 
     @Override

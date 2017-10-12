@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBlue"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_normal"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingRight="@dimen/margin_normal"
+        android:paddingTop="@dimen/margin_normal">
+
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_packing_take_ltv_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x6"
+            app:color="@color/text_white_color"
+            app:labelText="类型"
+            app:size="@dimen/text_label_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"
+            android:layout_marginTop="@dimen/x4"
+            android:background="@color/div_color" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_packing_take_ltv_sku_or_lpn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_white_color"
+            app:labelText="@string/sku"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_packing_take_ltv_batch_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_white_color"
+            app:labelText="@string/batch_no"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_packing_take_ltv_taking_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/x6"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_white_color"
+            app:labelText="包装上数量"
+            app:size="@dimen/text_label_size" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/item_packing_take_imgBtn_delete"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@drawable/slt_btn_back"
+        android:padding="4dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_delete" />
+</FrameLayout>
