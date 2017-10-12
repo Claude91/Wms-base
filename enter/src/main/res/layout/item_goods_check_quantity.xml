@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBlue"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_normal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_check_quantity_ltv_sku"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            app:color="@color/text_white_color"
+            app:labelText="@string/sku"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_check_quantity_ltv_name"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_white_color"
+            app:labelText="@string/name"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_check_quantity_ltv_batch"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_white_color"
+            app:labelText="@string/batch_no"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_check_quantity_ltv_class_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_white_color"
+            app:labelText="@string/goodsClassNo"
+            app:size="@dimen/text_label_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/item_goods_check_quantity_ltv_std"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_marginTop="@dimen/x4"
+                android:layout_weight="1"
+                app:color="@color/text_white_color"
+                app:labelText="@string/standard"
+                app:size="@dimen/text_label_size" />
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/item_goods_check_quantity_ltv_unit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_marginTop="@dimen/x4"
+                android:layout_weight="1"
+                app:color="@color/text_white_color"
+                app:labelText="@string/unit"
+                app:size="@dimen/text_label_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/item_goods_check_quantity_ltv_qty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_marginTop="@dimen/x4"
+                android:layout_weight="1"
+                app:color="@color/text_white_color"
+                app:labelText="@string/quantity"
+                app:size="@dimen/text_label_size" />
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/item_goods_check_quantity_ltv_goods_owner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_marginTop="@dimen/x4"
+                android:layout_weight="1"
+                app:color="@color/text_white_color"
+                app:labelText="@string/goodsOwner"
+                app:size="@dimen/text_label_size" />
+        </LinearLayout>
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_check_quantity_ltv_rack_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_white_color"
+            app:labelText="@string/rackName"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_goods_check_quantity_ltv_rack_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/x6"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_white_color"
+            app:labelText="@string/rackCode"
+            app:size="@dimen/text_label_size" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/item_goods_check_quantity_imgBtn_delete"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_gravity="right|top"
+        android:background="@drawable/slt_btn_back"
+        android:src="@drawable/icon_delete" />
+</FrameLayout>

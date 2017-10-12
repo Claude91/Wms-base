@@ -20,7 +20,8 @@
         <activity android:name=".activity.exit.RackDownGoodsOperateActivity" />
         <activity android:name=".activity.exit.DepotOutGoodsOperateActivity" />
         <activity android:name=".activity.exit.SortingGoodsOperateActivity" />
-        <activity android:name=".activity.exit.PackingAddLpnOrGoodsOperateActivity"></activity>
+        <activity android:name=".activity.exit.PackingAddLpnOrGoodsOperateActivity" />
+        <activity android:name=".activity.in.CheckQuantityManifestOperateActivity"></activity>
     </application>
 
 </manifest>

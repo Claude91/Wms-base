@@ -26,10 +26,10 @@ public class FunctionLoadImpl implements IFunctionLoad {
             //收货
             FunctionBean takeDelMain = getTakeDelMain(functionMainActivityLoad);
             list.add(takeDelMain);
-
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
         try {
             //上架
             FunctionBean rackUpMain = getRackUpMain(functionMainActivityLoad);

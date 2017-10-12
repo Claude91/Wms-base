@@ -144,6 +144,16 @@ public interface IActivityLoad {
         Class getRackUpLpnOperateActivity(Bundle bundle);
 
         Class getRackUpGoodsOperateActivity(Bundle bundle);
+
+        /**
+         * bundle.putParcelable(C.MANIFEST_BEAN,checkQuantityManifest);
+         * CheckQuantityManifest
+         *
+         * @param bundle
+         * @return
+         * @see com.shqtn.base.bean.in.CheckQuantityManifest
+         */
+        Class getCheckQuantityManifestOperateActivity(Bundle bundle);
     }
 
 
