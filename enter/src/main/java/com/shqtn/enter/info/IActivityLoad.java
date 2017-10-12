@@ -59,12 +59,20 @@ public interface IActivityLoad {
         Class getSortingMain(Bundle bundle);
 
         /**
-         * 出库包装
+         * 出库的包装
          *
          * @param bundle
          * @return
          */
         Class getPackingMain(Bundle bundle);
+
+        /**
+         * 包装出库
+         *
+         * @param bundle
+         * @return
+         */
+        Class getPackingOutMain(Bundle bundle);
 
         Class getDepotOutMain(Bundle bundle);
 
