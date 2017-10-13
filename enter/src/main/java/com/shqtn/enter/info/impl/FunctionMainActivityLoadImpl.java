@@ -7,12 +7,14 @@ import com.shqtn.enter.activity.DepotChangeAty;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.enter.QualityInspectionQueryGoodsController;
 import com.shqtn.enter.presenter.enter.RackUpGoodsListPresenter;
+import com.shqtn.enter.presenter.enter.TakeBoxManifestQueryPresenter;
 import com.shqtn.enter.presenter.enter.TakeDeliveryManifestPresenter;
 import com.shqtn.enter.presenter.exit.DepotOutAreaListPresenter;
 import com.shqtn.enter.presenter.exit.PackingManifestListPresenter;
 import com.shqtn.enter.presenter.exit.PackingOutOperatePresenter;
 import com.shqtn.enter.presenter.exit.RackDownManifestListPresenter;
 import com.shqtn.enter.presenter.exit.SortingManifestListPresenter;
+import com.shqtn.enter.presenter.in.CheckQuantityManifestListPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustRackPresenter;
 
 /**
@@ -48,7 +50,9 @@ public class FunctionMainActivityLoadImpl implements IActivityLoad.FunctionMainA
 
     @Override
     public Class getCheckQuantityMain(Bundle bundle) {
-        return null;
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(CheckQuantityManifestListPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
     }
 
     @Override
@@ -58,7 +62,9 @@ public class FunctionMainActivityLoadImpl implements IActivityLoad.FunctionMainA
 
     @Override
     public Class getTakeBoxMain(Bundle bundle) {
-        return null;
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(TakeBoxManifestQueryPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
     }
 
     @Override

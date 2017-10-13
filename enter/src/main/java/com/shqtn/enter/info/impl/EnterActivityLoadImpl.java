@@ -7,6 +7,8 @@ import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.activity.enter.QualityInspectionGoodsOperateActivity;
 import com.shqtn.enter.activity.enter.RackUpGoodsOperateActivity;
+import com.shqtn.enter.activity.enter.TakeBoxGoodsTakeSelectActivity;
+import com.shqtn.enter.activity.enter.TakeBoxTakeOperateActivity;
 import com.shqtn.enter.activity.enter.TakeDelGoodsOperateActivity;
 import com.shqtn.enter.controller.impl.lpn.RackUpAbstractLpnSubmitPresenter;
 import com.shqtn.enter.info.IActivityLoad;
@@ -42,5 +44,15 @@ public class EnterActivityLoadImpl implements IActivityLoad.EnterActivityLoad {
     @Override
     public Class getQualityInspectionGoodsOperateActivity(Bundle bundle) {
         return QualityInspectionGoodsOperateActivity.class;
+    }
+
+    @Override
+    public Class getTakeBoxGoodsTakeSelectActivity(Bundle bundle) {
+        return TakeBoxGoodsTakeSelectActivity.class;
+    }
+
+    @Override
+    public Class getTakeBoxTakeOperateActivity(Bundle bundle) {
+        return TakeBoxTakeOperateActivity.class;
     }
 }

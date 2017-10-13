@@ -1,6 +1,13 @@
 package com.shqtn.wms;
 
 import com.shqtn.base.BaseActivity;
+import com.shqtn.base.bean.UserClientBean;
+import com.shqtn.base.info.ApiUrl;
+import com.shqtn.base.info.LoginInfo;
+import com.shqtn.base.utils.IpChangeUtils;
+import com.shqtn.base.utils.LoginUtils;
+import com.shqtn.base.utils.StringUtils;
+import com.shqtn.base.utils.UserClientUtils;
 import com.shqtn.enter.HomeActivity;
 import com.shqtn.enter.LoginActivity;
 
@@ -13,8 +20,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
         super.initData();
-        toHomeAty();
-      /*  boolean isLogin = LoginUtils.isLogin(getApplicationContext());
+        boolean isLogin = LoginUtils.isLogin(getApplicationContext());
         LoginInfo loginInfo = new LoginInfo();
         String ip = IpChangeUtils.getIp(this);
         String post = IpChangeUtils.getPort(this);
@@ -28,7 +34,7 @@ public class MainActivity extends BaseActivity {
         } else {
             //非登录状态
             toLoginAty();
-        }*/
+        }
     }
 
 
@@ -38,7 +44,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void toHomeAty() {
-       // Bundle listActivityBundle = ListActivity.createListActivityBundle(TakeDeliveryManifestPresenter.class, TakeDeliveryManifestPresenter.class);
+        // Bundle listActivityBundle = ListActivity.createListActivityBundle(TakeDeliveryManifestPresenter.class, TakeDeliveryManifestPresenter.class);
         startActivity(HomeActivity.class);
         finish();
     }

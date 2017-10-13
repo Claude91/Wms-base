@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.shqtn.base.BaseActivity;
+import com.shqtn.base.bean.enter.TakeBoxGoods;
+import com.shqtn.base.bean.enter.TakeBoxPlan;
 import com.shqtn.base.bean.exit.DepotOutManifest;
 import com.shqtn.base.bean.exit.RackDownGoods;
 import com.shqtn.base.bean.exit.SortingGoods;
@@ -119,6 +121,28 @@ public interface IActivityLoad {
          * @see com.shqtn.base.bean.enter.QualityInspectionGoods
          */
         Class getQualityInspectionGoodsOperateActivity(Bundle bundle);
+
+        /**
+         * bundle.putString(C.MANIFEST_STR,mManifest);
+         * bundle.putParcelable(C.OPERATE_GOODS,takeBoxGoods);
+         *
+         * @param bundle
+         * @return
+         * @see TakeBoxGoods
+         */
+        Class getTakeBoxGoodsTakeSelectActivity(Bundle bundle);
+
+        /**
+         * bundle.putString(C.MANIFEST_STR,mManifest);
+         * bundle.putParcelable(C.OPERATE_GOODS,takeBoxGoods);
+         * bundle.putParcelable(C.TAKE_BOX_PLAN,takeBoxPlan);
+         *
+         * @param bundle
+         * @return
+         * @see TakeBoxGoods
+         * @see TakeBoxPlan
+         */
+        Class getTakeBoxTakeOperateActivity(Bundle bundle);
     }
 
 

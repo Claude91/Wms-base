@@ -125,7 +125,7 @@ public class DepotOutAreaListPresenter extends AbstractListActivityPresenter {
 
     @Override
     public void clickItem(int position) {
-        DepotOutArea depotOutArea = mAreaList.get(position);
+        DepotOutArea depotOutArea = mAreaList.get(position - 1);
         toManifestActivity(depotOutArea.getAreaCode());
     }
 

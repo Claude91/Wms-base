@@ -7,7 +7,9 @@ import android.view.View;
 
 import com.shqtn.base.BaseActivity;
 import com.shqtn.base.BaseFragment;
+import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.widget.RadioGroupView;
+import com.shqtn.enter.activity.DepotChangeAty;
 import com.shqtn.enter.frag.FunctionFragment;
 import com.shqtn.enter.frag.UserDetailsFragment;
 import com.shqtn.enter.info.impl.FunctionLoadImpl;
@@ -71,7 +73,14 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
+        if (DepotUtils.getDepot(this) == null){
+            toDepotSelectActivity();
+        }
 
+    }
+
+    private void toDepotSelectActivity() {
+        startActivity(DepotChangeAty.class);
     }
 
     @Override

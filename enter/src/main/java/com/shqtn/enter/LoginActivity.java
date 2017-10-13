@@ -17,6 +17,7 @@ import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.LoginInfo;
+import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.Base64Utils;
 import com.shqtn.base.utils.LogUtils;
 import com.shqtn.base.utils.LoginUtils;
@@ -72,6 +73,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initWidget() {
         super.initWidget();
+        ActivityUtils.getInstance().closeOther(this);
     }
 
     @Override

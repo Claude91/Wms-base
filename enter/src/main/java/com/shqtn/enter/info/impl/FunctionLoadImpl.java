@@ -104,7 +104,7 @@ public class FunctionLoadImpl implements IFunctionLoad {
         }
         try {
             //包装出库
-            FunctionBean packingMain = getPackingMain(functionMainActivityLoad);
+            FunctionBean packingMain = getPackingOutMain(functionMainActivityLoad);
             mExitFunctionList.add(packingMain);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -118,12 +118,22 @@ public class FunctionLoadImpl implements IFunctionLoad {
         }
     }
 
-    private FunctionBean getPackingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    private FunctionBean getPackingOutMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("包装出库");
         bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getPackingOutMain(bundle);
+        bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
+        return bean;
+    }
+
+    private FunctionBean getPackingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+        FunctionBean bean = new FunctionBean();
+        bean.setName("包装");
+        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        Bundle bundle = bean.getBundle();
+        Class takeDelManifestListActivity = functionMainActivityLoad.getPackingMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
@@ -151,7 +161,7 @@ public class FunctionLoadImpl implements IFunctionLoad {
 
     private FunctionBean getSortingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
-        bean.setName("下架");
+        bean.setName("分拣");
         bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getSortingMain(bundle);

@@ -31,7 +31,7 @@ import java.util.List;
 public class DepotOutManifestListPresenter extends AbstractListActivityPresenter {
     private ArrayList<DepotOutManifest> mManifestList = new ArrayList<>();
     private String areaCode;//区域编码
-    private DepotOutManifestListParams mManifestListParams;
+    private DepotOutManifestListParams mManifestListParams = new DepotOutManifestListParams();
     private CommonAdapter<DepotOutManifest> mManifestAdapter;
     private ResultCallback mManifestCallback = new ResultCallback() {
         @Override

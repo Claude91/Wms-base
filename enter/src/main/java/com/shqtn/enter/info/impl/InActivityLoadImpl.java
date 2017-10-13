@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.shqtn.base.C;
 import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.activity.enter.RackUpGoodsOperateActivity;
+import com.shqtn.enter.activity.in.CheckQuantityManifestOperateActivity;
 import com.shqtn.enter.activity.in.GoodsAdjustTargetRackActivity;
 import com.shqtn.enter.controller.impl.lpn.RackUpAbstractLpnSubmitPresenter;
 import com.shqtn.enter.info.IActivityLoad;
@@ -36,5 +37,10 @@ public class InActivityLoadImpl implements IActivityLoad.InActivityLoad {
     @Override
     public Class getRackUpGoodsOperateActivity(Bundle bundle) {
         return RackUpGoodsOperateActivity.class;
+    }
+
+    @Override
+    public Class getCheckQuantityManifestOperateActivity(Bundle bundle) {
+        return CheckQuantityManifestOperateActivity.class;
     }
 }

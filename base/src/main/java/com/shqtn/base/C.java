@@ -33,4 +33,5 @@ public class C {
     public static final java.lang.String OPERATE_RACK_NO = "OPERATE_RACK_NO";
     public static final String AREA_CODE = "AREA_CODE";
     public static final String MANIFEST_BEAN = "MANIFEST_BEAN";
+    public static final String TAKE_BOX_PLAN = "TAKE_BOX_PLAN";
 }

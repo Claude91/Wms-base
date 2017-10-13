@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_btn_blue_normal"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_normal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="("
+        android:textColor="@color/text_black_color"
+        android:textSize="@dimen/text_label_size" />
+
+    <TextView
+        android:id="@+id/item_take_box_tv_index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/text_black_color"
+        android:textSize="@dimen/text_label_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=")"
+        android:textColor="@color/text_black_color"
+        android:textSize="@dimen/text_label_size" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/item_take_box_ltv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x4"
+        android:layout_weight="1"
+        app:labelText="容器名称"
+        app:size="@dimen/text_label_size"
+        app:textColor="@color/text_white_color" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/x40"
+        android:orientation="vertical">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_take_box_ltv_over_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_white_color"
+            app:labelText="已完成数量"
+            app:size="12sp"
+            app:textColor="@color/text_black_color" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_take_box_ltv_unfinished_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_white_color"
+            app:labelText="未完成数量"
+            app:size="12sp"
+            app:textColor="@color/text_black_color" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_take_box_ltv_taking_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_white_color"
+            app:labelText="装箱中数量"
+            app:size="12sp"
+            app:textColor="@color/text_black_color" />
+    </LinearLayout>
+</LinearLayout>

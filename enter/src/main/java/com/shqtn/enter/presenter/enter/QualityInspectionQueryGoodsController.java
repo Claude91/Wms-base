@@ -38,11 +38,12 @@ public class QualityInspectionQueryGoodsController extends AbstractListActivityP
     public void init() {
         super.init();
 
+
         ListActivityController.View view = getView();
         view.setEditTextHint("输入货品编码");
         view.setScanningType(CodeCallback.TAG_GOODS);
         view.setListViewModel(PullToRefreshBase.Mode.DISABLED);
-
+        view.setTitle("质检");
 
         mScanningGoodsParams = new QualityInspectionGoodsParams();
 
@@ -108,7 +109,7 @@ public class QualityInspectionQueryGoodsController extends AbstractListActivityP
 
     @Override
     public void refresh() {
-
+        getView().onRefreshComplete();
     }
 
     @Override

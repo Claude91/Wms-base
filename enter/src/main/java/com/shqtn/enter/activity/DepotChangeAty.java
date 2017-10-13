@@ -11,10 +11,14 @@ import com.shqtn.base.BaseActivity;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.DepotBean;
 import com.shqtn.base.bean.ResultBean;
+import com.shqtn.base.bean.UserClientBean;
 import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.utils.DepotUtils;
+import com.shqtn.base.utils.LoginUtils;
+import com.shqtn.base.utils.ToastUtils;
+import com.shqtn.base.utils.UserClientUtils;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
@@ -62,7 +66,7 @@ public class DepotChangeAty extends BaseActivity {
     @Override
     public void initWidget() {
         super.initWidget();
-        lv.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+        lv.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         lv.setAdapter(mDepotAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,11 +77,19 @@ public class DepotChangeAty extends BaseActivity {
         lv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-
+                loadData();
             }
         });
         lv.setRefreshing();
         titleView.setOnToBackClickListener(this);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DepotBean depotBean = mDepotSelectList.get(i - 1);
+                DepotUtils.saveDepot(DepotChangeAty.this, depotBean);
+                finish();
+            }
+        });
 
         setInputCode.setOnToTextSearchListener(new SystemEditText.OnToTextSearchListener() {
             @Override
@@ -107,7 +119,12 @@ public class DepotChangeAty extends BaseActivity {
             public void onAfter() {
                 super.onAfter();
                 cancelProgressDialog();
-                lv.onRefreshComplete();
+                lv.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        lv.onRefreshComplete();
+                    }
+                }, 1_500);
             }
 
             @Override
@@ -118,9 +135,12 @@ public class DepotChangeAty extends BaseActivity {
             @Override
             public void onSuccess(ResultBean response) {
                 ArrayList<DepotBean> list = getRows(response.getData(), DepotBean.class);
+                mDepotSelectList.clear();
                 mDepotList = list;
-                if (mDepotList != null) {
+                if (mDepotList != null && mDepotList.size() != 0) {
                     mDepotSelectList.addAll(mDepotList);
+                } else {
+                    displayMsgDialog("无仓库，请通知管理员");
                 }
                 mDepotAdapter.update(mDepotSelectList);
             }
@@ -129,9 +149,9 @@ public class DepotChangeAty extends BaseActivity {
 
     @Override
     public void clickBack() {
-        super.clickBack();
         closeActivity();
     }
+
 
     private void selectDepot(DepotBean depotBean) {
         DepotUtils.saveDepot(this, depotBean);
@@ -139,13 +159,25 @@ public class DepotChangeAty extends BaseActivity {
 
     @Override
     public void closeActivity() {
-        super.closeActivity();
         DepotBean depot = DepotUtils.getDepot(this);
         if (depot == null) {
             displayAskMsgDialog("必须选择仓库，可继续操作，否则退出，确认-退出登录，取消-选择仓库", new AskMsgDialog.OnAskClickListener() {
 
                 @Override
                 public void clickTrue() {
+                    ModelService.post(ApiUrl.URL_LOGOUT, null, new ResultCallback() {
+                        @Override
+                        public void onFailed(String msg) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(ResultBean response) {
+
+                        }
+                    });
+                    UserClientUtils.clearLoginUser(DepotChangeAty.this);
+                    LoginUtils.clearAll(DepotChangeAty.this);
                     setResult(BaseActivity.RESULT_CODE_CLOSE);
                     startActivity(LoginActivity.class);
                     finish();

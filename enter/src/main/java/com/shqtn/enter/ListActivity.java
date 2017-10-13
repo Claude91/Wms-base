@@ -183,6 +183,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         clickBack();
     }
 
+
     @Override
     public void setAdapter(CommonAdapter adapter) {
         pullLv.setAdapter(adapter);

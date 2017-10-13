@@ -35,6 +35,9 @@ public abstract class ResultCallback extends Callback<ResultBean> {
 
     @Override
     public void onError(Request request, Exception e) {
+        if (e != null) {
+            e.printStackTrace();
+        }
         if (e instanceof SocketTimeoutException) {
             onFailed(ActivityUtils.getInstance().getTopAty().getString(R.string.socketTimeOutHint));
         } else if (e instanceof SocketException) {

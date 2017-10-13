@@ -36,10 +36,10 @@ public class DialogFactory {
     }
 
     public static AskMsgDialog createAskMsgDialog(Context context) {
-        return null;
+        return new AskMsgDialog(context);
     }
 
     public static EditQuantityDialog createEditQuantityDialog(Context context) {
-        return null;
+        return new EditQuantityDialog(context);
     }
 }

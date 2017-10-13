@@ -21,7 +21,9 @@
         <activity android:name=".activity.exit.DepotOutGoodsOperateActivity" />
         <activity android:name=".activity.exit.SortingGoodsOperateActivity" />
         <activity android:name=".activity.exit.PackingAddLpnOrGoodsOperateActivity" />
-        <activity android:name=".activity.in.CheckQuantityManifestOperateActivity"></activity>
+        <activity android:name=".activity.in.CheckQuantityManifestOperateActivity" />
+        <activity android:name=".activity.enter.TakeBoxGoodsTakeSelectActivity" />
+        <activity android:name=".activity.enter.TakeBoxTakeOperateActivity"></activity>
     </application>
 
 </manifest>

@@ -5,7 +5,6 @@ import com.shqtn.base.BaseActivity;
 import java.util.ArrayList;
 
 
-
 /**
  * Created by Administrator on 2017-4-28.
  */
@@ -45,6 +44,14 @@ public class ActivityUtils {
             return atyList.get(atyList.size() - 1);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public void closeOther(BaseActivity loginActivity) {
+        for (BaseActivity baseActivity : atyList) {
+            if (!baseActivity.equals(loginActivity)) {
+                baseActivity.finish();
+            }
         }
     }
 }

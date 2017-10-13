@@ -14,6 +14,7 @@ import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.utils.DepotUtils;
+import com.shqtn.base.utils.LoginUtils;
 import com.shqtn.base.utils.UserClientUtils;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.enter.InfoLoadUtils;
@@ -90,7 +91,7 @@ public class UserDetailsFragment extends BaseFragment {
         if (i == R.id.frag_user_details_tv_changeDepot) {
             Bundle bundle = new Bundle();
             Class depotSelectActivity = InfoLoadUtils.getInstance().getFunctionMainActivityLoad().getDepotSelectActivity(bundle);
-            startActivity(depotSelectActivity,bundle);
+            startActivity(depotSelectActivity, bundle);
         } else if (i == R.id.frag_user_details_btn_quit) {
             ModelService.post(ApiUrl.URL_LOGOUT, null, new ResultCallback() {
                 @Override
@@ -103,6 +104,8 @@ public class UserDetailsFragment extends BaseFragment {
 
                 }
             });
+            UserClientUtils.clearLoginUser(getContext());
+            LoginUtils.clearAll(getContext());
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
         }

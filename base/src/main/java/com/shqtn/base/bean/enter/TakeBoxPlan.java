@@ -102,6 +102,9 @@ public class TakeBoxPlan implements Parcelable {
         this.packLevel = packLevel;
     }
 
+    public TakeBoxPlan() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -120,9 +123,6 @@ public class TakeBoxPlan implements Parcelable {
         dest.writeString(this.packLevel);
     }
 
-    public TakeBoxPlan() {
-    }
-
     protected TakeBoxPlan(Parcel in) {
         this.qty = in.readInt();
         this.unBoxedQty = in.readInt();
@@ -135,7 +135,7 @@ public class TakeBoxPlan implements Parcelable {
         this.packLevel = in.readString();
     }
 
-    public static final Parcelable.Creator<TakeBoxPlan> CREATOR = new Parcelable.Creator<TakeBoxPlan>() {
+    public static final Creator<TakeBoxPlan> CREATOR = new Creator<TakeBoxPlan>() {
         @Override
         public TakeBoxPlan createFromParcel(Parcel source) {
             return new TakeBoxPlan(source);

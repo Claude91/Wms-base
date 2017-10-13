@@ -24,6 +24,7 @@ import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.DialogFactory;
 import com.shqtn.base.controller.view.IAty;
 import com.shqtn.base.controller.view.IDialogView;
+import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
 import com.shqtn.base.widget.dialog.EditQuantityDialog;
@@ -173,6 +174,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    @Override
+    public void onBackPressed() {
+        clickBack();
+    }
+
     public void widgetClick(View v) {
     }
 
@@ -249,7 +255,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             if (mAskMsgDialog == null) {
                 mAskMsgDialog = DialogFactory.createAskMsgDialog(this);
             }
-            mAskMsgDialog.setMsg(msg);
+            if (!StringUtils.isEmpty(msg))
+                mAskMsgDialog.setMsg(msg);
             mAskMsgDialog.setTitle(title);
             mAskMsgDialog.setOnAskClickListener(listener);
             mAskMsgDialog.show();
