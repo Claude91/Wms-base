@@ -16,6 +16,7 @@ import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.CodeRack;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
+import com.shqtn.base.utils.StringUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
 import com.shqtn.enter.utils.NormalInitView;
@@ -137,7 +138,9 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
     public void refresh() {
         if (mRackDetailsParams.getWhCode() == null) {
             NormalInitView.notSelectDepot(getView());
-        } else {
+        } if (StringUtils.isEmpty(mRackDetailsParams.getLocCode())){
+            getView().onRefreshComplete();
+        }else {
             mRackDetailsParams.setPage(C.PAGE);
             ModelService.post(ApiUrl.URL_GOODS_ADJUST_PALLET_LIST, mRackDetailsParams, mRackDetailsCallback);
         }

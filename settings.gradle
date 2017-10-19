@@ -1,1 +1,1 @@
-include ':app', ':enter', ':bindview', ':base', 'pullToRefresh'
+include ':app', ':enter', ':bindview', ':base', ':wms-p', 'pullToRefresh'

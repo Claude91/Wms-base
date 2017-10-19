@@ -110,7 +110,7 @@ public class DepotChangeAty extends BaseActivity {
             }
         });
 
-        loadData();
+       // loadData();
     }
 
     private void loadData() {

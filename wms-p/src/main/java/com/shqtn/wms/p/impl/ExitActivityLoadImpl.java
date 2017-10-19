@@ -6,7 +6,6 @@ import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.activity.exit.DepotOutGoodsOperateActivity;
 import com.shqtn.enter.activity.exit.PackingAddLpnOrGoodsOperateActivity;
-import com.shqtn.enter.activity.exit.RackDownGoodsOperateActivity;
 import com.shqtn.enter.activity.exit.SortingGoodsOperateActivity;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.exit.DepotOutAreaListPresenter;
@@ -17,6 +16,7 @@ import com.shqtn.enter.presenter.exit.RackDownGoodsListPresenter;
 import com.shqtn.enter.presenter.exit.RackDownLpnSubmitPresenter;
 import com.shqtn.enter.presenter.exit.RackDownRackListPresenter;
 import com.shqtn.enter.presenter.exit.SortingGoodsListPresenter;
+import com.shqtn.wms.p.RackDownGoodsOperateActivity;
 
 /**
  * Created by android on 2017/9/30.

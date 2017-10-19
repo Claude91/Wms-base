@@ -22,33 +22,11 @@ public class FunctionLoadImpl implements IFunctionLoad {
 
     @Override
     public void addEnterFunction(List<FunctionBean> list) {
-        try {
-            //收货
-            FunctionBean takeDelMain = getTakeDelMain(functionMainActivityLoad);
-            list.add(takeDelMain);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
 
         try {
             //上架
             FunctionBean rackUpMain = getRackUpMain(functionMainActivityLoad);
             list.add(rackUpMain);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            //装箱
-            FunctionBean takeBoxMain = getTakeBoxMain(functionMainActivityLoad);
-            list.add(takeBoxMain);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        try {
-            //质检
-            FunctionBean qualityInspectionMain = getQualityInspectionMain(functionMainActivityLoad);
-            list.add(qualityInspectionMain);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -71,12 +49,6 @@ public class FunctionLoadImpl implements IFunctionLoad {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try {
-            FunctionBean enterPallet = getEnterPalletMain(functionMainActivityLoad);
-            list.add(enterPallet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -85,27 +57,6 @@ public class FunctionLoadImpl implements IFunctionLoad {
         try {
             FunctionBean rackDownMain = getRackDownMain(functionMainActivityLoad);
             mExitFunctionList.add(rackDownMain);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        try {
-            //分拣
-            FunctionBean sortingMain = getSortingMain(functionMainActivityLoad);
-            mExitFunctionList.add(sortingMain);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        try {
-            //包装
-            FunctionBean packingMain = getPackingMain(functionMainActivityLoad);
-            mExitFunctionList.add(packingMain);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        try {
-            //包装出库
-            FunctionBean packingMain = getPackingOutMain(functionMainActivityLoad);
-            mExitFunctionList.add(packingMain);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

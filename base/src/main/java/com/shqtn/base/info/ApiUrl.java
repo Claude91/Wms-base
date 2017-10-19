@@ -36,11 +36,17 @@ public class ApiUrl {
      */
     public static String URL_LOGIN = BASE_URL + "sec/auth/in";
 
-
     public static void changeBase(String ip, String post) {
+        changeBase(ip, post, BASE_);
+    }
+
+    public static void changeBase(String ip, String post, String base_) {
         IP = ip;
         POST = post;
-        BASE_URL = "http://" + ip + ":" + post + BASE_;
+        if (!BASE_.equals(base_)) {
+            BASE_ = base_;
+        }
+        BASE_URL = "http://" + ip + ":" + post + base_;
 
         URL_BASE_CODE = BASE_URL + "base/barcode/decode";
 

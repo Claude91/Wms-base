@@ -101,7 +101,7 @@ public class RackDownManifestListPresenter extends AbstractListActivityPresenter
             }
         };
         view.setAdapter(mManifestAdapter);
-
+        refresh();
     }
 
     @Override
@@ -111,6 +111,7 @@ public class RackDownManifestListPresenter extends AbstractListActivityPresenter
     }
 
     private void toRackDownAreaSelect(String rackDownManifest) {
+
         mManifestDetailsParams.setPickingNo(rackDownManifest);
         if (mManifestDetailsCallback == null) {
             mManifestDetailsCallback = new ResultCallback() {
@@ -143,7 +144,7 @@ public class RackDownManifestListPresenter extends AbstractListActivityPresenter
         Bundle bundle = new Bundle();
         bundle.putString(C.MANIFEST_STR, manifestNo);
         Class rackDownRackListActivity = InfoLoadUtils.getInstance().getExitActivityLoad().getRackDownRackListActivity(bundle);
-        getAty().startActivity(rackDownRackListActivity);
+        getAty().startActivity(rackDownRackListActivity,bundle);
     }
 
     @Override

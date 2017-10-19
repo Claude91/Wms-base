@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.exit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -67,7 +68,7 @@ public class RackDownRackListPresenter extends AbstractListActivityPresenter {
         mOperateManifest = getBundle().getString(C.MANIFEST_STR);
 
         ListActivityController.View view = getView();
-        view.setListViewModel(PullToRefreshBase.Mode.PULL_FROM_END);
+        view.setListViewModel(PullToRefreshBase.Mode.PULL_FROM_START);
         view.setTitle("下架货位列表");
 
         view.displayLabel();
@@ -93,7 +94,6 @@ public class RackDownRackListPresenter extends AbstractListActivityPresenter {
         };
 
         view.setAdapter(mRackListAdapter);
-
         refresh();
     }
 
@@ -129,7 +129,13 @@ public class RackDownRackListPresenter extends AbstractListActivityPresenter {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
+    }
+
+    @Override
     public boolean isOpenStartRefreshing() {
-        return true;
+        return false;
     }
 }

@@ -1,8 +1,5 @@
 package com.shqtn.enter.activity.exit;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,10 +15,8 @@ import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.AllotBean;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.help.CodeCallback;
-import com.shqtn.base.utils.CashierInputFilter;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.NumberUtils;
-import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
@@ -33,15 +28,15 @@ import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 
 public class RackDownGoodsOperateActivity extends BaseActivity implements CodeController.View {
 
-    private SystemEditText setInputCode;
-    private TitleView titleView;
-    private LabelTextView ltvName, ltvSkuCode, ltvBatchNo, ltvUnit, ltvStd, ltvOverQty, ltvNowQty;
-    private EditText etInputQty;
-    private TextView tvSubmitF1;
-    private double scanningQty;
-    private String mOperateManifest;
-    private String mOperateRackNo;
-    private RackDownGoods mOperateGoods;
+    public SystemEditText setInputCode;
+    public TitleView titleView;
+    public LabelTextView ltvName, ltvSkuCode, ltvBatchNo, ltvUnit, ltvStd, ltvOverQty, ltvNowQty;
+    public EditText etInputQty;
+    public TextView tvSubmitF1;
+    public double scanningQty;
+    public String mOperateManifest;
+    public String mOperateRackNo;
+    public RackDownGoods mOperateGoods;
 
     private CodeController.DecodeCallback mDecodeCallback = new DecodeCallbackImpl() {
         @Override
@@ -57,7 +52,7 @@ public class RackDownGoodsOperateActivity extends BaseActivity implements CodeCo
 
     };
 
-    private CodeController.Presenter mCodePresenter = new CodePresenterImpl(this);
+    public CodeController.Presenter mCodePresenter = new CodePresenterImpl(this);
 
 
     @Override
@@ -94,15 +89,15 @@ public class RackDownGoodsOperateActivity extends BaseActivity implements CodeCo
         ltvName = (LabelTextView) findViewById(R.id.rack_down_goods_operate_ltv_name);
         ltvSkuCode = (LabelTextView) findViewById(R.id.rack_down_goods_operate_ltv_sku);
         ltvBatchNo = (LabelTextView) findViewById(R.id.rack_down_goods_operate_ltv_batchNO);
-        ltvUnit = (LabelTextView) findViewById(R.id.take_del_goods_operate_ltv_unit_name);
+        ltvUnit = (LabelTextView) findViewById(R.id.rack_down_goods_operate_ltv_unit);
         ltvStd = (LabelTextView) findViewById(R.id.rack_down_goods_operate_ltv_std);
         ltvOverQty = (LabelTextView) findViewById(R.id.rack_down_goods_operate_ltv_over_down_qty);
         ltvNowQty = (LabelTextView) findViewById(R.id.rack_down_goods_operate_ltv_plan_down_qty);
 
         etInputQty = (EditText) findViewById(R.id.rack_down_goods_operate_et_input_qty);
-        etInputQty.setFilters(new InputFilter[]{new CashierInputFilter(NumberUtils.getDouble(mOperateGoods.getQuantity() - mOperateGoods.getPutOffQuantity()))});
 
         tvSubmitF1 = (TextView) findViewById(R.id.rack_down_goods_operate_tv_submit_f1);
+
         tvSubmitF1.setOnClickListener(this);
     }
 

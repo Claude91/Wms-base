@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.exit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -8,7 +9,9 @@ import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.bean.exit.RackDownGoods;
 import com.shqtn.base.bean.params.RackDownGoodsListParams;
+import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
+import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.info.code.help.CodeCallback;
@@ -40,6 +43,7 @@ public class RackDownGoodsListPresenter extends AbstractListActivityPresenter {
         @Override
         public void onAfter() {
             super.onAfter();
+            getView().onRefreshComplete();
             getView().cancelProgressDialog();
         }
 
@@ -89,12 +93,12 @@ public class RackDownGoodsListPresenter extends AbstractListActivityPresenter {
         view.setEditTextHint("请扫描货品或箱子");
 
         view.setListViewModel(PullToRefreshBase.Mode.DISABLED);
+        refresh();
     }
 
 
     @Override
     public void clickItem(int position) {
-
         RackDownGoods rackDownGoods = mGoodsList.get(position - 1);
         toRackDownGoodsOperateActivity(rackDownGoods, -1);
     }
@@ -110,7 +114,8 @@ public class RackDownGoodsListPresenter extends AbstractListActivityPresenter {
         bundle.putParcelable(C.OPERATE_GOODS, rackDownGoods);
         bundle.putDouble(C.SCANNING_GOODS_QTY, initQty);
 
-        InfoLoadUtils.getInstance().getExitActivityLoad().getRackDownGoodsOperateActivity(bundle);
+        Class rackDownGoodsOperateActivity = InfoLoadUtils.getInstance().getExitActivityLoad().getRackDownGoodsOperateActivity(bundle);
+        getAty().startActivity(rackDownGoodsOperateActivity, bundle);
     }
 
     @Override
@@ -156,7 +161,7 @@ public class RackDownGoodsListPresenter extends AbstractListActivityPresenter {
             bundle.putParcelableArrayList(C.GOODS_LIST, mGoodsList);
             bundle.putString(C.OPERATE_RACK_NO, mOperateRack);
             bundle.putString(C.MANIFEST_STR, mOperateManifest);
-            bundle.putParcelable(C.OPERATE_LPN,lpn);
+            bundle.putParcelable(C.OPERATE_LPN, lpn);
             getAty().startActivity(rackDownLpnSubmitActivity, bundle);
 
 
@@ -192,7 +197,13 @@ public class RackDownGoodsListPresenter extends AbstractListActivityPresenter {
 
     @Override
     public void refresh() {
+        ModelService.post(ApiUrl.URL_RACK_DOWN_QUERY_RACK_PRODUCT_LIST, mGoodsListParams, mGoodsListCallback);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
     }
 
     @Override

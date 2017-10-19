@@ -98,7 +98,7 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
                     double iQty = rackUpGoods.getIinsumquantity();
                     sb.delete(0, sb.length());
                     sb.append(iQty).append("/").append(pQty);
-                    holder.setLabelText(R.id.item_goods_or_lpn_goods_ltv_plan_qty, rackUpGoods.getPalletno());
+                    holder.setLabelText(R.id.item_goods_or_lpn_goods_ltv_plan_qty, sb.toString());
 
                 }
 
@@ -121,12 +121,12 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
             NormalInitView.notSelectDepot(getView());
         }
 
-
+        refresh();
     }
 
     @Override
     public void clickItem(int position) {
-        RackUpGoods rackUpGoods = mGoodsList.get(position);
+        RackUpGoods rackUpGoods = mGoodsList.get(position-1);
         if (RackUpGoods.TAG_LPN.equals(rackUpGoods.getPalletflag())) {
             toRackUpLpnOperateActivity(rackUpGoods);
         } else {

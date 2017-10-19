@@ -257,7 +257,6 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     protected void onStart() {
         super.onStart();
         pullLv.setRefreshing();
-        mListActivityPresenter.refresh();
     }
 
     @Override

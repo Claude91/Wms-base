@@ -24,14 +24,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <cn.shqtn.wms.ui.view.NameTextView
+            <com.shqtn.base.widget.NameTextView
                 android:id="@+id/ntv_dialog_edit_sku"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:name="@string/skuName" />
 
-            <cn.shqtn.wms.ui.view.NameTextView
+            <com.shqtn.base.widget.NameTextView
                 android:id="@+id/ntv_dialog_edit_batchNo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <cn.shqtn.wms.ui.view.NameTextView
+            <com.shqtn.base.widget.NameTextView
                 android:id="@+id/ntv_dialog_edit_name"
 
                 style="@style/textStyle" android:layout_width="0dp"
@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 app:name="@string/name" />
 
-            <cn.shqtn.wms.ui.view.NameTextView
+            <com.shqtn.base.widget.NameTextView
                 style="@style/textStyle"
                 android:id="@+id/ntv_dialog_edit_unit"
                 android:layout_width="0dp"

@@ -148,8 +148,13 @@ public class RackUpGoodsOperateActivity extends BaseActivity implements SystemEd
         return true;
     }
 
-    private void submitGoods() {
+    boolean submiting;
 
+    private void submitGoods() {
+        if (submiting) {
+            return;
+        }
+        submiting = true;
         String operateQtyText = ltvOperateQty.getText();
         double operateQty = NumberUtils.getDouble(operateQtyText);
         String targetRack = ltvTargetRack.getText();
@@ -176,6 +181,7 @@ public class RackUpGoodsOperateActivity extends BaseActivity implements SystemEd
             public void onAfter() {
                 super.onAfter();
                 cancelProgressDialog();
+                submiting = false;
             }
 
             @Override

@@ -34,9 +34,9 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
     private EditText et;
     private View vSearch;
 
-    private final static int MODE_AUTO = 0;//自动
-    private final static int MODE_HAND = 1;//手动
-    private final static int MODE_SYSTEM = 2;//系统录入
+    public final static int MODE_AUTO = 0;//自动
+    public final static int MODE_HAND = 1;//手动
+    public final static int MODE_SYSTEM = 2;//系统录入
 
     private AlertDialog mModeSelectDialog;
     private TextChangeManager mTextChangeManager;
@@ -212,6 +212,10 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
             }
 
         }
+    }
+
+    public void setMode(int mode) {
+        mModeType = mode;
     }
 
     private void setModeText(int modeType) {

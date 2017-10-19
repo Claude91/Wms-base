@@ -134,7 +134,7 @@ public class PreferencesUtils {
     }
     public static void deleteFile(Context context, String fileName) {
         SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
-        sp.edit().clear();
+        sp.edit().clear().commit();
     }
 
 
