@@ -1,5 +1,6 @@
 package com.shqtn.base.controller.view;
 
+import com.shqtn.base.listener.OnClickDeleteListener;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
 import com.shqtn.base.widget.dialog.EditQuantityDialog;
 
@@ -30,6 +31,10 @@ public interface IDialogView {
     void displayEditQty(Double maxQty);
 
     void displayEditQty(EditQuantityDialog.OnResultListener resultListener);
+
+    void displayEditQtyDelBtn(OnClickDeleteListener l);
+
+    void hideEditQtyDelBtn();
 
     void displayEditQty(double maxQty, EditQuantityDialog.OnResultListener resultListener);
 

@@ -186,6 +186,10 @@ public class TitleView extends FrameLayout {
         this.tvRight.setText(rightText);
     }
 
+    public void setRightTextVisibility(int v) {
+        tvRight.setVisibility(v);
+    }
+
     public interface OnRightTextClickListener {
         void onOnClick();
     }

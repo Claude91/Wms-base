@@ -12,6 +12,7 @@ import com.shqtn.base.controller.presenter.BasePresenter;
 import com.shqtn.base.controller.presenter.IKeyDownPresenter;
 import com.shqtn.base.controller.view.IBaseView;
 import com.shqtn.base.controller.view.IAty;
+import com.shqtn.base.controller.view.ITitleView;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 
@@ -76,7 +77,7 @@ public interface ListActivityController {
         void setLeftTextOnClickListener(android.view.View.OnClickListener l);
     }
 
-    public abstract class Presenter extends DecodeCallbackImpl implements BasePresenter, IKeyDownPresenter,ActivityResultCallback {
+    public abstract class Presenter extends DecodeCallbackImpl implements BasePresenter, IKeyDownPresenter, ActivityResultCallback {
 
         /**
          * 点击item
@@ -84,6 +85,9 @@ public interface ListActivityController {
          * @param position
          */
         public abstract void clickItem(int position);
+
+        public void setTitleView(ITitleView titleView) {
+        }
 
         public abstract void setAty(IAty context);
 

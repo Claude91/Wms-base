@@ -31,17 +31,17 @@ import java.util.ArrayList;
 
 public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQuantityEditText.OnOverstepListener {
 
-    private TitleView titleView;
-    private LabelTextView ltvName, ltvSku, ltvBatchNo, ltvQty;
-    private TextView tvSubmitF1;
-    private MaxQuantityEditText mqEtInputQty;
+    public TitleView titleView;
+    public LabelTextView ltvName, ltvSku, ltvBatchNo, ltvQty;
+    public TextView tvSubmitF1;
+    public MaxQuantityEditText mqEtInputQty;
 
 
-    private String mOperateAreaCode;
-    private DepotOutManifest mOperateManifest;
-    private DepotOutGoods mOperateGoods;
-    private double scanningGoodsQty;
-    private ArrayList<SerialNo> mSerialNoList;
+    public String mOperateAreaCode;
+    public DepotOutManifest mOperateManifest;
+    public DepotOutGoods mOperateGoods;
+    public double scanningGoodsQty;
+    public ArrayList<SerialNo> mSerialNoList;
 
     @Override
     protected void setRootView() {
@@ -92,7 +92,7 @@ public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQua
 
     }
 
-    private void loadIkey() {
+    public void loadIkey() {
         DepotOutGoodsIkeyListParams ikeyParams = new DepotOutGoodsIkeyListParams();
         ikeyParams.setDeliveryNo(mOperateManifest.getDeliveryNo());
         ikeyParams.setWhCode(DepotUtils.getDepot(this).getWhcode());

@@ -3,12 +3,14 @@ package com.shqtn.enter.info.impl;
 import android.os.Bundle;
 
 import com.shqtn.base.C;
+import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.activity.LpnSubmitActivity;
 import com.shqtn.enter.activity.enter.RackUpGoodsOperateActivity;
 import com.shqtn.enter.activity.in.CheckQuantityManifestOperateActivity;
 import com.shqtn.enter.activity.in.GoodsAdjustTargetRackActivity;
 import com.shqtn.enter.controller.impl.lpn.RackUpAbstractLpnSubmitPresenter;
 import com.shqtn.enter.info.IActivityLoad;
+import com.shqtn.enter.presenter.in.GoodsAdjustAddMoveGoodsPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustLpnSubmitPresenter;
 
 /**
@@ -42,5 +44,12 @@ public class InActivityLoadImpl implements IActivityLoad.InActivityLoad {
     @Override
     public Class getCheckQuantityManifestOperateActivity(Bundle bundle) {
         return CheckQuantityManifestOperateActivity.class;
+    }
+
+    @Override
+    public Class getGoodsAdjustAddMoveGoodsActivity(Bundle bundle) {
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(GoodsAdjustAddMoveGoodsPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
     }
 }

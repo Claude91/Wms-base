@@ -8,6 +8,7 @@
     android:paddingBottom="@dimen/margin_normal"
     android:paddingTop="@dimen/margin_normal">
 
+
     <com.shqtn.base.widget.LabelTextView
         android:id="@+id/item_goods_adjust_name"
         android:layout_width="match_parent"
@@ -17,6 +18,7 @@
         app:color="@color/colorWhite"
         app:labelText="@string/name"
         app:textSize="@dimen/text_label_size" />
+
 
     <View
         android:layout_width="match_parent"
@@ -67,11 +69,11 @@
         <com.shqtn.base.widget.LabelTextView
             android:id="@+id/item_goods_adjust_qty"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_normal"
             android:layout_marginRight="@dimen/margin_normal"
             android:layout_marginTop="@dimen/margin_top_normal"
+            android:layout_weight="1"
             app:color="@color/colorWhite"
             app:labelText="@string/quantity"
             app:textSize="@dimen/text_label_size" />

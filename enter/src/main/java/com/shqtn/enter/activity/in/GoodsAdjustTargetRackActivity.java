@@ -16,6 +16,7 @@ import com.shqtn.base.info.code.CodeRack;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.StringUtils;
+import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
@@ -35,7 +36,7 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity implements CodeC
     private LabelTextView ltvTargetRackNo;
     private LabelTextView ltvSrcRackNo;
     private ListView lvMoveGoods;
-    SystemEditText setInputCode;
+    private SystemEditText setInputCode;
 
     private ArrayList<ItemGoods> mMoveGoodsList;
     private CommonAdapter<ItemGoods> mGoodsAdapter;
@@ -67,6 +68,17 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity implements CodeC
         mCodePresenter = new CodePresenterImpl(this);
         mCodePresenter.setDecodeCallback(mDecodeCallback);
         mCodePresenter.setDecodeType(CodeCallback.TAG_RACK);
+
+        mGoodsAdapter = new CommonAdapter<ItemGoods>(this, mMoveGoodsList, R.layout.item_goods_adjust) {
+            @Override
+            public void setItemContent(ViewHolder holder, ItemGoods itemGoods, int position) {
+                holder.setLabelText(R.id.item_goods_adjust_name, itemGoods.getSkuName())
+                        .setLabelText(R.id.item_goods_adjust_sku, itemGoods.getSkuCode())
+                        .setLabelText(R.id.item_goods_adjust_batch_no, itemGoods.getBatchNo())
+                        .setLabelText(R.id.item_goods_adjust_unit, itemGoods.getUnitName())
+                        .setLabelText(R.id.item_goods_adjust_qty, String.valueOf(itemGoods.getAdjQty()));
+            }
+        };
     }
 
     @Override
@@ -89,9 +101,16 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity implements CodeC
         setInputCode.setOnToTextSearchListener(new SystemEditText.OnToTextSearchListener() {
             @Override
             public void onSearchText(String content) {
-
+                mCodePresenter.toDecode(content);
             }
         });
+    }
+
+    @Override
+    public void initWidget() {
+        super.initWidget();
+        ltvSrcRackNo.setText(mSrcRackNo);
+        lvMoveGoods.setAdapter(mGoodsAdapter);
     }
 
     private void submit() {
@@ -132,6 +151,7 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity implements CodeC
                     Bundle listActivityBundle = ListActivity.createListActivityBundle(GoodsAdjustRackPresenter.class);
                     bundle.putAll(listActivityBundle);
                     startActivity(ListActivity.class, bundle);
+                    ToastUtils.show(getContext(), "提交成功 ");
                     setResult(Activity.RESULT_OK);
                     finish();
                 }
@@ -140,7 +160,6 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity implements CodeC
     }
 
     public boolean isCanSubmit() {
-
         if (StringUtils.isEmpty(mTargetRackNo)) {
             displayMsgDialog("请添加移动到的货位");
             return false;

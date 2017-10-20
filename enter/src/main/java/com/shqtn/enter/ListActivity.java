@@ -1,6 +1,5 @@
 package com.shqtn.enter;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +12,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.shqtn.base.BaseActivity;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
-import com.shqtn.base.controller.presenter.ActivityResultCallback;
+import com.shqtn.base.controller.view.ITitleView;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
@@ -26,7 +25,7 @@ import com.shqtn.enter.controller.impl.CodePresenterImpl;
  * Created by android on 2017/9/21.
  */
 
-public class ListActivity extends BaseActivity implements CodeController.View, ListActivityController.View, ListActivityController.BottomView {
+public class ListActivity extends BaseActivity implements CodeController.View, ListActivityController.View, ListActivityController.BottomView, ITitleView {
 
 
     private PullToRefreshListView pullLv;
@@ -80,6 +79,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
             mListActivityPresenter.setAty(this);
             mListActivityPresenter.setView(this);
             mListActivityPresenter.setBottomView(this);
+            mListActivityPresenter.setTitleView(this);
 
             //设置resultCallback 回调
             setActivityResultCallback(mListActivityPresenter);
@@ -109,7 +109,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
         labelTextView = (LabelTextView) findViewById(R.id.activity_list_label);
         btnClearSelect = (Button) findViewById(R.id.activity_list_btn_clear_select);
         bottomGroup = findViewById(R.id.activity_list_bottom_group);
-        tvLeft = (TextView) findViewById(R.id.activity_list_bottom_tv_right);
+        tvLeft = (TextView) findViewById(R.id.activity_list_bottom_tv_left);
         tvRight = (TextView) findViewById(R.id.activity_list_bottom_tv_right);
 
     }
@@ -131,6 +131,7 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
                 mListActivityPresenter.clickItem(i);
             }
         });
+
         if (mListActivityPresenter.isOpenStartRefreshing()) {
             pullLv.setRefreshing();
         }
@@ -170,6 +171,11 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     @Override
     public void setTitle(String title) {
         mTitleView.setTitle(title);
+    }
+
+    @Override
+    public void setTitleRightText(String content) {
+        mTitleView.setRightText(content);
     }
 
     @Override
@@ -277,6 +283,22 @@ public class ListActivity extends BaseActivity implements CodeController.View, L
     public void setRightText(String text) {
         tvRight.setText(text);
     }
+
+    @Override
+    public void setOnTitleRightTextClickListener(TitleView.OnRightTextClickListener l) {
+        mTitleView.setOnRightTextClickListener(l);
+    }
+
+    @Override
+    public void displayTitleRightView() {
+        mTitleView.setRightTextVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideTitleRightView() {
+        mTitleView.setRightTextVisibility(View.GONE);
+    }
+
 
     @Override
     public void setLeftText(String text) {

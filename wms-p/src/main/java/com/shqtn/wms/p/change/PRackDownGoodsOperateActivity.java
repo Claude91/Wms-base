@@ -1,10 +1,10 @@
-package com.shqtn.wms.p;
+package com.shqtn.wms.p.change;
 
 import android.view.View;
 
 import com.shqtn.base.widget.SystemEditText;
 
-public class RackDownGoodsOperateActivity extends com.shqtn.enter.activity.exit.RackDownGoodsOperateActivity {
+public class PRackDownGoodsOperateActivity extends com.shqtn.enter.activity.exit.RackDownGoodsOperateActivity {
     @Override
     public void bindView() {
         super.bindView();

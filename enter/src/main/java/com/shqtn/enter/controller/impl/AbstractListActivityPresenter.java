@@ -6,6 +6,7 @@ import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.DepotBean;
 import com.shqtn.base.bean.base.IManifest;
 import com.shqtn.base.controller.view.IAty;
+import com.shqtn.base.controller.view.ITitleView;
 import com.shqtn.base.info.code.AllotBean;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeLpn;
@@ -25,6 +26,8 @@ public abstract class AbstractListActivityPresenter extends ListActivityControll
 
     private IAty mContext;
 
+    private ITitleView iTitleView;
+
     private ListActivityController.View mView;
 
     private ListActivityController.BottomView mBottomView;
@@ -38,6 +41,15 @@ public abstract class AbstractListActivityPresenter extends ListActivityControll
     }
 
     public void init() {
+    }
+
+    @Override
+    public void setTitleView(ITitleView titleView) {
+        iTitleView = titleView;
+    }
+
+    public ITitleView getTitleView() {
+        return iTitleView;
     }
 
     @Override

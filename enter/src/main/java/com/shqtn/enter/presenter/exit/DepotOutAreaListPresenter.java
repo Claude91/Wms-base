@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.exit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -48,7 +49,6 @@ public class DepotOutAreaListPresenter extends AbstractListActivityPresenter {
         @Override
         public void onFailed(String msg) {
             getView().displayMsgDialog(msg);
-            getView().onRefreshComplete();
         }
 
         @Override
@@ -71,8 +71,8 @@ public class DepotOutAreaListPresenter extends AbstractListActivityPresenter {
                 mAreaListParams.setPage(page);
 
                 mAreaList.addAll(list);
-                mAreaAdapter.update(mAreaList);
             }
+            mAreaAdapter.update(mAreaList);
         }
     };
 
@@ -104,7 +104,7 @@ public class DepotOutAreaListPresenter extends AbstractListActivityPresenter {
             mAreaListParams.setWhcode(depot.getWhcode());
         }
 
-
+        refresh();
     }
 
     @Override
@@ -175,6 +175,12 @@ public class DepotOutAreaListPresenter extends AbstractListActivityPresenter {
     public void refresh() {
         mAreaListParams.setPage(C.PAGE);
         loadMoreData();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //refresh();
     }
 
     @Override

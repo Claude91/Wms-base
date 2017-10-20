@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.exit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -90,7 +91,7 @@ public class DepotOutGoodsListPresenter extends AbstractListActivityPresenter {
             }
         };
         getView().setAdapter(mGoodsAdapter);
-        getView().setListViewModel(PullToRefreshBase.Mode.DISABLED);
+        getView().setListViewModel(PullToRefreshBase.Mode.BOTH);
 
         getView().setTitle("出库货品列表");
         getView().setEditTextHint("请填写货品");
@@ -103,6 +104,9 @@ public class DepotOutGoodsListPresenter extends AbstractListActivityPresenter {
         mGoodsListParams.setAreaCode(mOperateArea);
         mGoodsListParams.setWhCode(DepotUtils.getDepot(getAty().getContext()).getWhcode());
         mGoodsListParams.setDeliveryNo(mOperateManifest.getDeliveryNo());
+
+        refresh();
+
     }
 
 
@@ -180,5 +184,10 @@ public class DepotOutGoodsListPresenter extends AbstractListActivityPresenter {
 
     public void loadMoreData() {
         ModelService.post(ApiUrl.URL_DEPOT_OUT_GOODS_LIST, mGoodsListParams, mGoodsListCallback);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

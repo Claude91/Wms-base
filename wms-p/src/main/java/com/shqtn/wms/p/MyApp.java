@@ -4,11 +4,11 @@ import com.shqtn.base.BaseApp;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.utils.IpChangeUtils;
 import com.shqtn.enter.InfoLoadUtils;
-import com.shqtn.wms.p.impl.EnterActivityLoadImpl;
-import com.shqtn.wms.p.impl.ExitActivityLoadImpl;
-import com.shqtn.wms.p.impl.FunctionLoadImpl;
-import com.shqtn.wms.p.impl.FunctionMainActivityLoadImpl;
-import com.shqtn.wms.p.impl.InActivityLoadImpl;
+import com.shqtn.wms.p.impl.PEnterActivityLoadImpl;
+import com.shqtn.wms.p.impl.PExitActivityLoadImpl;
+import com.shqtn.wms.p.impl.PFunctionLoadImpl;
+import com.shqtn.wms.p.impl.PFunctionMainActivityLoadImpl;
+import com.shqtn.wms.p.impl.PInActivityLoadImpl;
 
 
 /**
@@ -33,11 +33,11 @@ public class MyApp extends BaseApp {
         mMyApp = this;
         InfoLoadUtils.Config loadConfig = new InfoLoadUtils.Config();
         loadConfig
-                .setEnterActivityLoad(new EnterActivityLoadImpl())
-                .setExitActivityLoad(new ExitActivityLoadImpl())
-                .setInActivityLoad(new InActivityLoadImpl())
-                .setFunctionMainLoad(new FunctionMainActivityLoadImpl())
-                .setFunctionLoad(new FunctionLoadImpl());
+                .setEnterActivityLoad(new PEnterActivityLoadImpl())
+                .setExitActivityLoad(new PExitActivityLoadImpl())
+                .setInActivityLoad(new PInActivityLoadImpl())
+                .setFunctionMainLoad(new PFunctionMainActivityLoadImpl())
+                .setFunctionLoad(new PFunctionLoadImpl());
         String ip = IpChangeUtils.getIp(this);
         String port = IpChangeUtils.getPort(this);
         String base_ = "/q7wms-popular-rf/api/rf/wms/";

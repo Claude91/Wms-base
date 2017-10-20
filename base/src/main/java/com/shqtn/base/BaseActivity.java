@@ -20,6 +20,7 @@ import android.widget.EditText;
 
 import com.shqtn.base.controller.presenter.ActivityResultCallback;
 import com.shqtn.base.controller.presenter.IKeyDownPresenter;
+import com.shqtn.base.listener.OnClickDeleteListener;
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.DialogFactory;
 import com.shqtn.base.controller.view.IAty;
@@ -276,9 +277,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public void displayEditQty(Double maxQty) {
         if (!isFinishing()) {
-            if (mEditQuantityDialog == null) {
-                mEditQuantityDialog = DialogFactory.createEditQuantityDialog(this);
-            }
+            checkEditQuantityDialog();
             mEditQuantityDialog.setMaxQuantity(maxQty);
             mEditQuantityDialog.show();
         }
@@ -289,8 +288,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (!isFinishing()) {
             if (mEditQuantityDialog == null) {
                 mEditQuantityDialog = DialogFactory.createEditQuantityDialog(this);
-                mEditQuantityDialog.setOnResultListener(resultListener);
             }
+            mEditQuantityDialog.setOnResultListener(resultListener);
             mEditQuantityDialog.show();
         }
     }
@@ -298,12 +297,16 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public void displayEditQty(double maxQty, EditQuantityDialog.OnResultListener resultListener) {
         if (!isFinishing()) {
-            if (mEditQuantityDialog == null) {
-                mEditQuantityDialog = DialogFactory.createEditQuantityDialog(this);
-                mEditQuantityDialog.setMaxQuantity(maxQty);
-                mEditQuantityDialog.setOnResultListener(resultListener);
-            }
+            checkEditQuantityDialog();
+            mEditQuantityDialog.setMaxQuantity(maxQty);
+            mEditQuantityDialog.setOnResultListener(resultListener);
             mEditQuantityDialog.show();
+        }
+    }
+
+    private void checkEditQuantityDialog() {
+        if (mEditQuantityDialog == null) {
+            mEditQuantityDialog = DialogFactory.createEditQuantityDialog(this);
         }
     }
 
@@ -342,10 +345,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     public void startActivity(Class clazz, Bundle bundle) {
-        Intent intent = new Intent(this, clazz);
-        if (bundle != null)
-            intent.putExtra(INTENT_BUNDLE, bundle);
-        startActivity(intent);
+        startActivity(clazz, bundle, 4);
     }
 
     public Bundle getBundle() {
@@ -473,5 +473,19 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public void setActivityResultCallback(ActivityResultCallback activityResultCallback) {
         this.activityResultCallback = activityResultCallback;
+    }
+
+    @Override
+    public void displayEditQtyDelBtn(OnClickDeleteListener l) {
+        checkEditQuantityDialog();
+        mEditQuantityDialog.setOnClickDeleteListener(l);
+        mEditQuantityDialog.showBtnDelete();
+    }
+
+    @Override
+    public void hideEditQtyDelBtn() {
+        checkEditQuantityDialog();
+        mEditQuantityDialog.hideBtnDelete();
+        mEditQuantityDialog.setOnClickDeleteListener(null);
     }
 }

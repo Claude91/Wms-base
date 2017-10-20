@@ -6,6 +6,7 @@ import com.shqtn.enter.FunctionBean;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.info.IFunctionLoad;
+import com.shqtn.enter.info.impl.*;
 
 import java.util.List;
 
@@ -13,10 +14,10 @@ import java.util.List;
  * Created by android on 2017/9/25.
  */
 
-public class FunctionLoadImpl implements IFunctionLoad {
+public class PFunctionLoadImpl extends com.shqtn.enter.info.impl.FunctionLoadImpl {
     private IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad;
 
-    public FunctionLoadImpl() {
+    public PFunctionLoadImpl() {
         functionMainActivityLoad = InfoLoadUtils.getInstance().getFunctionMainActivityLoad();
     }
 

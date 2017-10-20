@@ -18,7 +18,7 @@ import com.shqtn.enter.presenter.enter.TakeDeliveryGoodsPresenter;
  * Created by android on 2017/9/30.
  */
 
-public class EnterActivityLoadImpl implements IActivityLoad.EnterActivityLoad {
+public class PEnterActivityLoadImpl extends com.shqtn.enter.info.impl.EnterActivityLoadImpl {
     @Override
     public Class getTakeDelGoodsListActivity(Bundle bundle) {
         bundle.putString(C.PRESENTER, TakeDeliveryGoodsPresenter.class.getCanonicalName());

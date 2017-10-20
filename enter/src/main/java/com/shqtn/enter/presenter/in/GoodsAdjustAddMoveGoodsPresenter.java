@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.ResultBean;
@@ -16,9 +17,11 @@ import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeLpn;
+import com.shqtn.base.listener.OnClickDeleteListener;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.GoodsUtils;
 import com.shqtn.base.utils.NumberUtils;
+import com.shqtn.base.widget.dialog.EditQuantityDialog;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.bean.ItemGoods;
@@ -32,12 +35,12 @@ import java.util.ArrayList;
 
 public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresenter {
 
-    private String mOperateRackNo;
-    private GoodsAdjustGoodsParams mGoodsParams = new GoodsAdjustGoodsParams();
+    public String mOperateRackNo;
+    public GoodsAdjustGoodsParams mGoodsParams = new GoodsAdjustGoodsParams();
 
-    private ArrayList<ItemGoods> mAddMoveGoodsList = new ArrayList<>();
-    private CommonAdapter<ItemGoods> mGoodsAdapter;
-    private ResultCallback mGoodsDetailsCallback = new ResultCallback() {
+    public ArrayList<ItemGoods> mAddMoveGoodsList = new ArrayList<>();
+    public CommonAdapter<ItemGoods> mGoodsAdapter;
+    public ResultCallback mGoodsDetailsCallback = new ResultCallback() {
         @Override
         public void onAfter() {
             super.onAfter();
@@ -80,8 +83,23 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
 
         }
     };
-    private CodeGoods mScanningGoods;
-    private int REQUEST_CODE = 1;
+    public CodeGoods mScanningGoods;
+    public int REQUEST_CODE = 1;
+
+    public ItemGoods mOperateQtyGoods;
+    EditQuantityDialog.OnResultListener resultListener = new EditQuantityDialog.OnResultListener() {
+        @Override
+        public void clickOk(double quantity) {
+            mOperateQtyGoods.setAdjQty(quantity);
+            mGoodsAdapter.update(mAddMoveGoodsList);
+            getView().cancelEditQty();
+        }
+
+        @Override
+        public void clickCancel() {
+            getView().cancelEditQty();
+        }
+    };
 
     @Override
     public void init() {
@@ -130,6 +148,16 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
                 mGoodsAdapter.update(mAddMoveGoodsList);
             }
         });
+        getView().onRefreshComplete();
+        getView().setListViewModel(PullToRefreshBase.Mode.DISABLED);
+
+        getView().displayEditQtyDelBtn(new OnClickDeleteListener() {
+            @Override
+            public void clickDelete() {
+                mAddMoveGoodsList.remove(mOperateQtyGoods);
+            }
+        });
+
     }
 
     /**
@@ -137,7 +165,7 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
      *
      * @param addMoveGoodsList
      */
-    private void toLockMoveGoods(ArrayList<ItemGoods> addMoveGoodsList) {
+    public void toLockMoveGoods(ArrayList<ItemGoods> addMoveGoodsList) {
         getView().displayProgressDialog("锁定货品中");
         ArrayList<GoodsAdjustGoodsSubmitParams.SubmitMovePro> list = new ArrayList<>();
         for (int m = 0; m < addMoveGoodsList.size(); m++) {
@@ -181,7 +209,7 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
         });
     }
 
-    private void toInputTargetRackActivity() {
+    public void toInputTargetRackActivity() {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(C.GOODS_LIST, mAddMoveGoodsList);
         bundle.putString(C.RACK_NO, mOperateRackNo);
@@ -210,7 +238,10 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
 
     @Override
     public void clickItem(int position) {
+        mOperateQtyGoods = mAddMoveGoodsList.get(position - 1);
 
+
+        getView().displayEditQty(resultListener);
     }
 
     @Override

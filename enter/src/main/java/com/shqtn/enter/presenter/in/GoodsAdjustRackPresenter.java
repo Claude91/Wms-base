@@ -1,5 +1,8 @@
 package com.shqtn.enter.presenter.in;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -17,6 +20,7 @@ import com.shqtn.base.info.code.CodeRack;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.StringUtils;
+import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
 import com.shqtn.enter.utils.NormalInitView;
@@ -51,18 +55,14 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
         public void onSuccess(ResultBean response) {
             ArrayList<GoodsAdjustGoods> rows = getRows(response.getRows(), GoodsAdjustGoods.class);
 
-
             int page = mRackDetailsParams.getPage();
             if (page == C.PAGE) {
                 mRackDetailsList.clear();
-                getView().displayMsgDialog("货位无货品");
-                getBottomView().hideBottomGroup();
-                mGoodsAdapter.update(mRackDetailsList);
-                return;
             }
 
             if (rows == null || rows.size() == 0) {
                 getView().displayMsgDialog("无更多货品");
+                mGoodsAdapter.update(mRackDetailsList);
                 return;
             }
             getBottomView().displayBottomGroup();
@@ -102,8 +102,7 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
 
         getView().setLabelName("操作货位");
 
-        getBottomView().setLeftText("清空(F1)");
-        getBottomView().setLeftTextOnClickListener(this);
+        getBottomView().hideLeftText();
         getBottomView().setRightText("下一步(F4)");
         getBottomView().setRightTextOnClickListener(this);
 
@@ -119,6 +118,27 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
             mRackDetailsParams.setPageSize(C.PAGE_SIZE);
         }
 
+        refresh();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            getView().setListViewModel(PullToRefreshBase.Mode.DISABLED);
+        }
+    }
+
+    @Override
+    public void onPullDownToRefresh() {
+        super.onPullDownToRefresh();
+        refresh();
+    }
+
+    @Override
+    public void onPullUpToRefresh() {
+        super.onPullUpToRefresh();
+        loadMoreData();
 
     }
 
@@ -136,12 +156,17 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
 
     @Override
     public void refresh() {
+        mRackDetailsParams.setPage(C.PAGE);
+        loadMoreData();
+    }
+
+    private void loadMoreData() {
         if (mRackDetailsParams.getWhCode() == null) {
             NormalInitView.notSelectDepot(getView());
-        } if (StringUtils.isEmpty(mRackDetailsParams.getLocCode())){
+        }
+        if (StringUtils.isEmpty(mRackDetailsParams.getLocCode())) {
             getView().onRefreshComplete();
-        }else {
-            mRackDetailsParams.setPage(C.PAGE);
+        } else {
             ModelService.post(ApiUrl.URL_GOODS_ADJUST_PALLET_LIST, mRackDetailsParams, mRackDetailsCallback);
         }
     }
@@ -155,8 +180,6 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.activity_list_bottom_tv_right) {
-            toClearAll();
-        } else if (i == R.id.activity_list_bottom_tv_left) {
             toNextOperateAddGoodsActivity();
         }
     }
@@ -165,7 +188,10 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
         if (mRackDetailsParams.getLocCode() == null) {
             return;
         }
-        // TODO: 2017/9/28 跳转详细操作页面  添加货品
+        Bundle bundle = new Bundle();
+        bundle.putString(C.RACK_NO, mRackDetailsParams.getLocCode());
+        Class goodsAdjustAddMoveGoodsActivity = InfoLoadUtils.getInstance().getInActivityLoad().getGoodsAdjustAddMoveGoodsActivity(bundle);
+        getAty().startActivity(goodsAdjustAddMoveGoodsActivity, bundle);
     }
 
     private void toClearAll() {
@@ -178,7 +204,7 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_F1) {
-            toClearAll();
+            //toClearAll();
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_F4) {

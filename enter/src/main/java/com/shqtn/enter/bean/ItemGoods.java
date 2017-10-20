@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.shqtn.base.bean.base.IGoods;
 import com.shqtn.base.bean.in.GoodsAdjustGoods;
-import com.shqtn.enter.presenter.in.GoodsAdjustAddMoveGoodsPresenter;
 
 /**
  * Created by android on 2017/9/30.

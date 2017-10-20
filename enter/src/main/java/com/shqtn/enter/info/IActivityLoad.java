@@ -178,6 +178,16 @@ public interface IActivityLoad {
          * @see com.shqtn.base.bean.in.CheckQuantityManifest
          */
         Class getCheckQuantityManifestOperateActivity(Bundle bundle);
+
+        /**
+         * 货位调整添加货品移动
+         * bundle.putString(C.RACK_NO,mRackDetailsParams.getLocCode());
+         * 要操作的货位 编码
+         *
+         * @param bundle
+         * @return
+         */
+        Class getGoodsAdjustAddMoveGoodsActivity(Bundle bundle);
     }
 
 

@@ -21,7 +21,7 @@ import com.shqtn.enter.presenter.in.GoodsAdjustRackPresenter;
  * Created by android on 2017/9/30.
  */
 
-public class FunctionMainActivityLoadImpl implements IActivityLoad.FunctionMainActivityLoad {
+public class PFunctionMainActivityLoadImpl extends com.shqtn.enter.info.impl.FunctionMainActivityLoadImpl{
     @Override
     public Class getTakeDelMainActivity(Bundle bundle) {
         Bundle listActivityBundle = ListActivity.createListActivityBundle(TakeDeliveryManifestPresenter.class);

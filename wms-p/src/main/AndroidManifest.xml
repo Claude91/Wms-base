@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RackDownGoodsOperateActivity"></activity>
+        <activity android:name=".change.PRackDownGoodsOperateActivity"></activity>
+        <activity android:name=".change.PDepotOutGoodsOperateActivity" />
     </application>
 
 </manifest>

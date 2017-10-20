@@ -61,12 +61,9 @@ public class RackDownManifestListPresenter extends AbstractListActivityPresenter
             mManifestParams.setPage(page);
             if (list == null || list.size() == 0) {
                 ToastUtils.show(getAty().getContext(), "没有更多数据");
-                return;
+            } else {
+                mManifestList.addAll(list);
             }
-
-
-            mManifestList.addAll(list);
-
             mManifestAdapter.update(mManifestList);
         }
     };
@@ -144,7 +141,7 @@ public class RackDownManifestListPresenter extends AbstractListActivityPresenter
         Bundle bundle = new Bundle();
         bundle.putString(C.MANIFEST_STR, manifestNo);
         Class rackDownRackListActivity = InfoLoadUtils.getInstance().getExitActivityLoad().getRackDownRackListActivity(bundle);
-        getAty().startActivity(rackDownRackListActivity,bundle);
+        getAty().startActivity(rackDownRackListActivity, bundle);
     }
 
     @Override
