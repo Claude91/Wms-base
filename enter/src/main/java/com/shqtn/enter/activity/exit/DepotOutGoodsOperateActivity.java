@@ -1,8 +1,6 @@
 package com.shqtn.enter.activity.exit;
 
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.NumberUtils;
-import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.MaxQuantityEditText;

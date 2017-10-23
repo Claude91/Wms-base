@@ -22,8 +22,10 @@ import com.shqtn.base.utils.UserClientUtils;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
+import com.shqtn.enter.EventBusFactory;
 import com.shqtn.enter.LoginActivity;
 import com.shqtn.enter.R;
+import com.shqtn.enter.even.DepotEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +89,7 @@ public class DepotChangeAty extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 DepotBean depotBean = mDepotSelectList.get(i - 1);
                 DepotUtils.saveDepot(DepotChangeAty.this, depotBean);
+                EventBusFactory.getDepotEventBus().post(depotBean);
                 finish();
             }
         });

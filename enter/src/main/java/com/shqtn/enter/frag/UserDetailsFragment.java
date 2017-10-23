@@ -17,9 +17,14 @@ import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.LoginUtils;
 import com.shqtn.base.utils.UserClientUtils;
 import com.shqtn.base.widget.TitleView;
+import com.shqtn.enter.EventBusFactory;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.LoginActivity;
 import com.shqtn.enter.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by android on 2017/9/21.
@@ -52,6 +57,7 @@ public class UserDetailsFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
+        EventBusFactory.getDepotEventBus().register(this);
         mDepot = DepotUtils.getDepot(getContext());
         mUserClientBean = UserClientUtils.getLoginUser(getContext());
     }
@@ -80,8 +86,12 @@ public class UserDetailsFragment extends BaseFragment {
         }
 
         if (mDepot != null) {
-            tvDepot.setText(mDepot.getWhname() + "(" + mDepot.getWhcode() + ")");
+            setDepotTextView(mDepot);
         }
+    }
+
+    private void setDepotTextView(DepotBean depot) {
+        tvDepot.setText(depot.getWhname() + "(" + depot.getWhcode() + ")");
     }
 
     @Override
@@ -109,7 +119,17 @@ public class UserDetailsFragment extends BaseFragment {
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
         }
+
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void changeDepot(DepotBean depot) {
+        setDepotTextView(depot);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBusFactory.getDepotEventBus().unregister(this);
+    }
 }
