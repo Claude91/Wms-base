@@ -29,6 +29,8 @@ public class InfoLoadUtils {
 
     private IFunctionLoad iFunctionLoad;
 
+    private IActivityLoad iActivityLoad;
+
     public IActivityLoad.FunctionMainActivityLoad getFunctionMainActivityLoad() {
         return functionMainActivityLoad;
     }
@@ -47,6 +49,10 @@ public class InfoLoadUtils {
 
     public IFunctionLoad getFunctionLoad() {
         return iFunctionLoad;
+    }
+
+    public IActivityLoad getActivityLoad() {
+        return iActivityLoad;
     }
 
 
@@ -74,6 +80,11 @@ public class InfoLoadUtils {
 
         public Config setFunctionLoad(IFunctionLoad f) {
             getInstance().iFunctionLoad = f;
+            return this;
+        }
+
+        public Config setActivityLoad(IActivityLoad f) {
+            getInstance().iActivityLoad = f;
             return this;
         }
 

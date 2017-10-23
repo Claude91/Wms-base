@@ -4,6 +4,7 @@ import com.shqtn.base.BaseApp;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.utils.IpChangeUtils;
 import com.shqtn.enter.InfoLoadUtils;
+import com.shqtn.wms.p.impl.PActivityLoad;
 import com.shqtn.wms.p.impl.PEnterActivityLoadImpl;
 import com.shqtn.wms.p.impl.PExitActivityLoadImpl;
 import com.shqtn.wms.p.impl.PFunctionLoadImpl;
@@ -37,7 +38,8 @@ public class MyApp extends BaseApp {
                 .setExitActivityLoad(new PExitActivityLoadImpl())
                 .setInActivityLoad(new PInActivityLoadImpl())
                 .setFunctionMainLoad(new PFunctionMainActivityLoadImpl())
-                .setFunctionLoad(new PFunctionLoadImpl());
+                .setFunctionLoad(new PFunctionLoadImpl())
+                .setActivityLoad(new PActivityLoad());
         String ip = IpChangeUtils.getIp(this);
         String port = IpChangeUtils.getPort(this);
         String base_ = "/q7wms-popular-rf/api/rf/wms/";

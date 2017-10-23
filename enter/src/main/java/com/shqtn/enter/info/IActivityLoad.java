@@ -15,7 +15,9 @@ import com.shqtn.base.bean.exit.SortingGoods;
  */
 
 public interface IActivityLoad {
+    Class getLoginActivity();
 
+    Class getHomeActivity();
 
     public interface FunctionMainActivityLoad {
 

@@ -116,14 +116,14 @@ public class UserDetailsFragment extends BaseFragment {
             });
             UserClientUtils.clearLoginUser(getContext());
             LoginUtils.clearAll(getContext());
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+            startActivity(new Intent(getActivity(), InfoLoadUtils.getInstance().getActivityLoad().getLoginActivity()));
             getActivity().finish();
         }
 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void changeDepot(DepotBean depot) {
+    public void changeDepotEvent(DepotBean depot) {
         setDepotTextView(depot);
     }
 

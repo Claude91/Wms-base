@@ -9,7 +9,9 @@ import com.shqtn.base.utils.LoginUtils;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.utils.UserClientUtils;
 import com.shqtn.enter.HomeActivity;
+import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.LoginActivity;
+import com.shqtn.wms.p.change.PLoginActivity;
 
 public class MainActivity extends BaseActivity {
 
@@ -39,7 +41,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void toLoginAty() {
-        startActivity(LoginActivity.class);
+        startActivity(InfoLoadUtils.getInstance().getActivityLoad().getLoginActivity());
         finish();
     }
 

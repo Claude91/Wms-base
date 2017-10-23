@@ -1,7 +1,5 @@
 package com.shqtn.enter;
 
-import android.text.method.BaseKeyListener;
-import android.text.method.KeyListener;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +17,6 @@ import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.LoginInfo;
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.Base64Utils;
-import com.shqtn.base.utils.LogUtils;
 import com.shqtn.base.utils.LoginUtils;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.utils.ToastUtils;
@@ -27,13 +24,13 @@ import com.shqtn.base.utils.UserClientUtils;
 
 public class LoginActivity extends BaseActivity {
 
-    private EditText login_et_editAccount;
-    private EditText login_et_editPassWord;
-    private Button login_btn_login;
-    private Button login_btn_loginChangeIp;
+    public EditText login_et_editAccount;
+    public EditText login_et_editPassWord;
+    public Button login_btn_login;
+    public Button login_btn_loginChangeIp;
 
-    private LoginUser mLastLoginUser;//上次登录的账号和密码；
-    private LoginUser mSaveLoginUser;//记录这次登陆的账号和密码，并保存
+    public LoginUser mLastLoginUser;//上次登录的账号和密码；
+    public LoginUser mSaveLoginUser;//记录这次登陆的账号和密码，并保存
 
     @Override
     protected void setRootView() {
@@ -60,7 +57,7 @@ public class LoginActivity extends BaseActivity {
         login_et_editPassWord.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == KeyEvent.KEYCODE_ENDCALL){
+                if (i == KeyEvent.KEYCODE_ENDCALL) {
                     toLogin();
                     return true;
                 }
@@ -91,7 +88,7 @@ public class LoginActivity extends BaseActivity {
         startActivity(IPChangeAty.class);
     }
 
-    private void toLogin() {
+    public void toLogin() {
         String account = login_et_editAccount.getText().toString();
         String password = login_et_editPassWord.getText().toString();
 

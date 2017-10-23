@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.in;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -112,6 +113,12 @@ public class CheckQuantityManifestListPresenter extends AbstractListActivityPres
     public void refresh() {
         mManifestParams.setWhCode(getDepotCode());
         ModelService.post(ApiUrl.check_query_manifest, mManifestParams, mManifestCallback);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
     }
 
     @Override

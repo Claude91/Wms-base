@@ -173,7 +173,7 @@ public class CheckQuantityManifestOperateActivity extends BaseActivity implement
 
         ltvRack = (LabelTextView) findViewById(R.id.activity_check_quantity_manifest_operate_ltv_rack);
         ltvType = (LabelTextView) findViewById(R.id.activity_check_quantity_manifest_operate_ltv_type);
-        ltvSrc = (LabelTextView) findViewById(R.id.activity_quality_inspection_goods_operate_ltv_src_manifest);
+        ltvSrc = (LabelTextView) findViewById(R.id.activity_check_quantity_manifest_operate_ltv_src);
 
         ltvManifest = (LabelTextView) findViewById(R.id.activity_check_quantity_manifest_operate_ltv_manifest);
 
