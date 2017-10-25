@@ -36,22 +36,37 @@ public class InfoLoadUtils {
     }
 
     public IActivityLoad.InActivityLoad getInActivityLoad() {
+        if (inActivityLoad == null) {
+            throw new NullPointerException("请在App 中初始化 InfoLoadUtils.Config   当前IactivityLoad.InActivityLoad未初始化");
+        }
         return inActivityLoad;
     }
 
     public IActivityLoad.EnterActivityLoad getEnterActivityLoad() {
+        if (enterActivityLoad == null) {
+            throw new NullPointerException("请在App 中初始化 InfoLoadUtils.Config   当前IactivityLoad.EnterActivityLoad");
+        }
         return enterActivityLoad;
     }
 
     public IActivityLoad.ExitActivityLoad getExitActivityLoad() {
+        if (exitActivityLoad == null) {
+            throw new NullPointerException("请在App 中初始化 InfoLoadUtils.Config   当前IactivityLoad.ExitActivityLoad");
+        }
         return exitActivityLoad;
     }
 
     public IFunctionLoad getFunctionLoad() {
+        if (iFunctionLoad == null) {
+            throw new NullPointerException("请在App 中初始化 InfoLoadUtils.Config   当前IFunctionLoad ");
+        }
         return iFunctionLoad;
     }
 
     public IActivityLoad getActivityLoad() {
+        if (iActivityLoad == null) {
+            throw new NullPointerException("请在App 中初始化 InfoLoadUtils.Config   IActivityLoad ");
+        }
         return iActivityLoad;
     }
 

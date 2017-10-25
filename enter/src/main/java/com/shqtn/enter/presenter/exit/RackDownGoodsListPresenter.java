@@ -2,6 +2,7 @@ package com.shqtn.enter.presenter.exit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.shqtn.base.C;
@@ -18,6 +19,7 @@ import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.GoodsUtils;
 import com.shqtn.base.utils.HintUtils;
 import com.shqtn.base.utils.NumberUtils;
+import com.shqtn.base.utils.StringUtils;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.ListActivityController;
@@ -69,6 +71,20 @@ public class RackDownGoodsListPresenter extends AbstractListActivityPresenter {
         mGoodsListAdapter = new CommonAdapter<RackDownGoods>(getAty().getContext(), null, R.layout.item_rack_goods) {
             @Override
             public void setItemContent(ViewHolder holder, RackDownGoods rackDownGoods, int position) {
+                View viewById = holder.getViewById(R.id.item_rack_goods_ltv_rack_code);
+                String locationCode = rackDownGoods.getLocationCode();
+                if (StringUtils.isEmpty(locationCode)) {
+                    if (viewById.getVisibility() != View.GONE) {
+                        viewById.setVisibility(View.GONE);
+                    }
+                } else {
+                    if (viewById.getVisibility() != View.VISIBLE) {
+                        viewById.setVisibility(View.VISIBLE);
+                    }
+                    holder.setLabelText(R.id.item_rack_goods_ltv_rack_code, locationCode);
+                }
+
+
                 holder.setLabelText(R.id.item_rack_goods_ltv_batchNO, rackDownGoods.getBatchNo());
                 holder.setLabelText(R.id.item_rack_goods_ltv_sku, rackDownGoods.getSkuCode());
                 holder.setLabelText(R.id.item_rack_goods_ltv_name, rackDownGoods.getSkuName());

@@ -9,6 +9,7 @@ import com.shqtn.base.bean.BatchAttrVo;
 import com.shqtn.base.bean.base.IGoods;
 
 /**
+ * @author ql
  * Created by android on 2017/7/20.
  */
 
@@ -18,8 +19,17 @@ public class RackDownGoods extends IGoods implements Parcelable {
     private String skuCode;//货品编码
     private String unitName;//货品单位
     private String batchNo;//货品名称
-    private ArrayList<BatchAttrVo> batList;//批次属性
-    private String targetLocCode;//
+
+    private String locationCode;//货位编码
+    /**
+     * 货位名称
+     **/
+    private String locationName;
+    /**
+     * 批次属性
+     */
+    private ArrayList<BatchAttrVo> batList;
+    private String targetLocCode;
     private String whCode;//仓库编码
     private String areaCode;//区域编码
     private String skuName;//货品名称
@@ -28,6 +38,21 @@ public class RackDownGoods extends IGoods implements Parcelable {
     private double putOffQuantity;//累计下架数量
     private String ownerId;//货主编码
 
+    public String getLocationCode() {
+        return locationCode;
+    }
+
+    public void setLocationCode(String locationCode) {
+        this.locationCode = locationCode;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
 
     public long getPickingIkey() {
         return pickingIkey;
@@ -148,6 +173,9 @@ public class RackDownGoods extends IGoods implements Parcelable {
         this.ownerId = ownerId;
     }
 
+    public RackDownGoods() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -159,6 +187,8 @@ public class RackDownGoods extends IGoods implements Parcelable {
         dest.writeString(this.skuCode);
         dest.writeString(this.unitName);
         dest.writeString(this.batchNo);
+        dest.writeString(this.locationCode);
+        dest.writeString(this.locationName);
         dest.writeList(this.batList);
         dest.writeString(this.targetLocCode);
         dest.writeString(this.whCode);
@@ -170,14 +200,13 @@ public class RackDownGoods extends IGoods implements Parcelable {
         dest.writeString(this.ownerId);
     }
 
-    public RackDownGoods() {
-    }
-
     protected RackDownGoods(Parcel in) {
         this.pickingIkey = in.readLong();
         this.skuCode = in.readString();
         this.unitName = in.readString();
         this.batchNo = in.readString();
+        this.locationCode = in.readString();
+        this.locationName = in.readString();
         this.batList = new ArrayList<BatchAttrVo>();
         in.readList(this.batList, BatchAttrVo.class.getClassLoader());
         this.targetLocCode = in.readString();
@@ -190,7 +219,7 @@ public class RackDownGoods extends IGoods implements Parcelable {
         this.ownerId = in.readString();
     }
 
-    public static final Parcelable.Creator<RackDownGoods> CREATOR = new Parcelable.Creator<RackDownGoods>() {
+    public static final Creator<RackDownGoods> CREATOR = new Creator<RackDownGoods>() {
         @Override
         public RackDownGoods createFromParcel(Parcel source) {
             return new RackDownGoods(source);

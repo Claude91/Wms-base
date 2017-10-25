@@ -118,20 +118,20 @@ public class FunctionLoadImpl implements IFunctionLoad {
         }
     }
 
-    private FunctionBean getPackingOutMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getPackingOutMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("包装出库");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.bz);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getPackingOutMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getPackingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getPackingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("包装");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.bz);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getPackingMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
@@ -139,40 +139,40 @@ public class FunctionLoadImpl implements IFunctionLoad {
     }
 
 
-    private FunctionBean getQualityInspectionMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getQualityInspectionMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("质检");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_quanlity_checking);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getQualityInspectionMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getDepotOutMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getDepotOutMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("出库");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_depot_out);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getDepotOutMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getSortingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getSortingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("分拣");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_goods_adjust);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getSortingMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getRackDownMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getRackDownMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("下架");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_rack_down);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getRackDownMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
@@ -180,57 +180,57 @@ public class FunctionLoadImpl implements IFunctionLoad {
     }
 
 
-    private FunctionBean getEnterPalletMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getEnterPalletMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("入托");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_rack_up);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getEnterPalletMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getCheckQuantityMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getCheckQuantityMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("盘点");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_quanlity_checking);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getCheckQuantityMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getGoodsAdjustMain(IActivityLoad.FunctionMainActivityLoad inActivityLoad) {
+    public FunctionBean getGoodsAdjustMain(IActivityLoad.FunctionMainActivityLoad inActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("货位调整");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_goods_adjust);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = inActivityLoad.getGoodsAdjustMainActivity(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getTakeBoxMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getTakeBoxMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("装箱");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_take_box);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getTakeBoxMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getRackUpMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getRackUpMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("上架");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        bean.setIconId(com.shqtn.base.R.drawable.home_rack_up);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getRackUpMainActivity(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
 
-    private FunctionBean getTakeDelMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    public FunctionBean getTakeDelMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
         bean.setName("收货");
         bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);

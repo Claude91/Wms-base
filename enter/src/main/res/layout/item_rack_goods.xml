@@ -89,6 +89,13 @@
             app:labelText="@string/standard"
             app:size="@dimen/text_label_size" />
     </LinearLayout>
-
-
+    <com.shqtn.base.widget.LabelTextView
+        android:visibility="gone"
+        android:id="@+id/item_rack_goods_ltv_rack_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:color="@color/text_white_color"
+        app:labelText="@string/sku"
+        app:size="@dimen/text_label_size" />
 </LinearLayout>

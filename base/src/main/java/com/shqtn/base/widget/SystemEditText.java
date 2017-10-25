@@ -1,14 +1,13 @@
 package com.shqtn.base.widget;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.KeyListener;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +32,7 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
     private View vInputModeGroup;
     private EditText et;
     private View vSearch;
+
 
     public final static int MODE_AUTO = 0;//自动
     public final static int MODE_HAND = 1;//手动
@@ -102,9 +102,11 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
             }
         });
 
+
         et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
                 if (actionId == EditorInfo.IME_ACTION_SEARCH
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || actionId == EditorInfo.IME_ACTION_GO
@@ -127,6 +129,7 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         });
 
     }
+
 
     public void setOnToTextSearchListener(OnToTextSearchListener mOnToTextSearchListener) {
         this.mOnToTextSearchListener = mOnToTextSearchListener;

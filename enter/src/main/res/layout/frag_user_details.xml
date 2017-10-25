@@ -32,8 +32,10 @@
 
             <TextView
                 style="@style/label_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLength="4"
                 android:text="用户名称" />
 
             <TextView
@@ -58,8 +60,9 @@
 
             <TextView
                 style="@style/label_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="工号" />
 
             <TextView
@@ -84,8 +87,9 @@
 
             <TextView
                 style="@style/label_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="仓库" />
 
             <TextView

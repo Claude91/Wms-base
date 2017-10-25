@@ -95,6 +95,7 @@
         app:size="14sp" />
 
     <ListView
+        android:layout_marginBottom="6dp"
         android:id="@+id/activity_check_quantity_manifest_operate_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -2,6 +2,7 @@ package com.shqtn.wms;
 
 import com.shqtn.base.BaseApp;
 import com.shqtn.enter.InfoLoadUtils;
+import com.shqtn.enter.info.impl.ActivityLoadImpl;
 import com.shqtn.enter.info.impl.EnterActivityLoadImpl;
 import com.shqtn.enter.info.impl.ExitActivityLoadImpl;
 import com.shqtn.enter.info.impl.FunctionLoadImpl;
@@ -30,12 +31,12 @@ public class MyApp extends BaseApp {
     public void init() {
         mMyApp = this;
         InfoLoadUtils.Config loadConfig = new InfoLoadUtils.Config();
-        loadConfig
-                .setEnterActivityLoad(new EnterActivityLoadImpl())
+        loadConfig.setEnterActivityLoad(new EnterActivityLoadImpl())
                 .setExitActivityLoad(new ExitActivityLoadImpl())
                 .setInActivityLoad(new InActivityLoadImpl())
                 .setFunctionMainLoad(new FunctionMainActivityLoadImpl())
-                .setFunctionLoad(new FunctionLoadImpl());
+                .setFunctionLoad(new FunctionLoadImpl())
+                .setActivityLoad(new ActivityLoadImpl());
 
     }
 

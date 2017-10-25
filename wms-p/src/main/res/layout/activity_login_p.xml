@@ -41,13 +41,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/icon_login_title_ch" />
+                            android:src="@drawable/login_china" />
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/icon_login_title_en" />
+                            android:src="@drawable/login_eng" />
                     </LinearLayout>
                 </FrameLayout>
 

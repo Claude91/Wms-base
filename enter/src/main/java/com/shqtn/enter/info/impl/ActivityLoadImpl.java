@@ -8,7 +8,7 @@ import com.shqtn.enter.info.IActivityLoad;
  * Created by android on 2017/10/23.
  */
 
-public class ActivityLoad implements IActivityLoad {
+public class ActivityLoadImpl implements IActivityLoad {
     @Override
     public Class getLoginActivity() {
         return LoginActivity.class;

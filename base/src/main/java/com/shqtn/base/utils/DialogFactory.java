@@ -19,12 +19,6 @@ public class DialogFactory {
 
     public static AlertDialog createMsgDialog(Context context) {
         AlertDialog ad = new AlertDialog.Builder(context)
-                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                })
                 .create();
         return ad;
     }
