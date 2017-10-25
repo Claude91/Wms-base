@@ -25,6 +25,7 @@ import com.shqtn.enter.R;
 import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
 import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
+import com.squareup.okhttp.Request;
 
 public class RackDownGoodsOperateActivity extends BaseActivity implements CodeController.View {
 
@@ -150,8 +151,8 @@ public class RackDownGoodsOperateActivity extends BaseActivity implements CodeCo
             params.setWhCode(DepotUtils.getDepot(this).getWhcode());
             ModelService.post(ApiUrl.URL_RACK_DOWN_QUERY_RACK_PRODUCT_SUBMIT, params, new ResultCallback() {
                 @Override
-                public void onAfter() {
-                    super.onAfter();
+                public void onBefore(Request request) {
+                    super.onBefore(request);
                     cancelProgressDialog();
                 }
 

@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.shqtn.base.controller.presenter.ActivityResultCallback;
 import com.shqtn.base.controller.presenter.IKeyDownPresenter;
 import com.shqtn.base.listener.OnClickDeleteListener;
@@ -200,8 +201,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             }
             mMsgDialog.setMessage(msg);
             mMsgDialog.setTitle(title);
-            if (!mMsgDialog.isShowing())
+            if (!mMsgDialog.isShowing()) {
                 mMsgDialog.show();
+            }
         }
     }
 

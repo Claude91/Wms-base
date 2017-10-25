@@ -83,7 +83,7 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
 
         getView().hideLabel();
 
-        getView().setEditTextHint("请输入描货品");
+        getView().setEditTextHint("请输入描扫描货位");
 
 
         mGoodsAdapter = new CommonAdapter<GoodsAdjustGoods>(getAty().getContext(), null, R.layout.item_goods_adjust) {

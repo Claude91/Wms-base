@@ -115,6 +115,7 @@ public class UserDetailsFragment extends BaseFragment {
                 }
             });
             UserClientUtils.clearLoginUser(getContext());
+            DepotUtils.clear(getContext());
             LoginUtils.clearAll(getContext());
             startActivity(new Intent(getActivity(), InfoLoadUtils.getInstance().getActivityLoad().getLoginActivity()));
             getActivity().finish();

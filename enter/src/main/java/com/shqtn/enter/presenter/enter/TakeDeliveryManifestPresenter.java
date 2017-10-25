@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.enter;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -61,6 +62,7 @@ public class TakeDeliveryManifestPresenter extends AbstractListActivityPresenter
                 mManifestList.clear();
                 if (rows == null || rows.size() == 0) {
                     getView().displayMsgDialog(getAty().getString(R.string.not_manifest));
+                    mManifestAdapter.update(mManifestList);
                     return;
                 }
                 mManifestList.addAll(rows);
@@ -71,6 +73,7 @@ public class TakeDeliveryManifestPresenter extends AbstractListActivityPresenter
                     mManifestList.addAll(rows);
                 }
             }
+            mManifestAdapter.update(mManifestList);
             page++;
             mManifestParams.setPage(page);
         }
@@ -106,6 +109,7 @@ public class TakeDeliveryManifestPresenter extends AbstractListActivityPresenter
             return;
         }
         mManifestParams.setWhCode(depot.getWhcode());
+        refresh();
     }
 
     private void onLoadMoreData() {
@@ -179,5 +183,10 @@ public class TakeDeliveryManifestPresenter extends AbstractListActivityPresenter
     @Override
     public boolean isOpenStartRefreshing() {
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

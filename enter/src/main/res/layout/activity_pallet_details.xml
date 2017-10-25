@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_pallet_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shqtn.enter.activity.PalletDetailsActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="托盘明细" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/pallet_details_ltv_lpn_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_normal"
+        android:paddingBottom="@dimen/margin_top_normal"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingTop="@dimen/margin_top_normal"
+        app:labelText="托盘" />
+
+    <ListView
+        android:id="@+id/pallet_details_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal" />
+</LinearLayout>

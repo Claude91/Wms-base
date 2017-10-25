@@ -51,12 +51,13 @@ public class RackDownRackListPresenter extends AbstractListActivityPresenter {
         @Override
         public void onSuccess(ResultBean response) {
             ArrayList<RackDownRack> list = getRows(response.getData(), RackDownRack.class);
+            mRackList = list;
+            mRackListAdapter.update(mRackList);
             if (list == null || list.size() == 0) {
                 getView().displayMsgDialog("单号：" + mManifestDetailsParams.getPickingNo() + ",无明细，请重新扫描");
                 return;
             }
-            mRackList = list;
-            mRackListAdapter.update(mRackList);
+
 
         }
     };
@@ -76,7 +77,7 @@ public class RackDownRackListPresenter extends AbstractListActivityPresenter {
         view.setLabelContent(mOperateManifest);
 
         view.setScanningType(CodeCallback.TAG_RACK);
-
+        view.setEditTextHint("请输入货位编码");
         mManifestDetailsParams.setWhCode(DepotUtils.getDepot(getAty().getContext()).getWhcode());
         mManifestDetailsParams.setPickingNo(mOperateManifest);
 

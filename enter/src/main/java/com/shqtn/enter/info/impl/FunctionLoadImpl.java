@@ -77,7 +77,15 @@ public class FunctionLoadImpl implements IFunctionLoad {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        try {
+            FunctionBean enterPallet = getPalletManagerHaveCodeInMain(functionMainActivityLoad);
+            list.add(enterPallet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void addExitFunction(List<FunctionBean> mExitFunctionList) {
@@ -127,6 +135,17 @@ public class FunctionLoadImpl implements IFunctionLoad {
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }
+
+    private FunctionBean getPalletManagerHaveCodeInMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+        FunctionBean bean = new FunctionBean();
+        bean.setName("有号入托");
+        bean.setIconId(com.shqtn.base.R.drawable.home_pallet_manager);
+        Bundle bundle = bean.getBundle();
+        Class takeDelManifestListActivity = functionMainActivityLoad.getPMHaveCodeInMain(bundle);
+        bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
+        return bean;
+    }
+
 
     public FunctionBean getPackingMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();

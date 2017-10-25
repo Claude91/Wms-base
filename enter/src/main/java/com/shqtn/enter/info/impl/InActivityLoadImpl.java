@@ -5,9 +5,11 @@ import android.os.Bundle;
 import com.shqtn.base.C;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.activity.LpnSubmitActivity;
+import com.shqtn.enter.activity.PalletDetailsActivity;
 import com.shqtn.enter.activity.enter.RackUpGoodsOperateActivity;
 import com.shqtn.enter.activity.in.CheckQuantityManifestOperateActivity;
 import com.shqtn.enter.activity.in.GoodsAdjustTargetRackActivity;
+import com.shqtn.enter.activity.in.PMHaveCodeAddGoodsOrLpnActivity;
 import com.shqtn.enter.controller.impl.lpn.RackUpAbstractLpnSubmitPresenter;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.in.GoodsAdjustAddMoveGoodsPresenter;
@@ -51,5 +53,15 @@ public class InActivityLoadImpl implements IActivityLoad.InActivityLoad {
         Bundle listActivityBundle = ListActivity.createListActivityBundle(GoodsAdjustAddMoveGoodsPresenter.class);
         bundle.putAll(listActivityBundle);
         return ListActivity.class;
+    }
+
+    @Override
+    public Class getPalletManagerHaveCodeInLpnAddGoodsOrLpnActivity(Bundle bundle) {
+        return PMHaveCodeAddGoodsOrLpnActivity.class;
+    }
+
+    @Override
+    public Class getPalletDetailsActivity(Bundle bundle) {
+        return PalletDetailsActivity.class;
     }
 }

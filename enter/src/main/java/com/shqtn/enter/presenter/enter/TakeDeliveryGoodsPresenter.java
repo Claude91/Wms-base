@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.enter;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -259,6 +260,13 @@ public class TakeDeliveryGoodsPresenter extends AbstractListActivityPresenter {
         bundle.putParcelable(C.OPERATE_GOODS, takeDeliveryGoods);
         bundle.putString(C.MANIFEST_STR, mOperateManifest);
         getAty().startActivity(InfoLoadUtils.getInstance().getEnterActivityLoad().getTakeDelGoodsOperateActivity(bundle), bundle);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
     }
 
     @Override

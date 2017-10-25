@@ -23,7 +23,9 @@
         <activity android:name=".activity.exit.PackingAddLpnOrGoodsOperateActivity" />
         <activity android:name=".activity.in.CheckQuantityManifestOperateActivity" />
         <activity android:name=".activity.enter.TakeBoxGoodsTakeSelectActivity" />
-        <activity android:name=".activity.enter.TakeBoxTakeOperateActivity"></activity>
+        <activity android:name=".activity.enter.TakeBoxTakeOperateActivity" />
+        <activity android:name=".activity.in.PMHaveCodeAddGoodsOrLpnActivity" />
+        <activity android:name=".activity.PalletDetailsActivity"></activity>
     </application>
 
 </manifest>

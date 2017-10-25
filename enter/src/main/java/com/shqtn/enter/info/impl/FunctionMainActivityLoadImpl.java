@@ -16,6 +16,7 @@ import com.shqtn.enter.presenter.exit.RackDownManifestListPresenter;
 import com.shqtn.enter.presenter.exit.SortingManifestListPresenter;
 import com.shqtn.enter.presenter.in.CheckQuantityManifestListPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustRackPresenter;
+import com.shqtn.enter.presenter.in.pallet.PalletManagerHaveCodeInLpnPresenter;
 
 /**
  * Created by android on 2017/9/30.
@@ -105,6 +106,13 @@ public class FunctionMainActivityLoadImpl implements IActivityLoad.FunctionMainA
     @Override
     public Class getQualityInspectionMain(Bundle bundle) {
         Bundle listActivityBundle = ListActivity.createListActivityBundle(QualityInspectionQueryGoodsController.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
+    }
+
+    @Override
+    public Class getPMHaveCodeInMain(Bundle bundle) {
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(PalletManagerHaveCodeInLpnPresenter.class);
         bundle.putAll(listActivityBundle);
         return ListActivity.class;
     }

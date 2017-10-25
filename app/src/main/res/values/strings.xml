@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">智能仓储</string>
+    <string name="app_name">Test智能仓储</string>
     <string name="home_select_information">数据</string>
     <string name="home_select_function">功能</string>
     <string name="home_select_details">个人详情</string>

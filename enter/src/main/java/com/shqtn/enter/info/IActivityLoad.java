@@ -81,6 +81,14 @@ public interface IActivityLoad {
         Class getDepotOutMain(Bundle bundle);
 
         Class getQualityInspectionMain(Bundle bundle);
+
+        /**
+         * 托盘管理  有号入托
+         *
+         * @param bundle
+         * @return
+         */
+        Class getPMHaveCodeInMain(Bundle bundle);
     }
 
     public interface EnterActivityLoad {
@@ -190,6 +198,25 @@ public interface IActivityLoad {
          * @return
          */
         Class getGoodsAdjustAddMoveGoodsActivity(Bundle bundle);
+
+        /**
+         * 托盘管理中的有号入托，的操作
+         * bundle.putString(BaseActivity.LPN_NO, palletNo);
+         * 托盘编码
+         *
+         * @param bundle
+         * @return
+         */
+        Class getPalletManagerHaveCodeInLpnAddGoodsOrLpnActivity(Bundle bundle);
+
+        /**
+         * 查看 托盘内明细
+         * bundle.putString(BaseActivity.LPN_NO, palletNo);
+         *
+         * @param bundle
+         * @return
+         */
+        Class getPalletDetailsActivity(Bundle bundle);
     }
 
 

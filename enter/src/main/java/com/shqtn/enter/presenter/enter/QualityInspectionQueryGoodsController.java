@@ -58,7 +58,7 @@ public class QualityInspectionQueryGoodsController extends AbstractListActivityP
             }
         };
         view.setAdapter(mGoodsAdapter);
-
+        view.onRefreshComplete();
 
     }
 

@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.enter;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -85,6 +86,7 @@ public class TakeBoxManifestQueryPresenter extends AbstractListActivityPresenter
         view.setListViewModel(PullToRefreshBase.Mode.DISABLED);
         view.setAdapter(mGoodsAdapter);
 
+        refresh();
     }
 
     @Override
@@ -141,6 +143,12 @@ public class TakeBoxManifestQueryPresenter extends AbstractListActivityPresenter
         }
         queryManifestOfGoodsList(mManifest);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
     }
 
     private void queryManifestOfGoodsList(String manifest) {

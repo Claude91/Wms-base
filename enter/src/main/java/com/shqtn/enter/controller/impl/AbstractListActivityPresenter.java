@@ -93,7 +93,7 @@ public abstract class AbstractListActivityPresenter extends ListActivityControll
         return new CommonAdapter<B>(getAty().getContext(), null, R.layout.item_manifest) {
             @Override
             public void setItemContent(ViewHolder holder, B b, int position) {
-
+                holder.setLabelText(R.id.item_manifest_ltv,b.getManifest());
             }
         };
     }
