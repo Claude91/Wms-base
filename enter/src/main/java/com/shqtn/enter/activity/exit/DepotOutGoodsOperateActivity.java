@@ -126,6 +126,12 @@ public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQua
     }
 
     @Override
+    public boolean onKeyF1() {
+        submit();
+        return true;
+    }
+
+    @Override
     public void overstepMaxQuantity(EditText e, double s) {
         //超出限制后
         e.setTextColor(ContextCompat.getColor(this, R.color.colorRed));

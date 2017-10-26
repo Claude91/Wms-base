@@ -119,6 +119,12 @@ public class SortingGoodsOperateActivity extends BaseActivity implements MaxQuan
         }
     }
 
+    @Override
+    public boolean onKeyF1() {
+        toSubmit();
+        return true;
+    }
+
     private void toSubmit() {
         if (isSubmit()) {
             displayProgressDialog("提交中");

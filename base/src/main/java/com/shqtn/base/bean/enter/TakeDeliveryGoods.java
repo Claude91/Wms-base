@@ -12,6 +12,8 @@ import com.shqtn.base.bean.base.IGoods;
 
 public class TakeDeliveryGoods extends IGoods implements Parcelable {
 
+    //{"rs":true,"data":[{"ikey":12792,"ihkey":10266,"asnNo":"SH20171025008","skuCode":"80000098","skuName":"AP11电动天窗总成(灰色）","batchNo":"20170617002","unitCode":"01001","unitName":"PCS","batchFlag":"Y","batchNoFlag":"0","serialFlag":"N","serialNoFlag":"0","ts":1508932788000,"batchAttrList":[],"serialNoList":[],"rquantity":328}]}
+
     private Long ikey;
     private Long ihkey;
     private String asnNo;

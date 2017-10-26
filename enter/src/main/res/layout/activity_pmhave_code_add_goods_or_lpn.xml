@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_pmhave_code_add_goods_or_lpn"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shqtn.enter.activity.in.PMHaveCodeAddGoodsOrLpnActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        android:background="@color/colorBlue"
+        app:rightText="托盘详情"
+        app:title="托盘管理添加" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/activity_pmhave_code_add_goods_or_lpn_set_input_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView" />
+
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/activity_pmhave_code_add_goods_or_lpn_ltv_operate_lpn"
+        style="@style/baseMarginLeft_Right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_pmhave_code_add_goods_or_lpn_set_input_code"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        app:labelText="操作托盘"
+        app:size="14sp" />
+
+
+    <ListView
+        android:id="@+id/activity_pmhave_code_add_goods_or_lpn_lv"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/activity_pmhave_code_add_goods_or_lpn_ltv_operate_lpn"
+        android:layout_above="@+id/activity_pmhave_code_add_goods_or_lpn_tv_submit_f1"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/activity_pmhave_code_add_goods_or_lpn_tv_submit_f1"
+        android:text="@string/submitF1"
+        android:layout_alignParentBottom="true"
+        style="@style/bottomBtnStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

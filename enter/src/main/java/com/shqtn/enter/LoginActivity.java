@@ -145,7 +145,7 @@ public class LoginActivity extends BaseActivity {
 
                 //设置当前为登陆状态
                 LoginUtils.setLogin(getApplicationContext(), true);
-
+                cancelProgressDialog();
                 startActivity(HomeActivity.class);
                 finish();
             }

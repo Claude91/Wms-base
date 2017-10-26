@@ -170,6 +170,12 @@ public class RackDownGoodsOperateActivity extends BaseActivity implements CodeCo
         }
     }
 
+    @Override
+    public boolean onKeyF1() {
+        submitGoods();
+        return true;
+    }
+
     public boolean isSubmit() {
         double inputQty = getInputQty();
         if (inputQty <= 0) {

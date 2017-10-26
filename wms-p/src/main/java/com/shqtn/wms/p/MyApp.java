@@ -42,8 +42,8 @@ public class MyApp extends BaseApp {
                 .setActivityLoad(new PActivityLoad());
         String ip = IpChangeUtils.getIp(this);
         String port = IpChangeUtils.getPort(this);
-        String base_ = "/q7wms-popular-rf/api/rf/wms/";
-        ApiUrl.changeBase("192.168.0.252", "052", base_);
+        String base_ = "/q7wms-express-rf/api/rf/wms/";
+        ApiUrl.changeBase(ip,port, base_);
 
     }
 

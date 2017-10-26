@@ -148,7 +148,7 @@ public class TakeDeliveryManifestPresenter extends AbstractListActivityPresenter
 
             @Override
             public void onSuccess(ResultBean response) {
-                ArrayList<TakeDeliveryGoods> arrayList = getData(response.getData(), TakeDeliveryGoods.class);
+                ArrayList<TakeDeliveryGoods> arrayList = getRows(response.getData(), TakeDeliveryGoods.class);
                 if (arrayList == null || arrayList.size() == 0) {
                     getView().displayMsgDialog(getAty().getString(R.string.noGoodsOfManifest));
                 } else {
