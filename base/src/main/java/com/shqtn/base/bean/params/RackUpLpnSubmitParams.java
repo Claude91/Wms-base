@@ -10,6 +10,8 @@ import java.util.List;
  */
 
 public class RackUpLpnSubmitParams {
+    private String whCode;
+
 
     private String lpnNo;
 
@@ -31,14 +33,22 @@ public class RackUpLpnSubmitParams {
         this.pisList = pisList;
     }
 
-    public static class Pis implements Parcelable {
+    public String getWhCode() {
+        return whCode;
+    }
 
+    public void setWhCode(String whCode) {
+        this.whCode = whCode;
+    }
+
+    public static class Pis implements Parcelable {
         private long ikey;
         private double iquantity;
         private String poscode;//上架的货位
 
         private String ccode;//任务单据号
         private String rdcode;
+
 
         public String getCcode() {
             return ccode;

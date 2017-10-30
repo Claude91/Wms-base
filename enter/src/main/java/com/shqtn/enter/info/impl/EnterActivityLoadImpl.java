@@ -10,7 +10,7 @@ import com.shqtn.enter.activity.enter.RackUpGoodsOperateActivity;
 import com.shqtn.enter.activity.enter.TakeBoxGoodsTakeSelectActivity;
 import com.shqtn.enter.activity.enter.TakeBoxTakeOperateActivity;
 import com.shqtn.enter.activity.enter.TakeDelGoodsOperateActivity;
-import com.shqtn.enter.controller.impl.lpn.RackUpAbstractLpnSubmitPresenter;
+import com.shqtn.enter.controller.impl.lpn.RackUpLpnSubmitPresenter;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.enter.TakeDeliveryGoodsPresenter;
 
@@ -32,7 +32,7 @@ public class EnterActivityLoadImpl implements IActivityLoad.EnterActivityLoad {
 
     @Override
     public Class getRackUpLpnOperateActivity(Bundle bundle) {
-        bundle.putString(C.PRESENTER, RackUpAbstractLpnSubmitPresenter.class.getCanonicalName());
+        bundle.putString(C.PRESENTER, RackUpLpnSubmitPresenter.class.getCanonicalName());
         return LpnSubmitActivity.class;
     }
 

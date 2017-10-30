@@ -33,6 +33,7 @@ import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.EditQtyController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
 import com.shqtn.enter.controller.impl.EditQtyPresenterImpl;
+import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -178,8 +179,8 @@ public class RackUpGoodsOperateActivity extends BaseActivity implements SystemEd
         params.setPisList(list);
         ModelService.post(ApiUrl.URL_RACK_UP_SUBMIT, params, new ResultCallback() {
             @Override
-            public void onAfter() {
-                super.onAfter();
+            public void onBefore(Request request) {
+                super.onBefore(request);
                 cancelProgressDialog();
                 submiting = false;
             }

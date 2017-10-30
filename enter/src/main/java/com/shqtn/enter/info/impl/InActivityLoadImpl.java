@@ -10,7 +10,7 @@ import com.shqtn.enter.activity.enter.RackUpGoodsOperateActivity;
 import com.shqtn.enter.activity.in.CheckQuantityManifestOperateActivity;
 import com.shqtn.enter.activity.in.GoodsAdjustTargetRackActivity;
 import com.shqtn.enter.activity.in.PMHaveCodeAddGoodsOrLpnActivity;
-import com.shqtn.enter.controller.impl.lpn.RackUpAbstractLpnSubmitPresenter;
+import com.shqtn.enter.controller.impl.lpn.RackUpLpnSubmitPresenter;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.in.GoodsAdjustAddMoveGoodsPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustLpnSubmitPresenter;
@@ -33,7 +33,7 @@ public class InActivityLoadImpl implements IActivityLoad.InActivityLoad {
 
     @Override
     public Class getRackUpLpnOperateActivity(Bundle bundle) {
-        Bundle presenter = LpnSubmitActivity.createPresenter(RackUpAbstractLpnSubmitPresenter.class);
+        Bundle presenter = LpnSubmitActivity.createPresenter(RackUpLpnSubmitPresenter.class);
         bundle.putAll(presenter);
         return LpnSubmitActivity.class;
     }

@@ -8,6 +8,7 @@ import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.CodeRack;
 import com.shqtn.base.info.code.help.CodeCallback;
+import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
 import com.shqtn.enter.R;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * Created by android on 2017/9/28.
  */
 
-public class RackUpAbstractLpnSubmitPresenter extends AbstractLpnSubmitPresenterImpl {
+public class RackUpLpnSubmitPresenter extends AbstractLpnSubmitPresenterImpl {
 
     private RackUpGoods mOperateLpn;
     AskMsgDialog.OnAskClickListener listener = new AskMsgDialog.OnAskClickListener() {
@@ -62,6 +63,9 @@ public class RackUpAbstractLpnSubmitPresenter extends AbstractLpnSubmitPresenter
         sb.append("托盘号:")
                 .append(mOperateLpn.getPalletno())
                 .append("\r\n")
+                .append("推荐货位:")
+                .append(mOperateLpn.getPoscode())
+                .append("\r\n")
                 .append("上架货位:")
                 .append(getView().getRackCode())
                 .append("\r\n")
@@ -82,8 +86,8 @@ public class RackUpAbstractLpnSubmitPresenter extends AbstractLpnSubmitPresenter
 
     private void uploadSubmit() {
         RackUpLpnSubmitParams submitParams = new RackUpLpnSubmitParams();
+        submitParams.setWhCode(DepotUtils.getDepot(getAty().getContext()).getWhcode());
         submitParams.setLpnNo(mOperateLpn.getPalletno());
-
         ArrayList<RackUpLpnSubmitParams.Pis> list = new ArrayList<>();
         RackUpLpnSubmitParams.Pis pis = new RackUpLpnSubmitParams.Pis();
 

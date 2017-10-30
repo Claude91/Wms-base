@@ -1,5 +1,6 @@
 package com.shqtn.enter.activity.enter;
 
+import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -25,13 +26,15 @@ import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.enter.R;
+import com.shqtn.enter.utils.ComputerQualityInspectionStatusQty;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.shqtn.enter.R.id.activity_quality_inspection_goods_operate_ltv_std;
+import static com.shqtn.enter.R.id.view;
 
-public class QualityInspectionGoodsOperateActivity extends BaseActivity {
+public class QualityInspectionGoodsOperateActivity extends BaseActivity implements ComputerQualityInspectionStatusQty.OnNumberChangeListener {
 
     private RecyclerView rv;
     private TitleView titleView;
@@ -40,10 +43,10 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
     private LabelTextView ltvName, ltvSku, ltvBatchNo, ltvUnit, ltvStd, ltvQty, ltvSrcManifest;
     private View submitF1;
     private TextView tvOkQty;
-    private TextView tvBackQtyHint, tvNoOkQtyHint;
+    private TextView tvBackQtyHint, tvNoOkQtyHint, tvOkQtyHint;
     private EditText etNoOkQty, etBackQty;
     private QualityInspectionGoods mOperateGoods;
-
+    private ComputerQualityInspectionStatusQty mComputerQty;
     private boolean httpDoing;
 
     private int selectReasonIndex = -1;
@@ -68,6 +71,7 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
     @Override
     public void initData() {
         super.initData();
+
         mOperateGoods = getBundle().getParcelable(C.OPERATE_GOODS);
         adapter = new RvCommonAdapter<Reason>(this, null, R.layout.item_text_select) {
             @Override
@@ -88,7 +92,9 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
                 holder.setTextView(R.id.item_text_select_tv, reason.getReasonType());
             }
         };
-
+        double quantity = mOperateGoods.getQuantity();
+        mComputerQty = new ComputerQualityInspectionStatusQty(quantity);
+        mComputerQty.setOnNumberChangeListener(this);
 
     }
 
@@ -119,6 +125,7 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
 
         tvBackQtyHint = (TextView) findViewById(R.id.activity_quality_inspection_goods_operate_tv_back_qty_hint);
         tvNoOkQtyHint = (TextView) findViewById(R.id.activity_quality_inspection_goods_operate_tv_no_ok_qty_hint);
+        tvOkQtyHint = (TextView) findViewById(R.id.activity_quality_inspection_goods_operate_tv_qty_error_hint);
 
         etNoOkQty = (EditText) findViewById(R.id.activity_quality_inspection_goods_operate_et_no_ok_qty);
         etBackQty = (EditText) findViewById(R.id.activity_quality_inspection_goods_operate_et_back_qty);
@@ -146,28 +153,7 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
                     s = s.substring(0, s.length() - 1);
                 }
                 double inputQty = NumberUtils.getDouble(s);
-                String backQtyStr = etBackQty.getText().toString();
-                double backQty = NumberUtils.getDouble(backQtyStr);
-                double inputMaxQty = mOperateGoods.getQuantity() - backQty;
-
-                /*
-                 * 计算剩余数量  剩余数量 = 总数量 - 报废数量 - 输入数量
-                 */
-                double loadOkQty = mOperateGoods.getQuantity() - backQty - inputQty;//计算剩余合格数量
-                if (loadOkQty < 0) {
-                    tvOkQty.setText(String.valueOf(loadOkQty));
-                }
-                if (inputQty > inputMaxQty) {
-                    if (tvNoOkQtyHint.getVisibility() != View.VISIBLE) {
-                        tvNoOkQtyHint.setVisibility(View.VISIBLE);
-                    }
-                    double v = inputQty - inputMaxQty;
-                    tvNoOkQtyHint.setText("总数量溢出,请重新编写 溢出:" + v);
-                } else {
-                    if (tvNoOkQtyHint.getVisibility() != View.GONE) {
-                        tvNoOkQtyHint.setVisibility(View.GONE);
-                    }
-                }
+                mComputerQty.changeNoOkQty(inputQty);
 
             }
         });
@@ -189,34 +175,28 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
                     s = s.substring(0, s.length() - 1);
                 }
                 double inputQty = NumberUtils.getDouble(s);
-                String backQtyStr = etBackQty.getText().toString();
-                double backQty = NumberUtils.getDouble(backQtyStr);
-                double inputMaxQty = mOperateGoods.getQuantity() - backQty;
-
-                /*
-                 * 计算剩余数量  剩余数量 = 总数量 - 不合格数量 - 输入数量
-                 */
-                double loadOkQty = mOperateGoods.getQuantity() - backQty - inputQty;//计算剩余合格数量
-                if (loadOkQty < 0) {
-                    tvOkQty.setText(String.valueOf(loadOkQty));
-                }
-                if (inputQty > inputMaxQty) {
-                    if (tvBackQtyHint.getVisibility() != View.VISIBLE) {
-                        tvBackQtyHint.setVisibility(View.VISIBLE);
-                    }
-                    double v = inputQty - inputMaxQty;
-                    tvBackQtyHint.setText("总数量溢出,请重新编写 溢出:" + v);
-                } else {
-                    if (tvBackQtyHint.getVisibility() != View.GONE) {
-                        tvBackQtyHint.setVisibility(View.GONE);
-                    }
-                }
+                mComputerQty.changeNoOkQty(inputQty);
             }
         });
 
         submitF1 = findViewById(R.id.activity_quality_inspection_goods_operate_tv_submit_f1);
         submitF1.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onNumberChange(double okQty, double noOkQty, double backQty, double totalQty) {
+        tvOkQty.setText(String.valueOf(okQty));
+        if (okQty < 0) {
+            if (View.VISIBLE != tvOkQtyHint.getVisibility()) {
+                tvOkQtyHint.setVisibility(View.VISIBLE);
+            }
+            tvOkQtyHint.setText("数量溢出，请重新输入数量,总数量额:" + totalQty);
+        } else {
+            if (View.GONE != tvOkQtyHint.getVisibility()) {
+                tvOkQtyHint.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -301,6 +281,7 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
             @Override
             public void onSuccess(ResultBean response) {
                 ToastUtils.show(QualityInspectionGoodsOperateActivity.this, "提交成功");
+                setResult(Activity.RESULT_OK);
                 finish();
             }
         });
@@ -314,7 +295,7 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
 
         String s = etBackQty.getText().toString();
         String s1 = etNoOkQty.getText().toString();
-        if ((NumberUtils.getDouble(s) > 0 || NumberUtils.getDouble(s1) > 0) && selectReasonIndex != -1) {
+        if ((NumberUtils.getDouble(s) > 0 || NumberUtils.getDouble(s1) > 0) && selectReasonIndex == -1) {
             displayMsgDialog("请选择不良品原因");
             return false;
         }
@@ -344,4 +325,6 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity {
         toFocus(etBackQty);
         return true;
     }
+
+
 }

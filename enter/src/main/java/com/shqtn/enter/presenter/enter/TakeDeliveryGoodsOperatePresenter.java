@@ -22,9 +22,10 @@ import com.shqtn.enter.controller.enter.TakeDelGoodsOperateController;
 import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 
 /**
+ * 收货任务
+ * @author ql
  * Created by android on 2017/9/26.
  */
-
 public class TakeDeliveryGoodsOperatePresenter extends DecodeCallbackImpl implements TakeDelGoodsOperateController.Presenter {
 
     private TakeDelGoodsOperateController.View mView;

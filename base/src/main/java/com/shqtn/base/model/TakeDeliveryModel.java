@@ -40,10 +40,11 @@ public class TakeDeliveryModel {
           /*
         * 判断当前货品是否需要编写批次属性
          */
-        if (BATCH_FLAG.equals(batchFlag))
+        if (BATCH_FLAG.equals(batchFlag)) {
             if (!BATCH_NO_FLAG.equals(batchNoFlag)) {
                 return true;
             }
+        }
 
         return false;
     }

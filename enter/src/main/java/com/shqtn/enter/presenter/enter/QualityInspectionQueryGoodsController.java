@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.enter;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -13,6 +14,7 @@ import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.help.CodeCallback;
+import com.shqtn.base.utils.StringUtils;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.ListActivityController;
@@ -42,7 +44,7 @@ public class QualityInspectionQueryGoodsController extends AbstractListActivityP
         ListActivityController.View view = getView();
         view.setEditTextHint("输入货品编码");
         view.setScanningType(CodeCallback.TAG_GOODS);
-        view.setListViewModel(PullToRefreshBase.Mode.DISABLED);
+        view.setListViewModel(PullToRefreshBase.Mode.PULL_FROM_START);
         view.setTitle("质检");
 
         mScanningGoodsParams = new QualityInspectionGoodsParams();
@@ -77,6 +79,8 @@ public class QualityInspectionQueryGoodsController extends AbstractListActivityP
 
                 @Override
                 public void onFailed(String msg) {
+                    mScanningGoodsList = null;
+                    mGoodsAdapter.update(mScanningGoodsList);
                     getView().displayMsgDialog(msg);
                 }
 
@@ -87,7 +91,7 @@ public class QualityInspectionQueryGoodsController extends AbstractListActivityP
                 }
             };
         }
-        ModelService.post(ApiUrl.URL_QUALITY_CHECKING_QUERY_DETAILS, mScanningGoodsParams, mGoodsListCallback);
+        refresh();
     }
 
     @Override
@@ -107,9 +111,22 @@ public class QualityInspectionQueryGoodsController extends AbstractListActivityP
         getAty().startActivity(InfoLoadUtils.getInstance().getEnterActivityLoad().getQualityInspectionGoodsOperateActivity(bundle), bundle);
     }
 
+
+
     @Override
     public void refresh() {
         getView().onRefreshComplete();
+        String skuCode = mScanningGoodsParams.getSkuCode();
+        if (StringUtils.isEmpty(skuCode)) {
+            return;
+        }
+        ModelService.post(ApiUrl.URL_QUALITY_CHECKING_QUERY_DETAILS, mScanningGoodsParams, mGoodsListCallback);
+    }
+
+    @Override
+    public void onPullDownToRefresh() {
+        super.onPullDownToRefresh();
+        refresh();
     }
 
     @Override
