@@ -126,6 +126,10 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             getView().setListViewModel(PullToRefreshBase.Mode.DISABLED);
+            if (mRackDetailsList != null) {
+                mRackDetailsList.clear();
+            }
+            mGoodsAdapter.update(mRackDetailsList);
         }
     }
 
@@ -200,6 +204,7 @@ public class GoodsAdjustRackPresenter extends AbstractListActivityPresenter impl
         mGoodsAdapter.update(mRackDetailsList);
         getView().hideLabel();
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

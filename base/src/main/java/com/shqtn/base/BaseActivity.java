@@ -18,14 +18,13 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.shqtn.base.controller.presenter.ActivityResultCallback;
 import com.shqtn.base.controller.presenter.IKeyDownPresenter;
+import com.shqtn.base.controller.view.IAty;
+import com.shqtn.base.controller.view.IDialogView;
 import com.shqtn.base.listener.OnClickDeleteListener;
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.DialogFactory;
-import com.shqtn.base.controller.view.IAty;
-import com.shqtn.base.controller.view.IDialogView;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
@@ -33,6 +32,8 @@ import com.shqtn.base.widget.dialog.EditQuantityDialog;
 
 
 /**
+ * @author ql
+ * @e-mail strive_bug@yeah.net
  * 基准Activity
  */
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, IDialogView, TitleView.OnClickToBackListener, IAty {
@@ -214,10 +215,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void cancelMsgDialog() {
-        if (mMsgDialog != null)
-            if (mMsgDialog.isShowing())
+        if (mMsgDialog != null) {
+            if (mMsgDialog.isShowing()) {
                 mMsgDialog.cancel();
+            }
+        }
     }
+
 
     @Override
     public void displayProgressDialog(String title, String msg) {
@@ -258,8 +262,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             if (mAskMsgDialog == null) {
                 mAskMsgDialog = DialogFactory.createAskMsgDialog(this);
             }
-            if (!StringUtils.isEmpty(msg))
+            if (!StringUtils.isEmpty(msg)) {
                 mAskMsgDialog.setMsg(msg);
+            }
             mAskMsgDialog.setTitle(title);
             mAskMsgDialog.setOnAskClickListener(listener);
             mAskMsgDialog.show();
@@ -272,7 +277,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             if (mAskMsgDialog != null && !mAskMsgDialog.isShowing()) {
                 mAskMsgDialog.cancel();
             }
-
         }
     }
 
@@ -341,11 +345,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         transaction.show(targetFragment).commit();
     }
 
+    /**
+     * 启动一个Activity
+     *
+     * @param aty
+     */
+    @Override
     public void startActivity(Class aty) {
         Intent intent = new Intent(this, aty);
         startActivity(intent);
     }
 
+    @Override
     public void startActivity(Class clazz, Bundle bundle) {
         startActivity(clazz, bundle, 4);
     }
@@ -358,13 +369,29 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return intent.getBundleExtra(INTENT_BUNDLE);
     }
 
+    /**
+     * 带有返回值
+     *
+     * @param clazz
+     * @param requestCode
+     */
+    @Override
     public void startActivity(Class clazz, int requestCode) {
         startActivity(clazz, null, requestCode);
     }
 
+    @Override
     public void startActivity(Class clazz, Bundle bundle, int requestCode) {
+        startActivity(clazz, bundle, requestCode, -1);
+    }
+
+    @Override
+    public void startActivity(Class clazz, Bundle bundle, int requestCode, int flags) {
         Intent intent = new Intent(this, clazz);
         intent.putExtra(INTENT_BUNDLE, bundle);
+        if (flags != -1) {
+            intent.setFlags(flags);
+        }
         startActivityForResult(intent, requestCode);
     }
 

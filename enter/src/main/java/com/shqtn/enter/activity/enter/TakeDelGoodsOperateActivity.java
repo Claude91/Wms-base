@@ -98,7 +98,7 @@ public class TakeDelGoodsOperateActivity extends BaseActivity implements TakeDel
 
     @Override
     public void setIsInputBatchNo(boolean isInputBatchNo) {
-        if (isInputBatchNo) {
+        if (!isInputBatchNo) {
             etInputBatchNo.setFocusable(false);
 
             etInputBatchNo.setFocusableInTouchMode(false);

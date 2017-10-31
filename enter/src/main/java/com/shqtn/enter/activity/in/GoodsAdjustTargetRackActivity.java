@@ -1,6 +1,7 @@
 package com.shqtn.enter.activity.in;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -20,6 +21,7 @@ import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
+import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.R;
 import com.shqtn.enter.bean.ItemGoods;
@@ -147,10 +149,6 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity implements CodeC
                 @Override
                 public void onSuccess(ResultBean response) {
                     cancelProgressDialog();
-                    Bundle bundle = new Bundle();
-                    Bundle listActivityBundle = ListActivity.createListActivityBundle(GoodsAdjustRackPresenter.class);
-                    bundle.putAll(listActivityBundle);
-                    startActivity(ListActivity.class, bundle);
                     ToastUtils.show(getContext(), "提交成功 ");
                     setResult(Activity.RESULT_OK);
                     finish();

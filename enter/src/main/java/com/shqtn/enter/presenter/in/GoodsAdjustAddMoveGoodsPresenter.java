@@ -260,6 +260,7 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             getAty().closeActivity();
+            getAty().setResult(Activity.RESULT_OK);
         }
     }
 }

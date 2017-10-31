@@ -35,6 +35,7 @@ public class TakeDeliveryGoodsOperatePresenter extends DecodeCallbackImpl implem
     private TakeDeliveryGoods mOperateGoods;
     private TakeDeliveryModel mTakeDeliveryModel;
     private EditQuantityDialog.OnResultListener mEditQtyDialogResultListener;
+    private boolean addBatchNo;
 
     public TakeDeliveryGoodsOperatePresenter(TakeDelGoodsOperateController.View mView, IAty mAty) {
         this.mView = mView;
@@ -66,7 +67,8 @@ public class TakeDeliveryGoodsOperatePresenter extends DecodeCallbackImpl implem
 
         mView.setDecodeType(CodeCallback.TAG_GOODS);
 
-        if (mTakeDeliveryModel.isAddBatchNo(mOperateGoods.getBatchFlag(), mOperateGoods.getBatchNoFlag())) {
+        addBatchNo = mTakeDeliveryModel.isAddBatchNo(mOperateGoods.getBatchFlag(), mOperateGoods.getBatchNoFlag());
+        if (addBatchNo) {
             mView.setInputBatchNoHint("请输入批次号");
             mView.setIsInputBatchNo(true);
         } else {
@@ -92,7 +94,7 @@ public class TakeDeliveryGoodsOperatePresenter extends DecodeCallbackImpl implem
         submitParams.setSkuName(mOperateGoods.getSkuName());
         submitParams.setIkey(mOperateGoods.getIkey());
         submitParams.setIhkey(mOperateGoods.getIhkey());
-        if (mTakeDeliveryModel.isAddBatchNo(mOperateGoods.getBatchFlag(), mOperateGoods.getSerialNoFlag())) {
+        if (addBatchNo) {
             submitParams.setBatchNo(mView.getEtInputBatchNo());
         }
         mView.displayProgressDialog("提交中");

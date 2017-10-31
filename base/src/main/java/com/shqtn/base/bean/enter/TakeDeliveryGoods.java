@@ -184,6 +184,10 @@ public class TakeDeliveryGoods extends IGoods implements Parcelable {
         return rquantity;
     }
 
+    public TakeDeliveryGoods() {
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -211,9 +215,6 @@ public class TakeDeliveryGoods extends IGoods implements Parcelable {
         dest.writeDouble(this.rquantity);
     }
 
-    public TakeDeliveryGoods() {
-    }
-
     protected TakeDeliveryGoods(Parcel in) {
         this.ikey = (Long) in.readValue(Long.class.getClassLoader());
         this.ihkey = (Long) in.readValue(Long.class.getClassLoader());
@@ -235,7 +236,7 @@ public class TakeDeliveryGoods extends IGoods implements Parcelable {
         this.rquantity = in.readDouble();
     }
 
-    public static final Parcelable.Creator<TakeDeliveryGoods> CREATOR = new Parcelable.Creator<TakeDeliveryGoods>() {
+    public static final Creator<TakeDeliveryGoods> CREATOR = new Creator<TakeDeliveryGoods>() {
         @Override
         public TakeDeliveryGoods createFromParcel(Parcel source) {
             return new TakeDeliveryGoods(source);
@@ -246,6 +247,4 @@ public class TakeDeliveryGoods extends IGoods implements Parcelable {
             return new TakeDeliveryGoods[size];
         }
     };
-
-
 }
