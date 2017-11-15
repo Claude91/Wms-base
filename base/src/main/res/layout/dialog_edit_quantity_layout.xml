@@ -98,7 +98,7 @@
             android:layout_marginRight="6dp"
             android:layout_weight="1"
             android:background="@drawable/shape_login_btn_background"
-            android:text="@string/yesF2"
+            android:text="确定F3"
             android:textColor="@color/colorWhite" />
 
         <Button
@@ -120,7 +120,7 @@
             android:layout_marginLeft="6dp"
             android:layout_weight="1"
             android:background="@drawable/shape_login_btn_background"
-            android:text="@string/cancelF3"
+            android:text="取消F4"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 </LinearLayout>

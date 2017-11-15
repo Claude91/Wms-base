@@ -41,6 +41,23 @@ public class GoodsUtils {
 
         return true;
     }
+    /**
+     * 用于判断是否是相同的 货品
+     *
+     * @param srcGoods
+     * @param compareGoods
+     * @return
+     */
+    public static <T extends IGoods, E extends IGoods> boolean isSameNoBacthNo(IGoods srcGoods, IGoods compareGoods) {
+        if (srcGoods == null || StringUtils.isEmpty(srcGoods.getGoodsSku()) || compareGoods == null)
+            return false;
+
+        if (!srcGoods.getGoodsSku().equals(compareGoods.getGoodsSku())) {
+            return false;
+        }
+
+        return true;
+    }
 
     public static <T extends IGoods, E extends IGoods> ArrayList<T> getManifestOfGoodsSame(List<T> goodsList, E goods) {
         if (goodsList == null || goods == null || goods.getGoodsSku() == null) {
@@ -49,6 +66,25 @@ public class GoodsUtils {
         ArrayList<T> arrayList = new ArrayList<>();
         for (T iGoods : goodsList) {
             if (isSame(iGoods, goods)) {
+                arrayList.add(iGoods);
+            }
+        }
+
+        if (arrayList.size() == 0) {
+            return null;
+        }
+
+        return arrayList;
+    }
+
+    public static <T extends IGoods, E extends IGoods> ArrayList<T> getManifestOfGoodsSameNoBatchNo(List<T> goodsList, E goods) {
+        if (goodsList == null || goods == null || goods.getGoodsSku() == null) {
+            return null;
+        }
+        ArrayList<T> arrayList = new ArrayList<>();
+        for (T iGoods : goodsList) {
+            boolean sameNoBacthNo = isSameNoBacthNo(iGoods, goods);
+            if (sameNoBacthNo) {
                 arrayList.add(iGoods);
             }
         }

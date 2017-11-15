@@ -15,6 +15,7 @@ import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.presenter.enter.TakeDeliveryGoodsPresenter;
 
 /**
+ * 控制入库 的页面
  * Created by android on 2017/9/30.
  */
 

@@ -112,11 +112,12 @@ public class TakeDeliveryGoodsPresenter extends AbstractListActivityPresenter {
             return;
         }
         getView().displayProgressDialog(getAty().getString(R.string.matching));
-        ArrayList<TakeDeliveryGoods> goodsBean = GoodsUtils.getManifestOfGoodsSame(mGoodsList, goods);
+        ArrayList<TakeDeliveryGoods> goodsBean = GoodsUtils.getManifestOfGoodsSameNoBatchNo(mGoodsList, goods);
         if (goodsBean != null && goodsBean.size() > 0) {
             boolean isToOperate = false;
             for (TakeDeliveryGoods takeDeliveryGoods : goodsBean) {
                 if (takeDeliveryGoods.getGoodsQty() > 0) {
+                    takeDeliveryGoods.setGoodsBatchNo(goods.getBatchNo());
                     toGoodsOperateActivity(takeDeliveryGoods);
                     isToOperate = true;
                     break;
@@ -259,6 +260,9 @@ public class TakeDeliveryGoodsPresenter extends AbstractListActivityPresenter {
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.OPERATE_GOODS, takeDeliveryGoods);
         bundle.putString(C.MANIFEST_STR, mOperateManifest);
+        if (!StringUtils.isEmpty(takeDeliveryGoods.getGoodsBatchNo())) {
+            bundle.putString(C.BATCH_NO_STR,takeDeliveryGoods.getGoodsBatchNo());
+        }
         getAty().startActivity(InfoLoadUtils.getInstance().getEnterActivityLoad().getTakeDelGoodsOperateActivity(bundle), bundle);
     }
 

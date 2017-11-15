@@ -62,7 +62,11 @@ public class RackUpGoodsOperateModelImpl implements RackUpGoodsOperateModel {
         if (operateQty > canUpQuantity) {
             failedHint = "提交数量大于可提交数量，不能提交";
             return false;
+        }
 
+        if (operateQty <= 0) {
+            failedHint = "请输入正确提交数量";
+            return false;
         }
         return true;
     }

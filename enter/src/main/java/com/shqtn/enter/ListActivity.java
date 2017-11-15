@@ -22,7 +22,10 @@ import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
 
 /**
+ * 用于显示 列表 + 搜索页面 的综合页面
  * Created by android on 2017/9/21.
+ *
+ * @author android strive_bug@yeah.net
  */
 
 public class ListActivity extends BaseActivity implements CodeController.View, ListActivityController.View, ListActivityController.BottomView, ITitleView {

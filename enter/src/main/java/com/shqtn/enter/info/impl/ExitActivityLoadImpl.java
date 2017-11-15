@@ -19,6 +19,7 @@ import com.shqtn.enter.presenter.exit.RackDownRackListPresenter;
 import com.shqtn.enter.presenter.exit.SortingGoodsListPresenter;
 
 /**
+ * 控制出库的页面
  * Created by android on 2017/9/30.
  */
 

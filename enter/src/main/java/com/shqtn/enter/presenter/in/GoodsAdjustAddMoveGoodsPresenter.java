@@ -3,6 +3,7 @@ package com.shqtn.enter.presenter.in;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -246,6 +247,21 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
 
     @Override
     public void refresh() {
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_F4) {
+             /*
+                锁定货位上货品 ，锁定成功后再进行下一步
+                 */
+            toLockMoveGoods(mAddMoveGoodsList);
+            return true;
+        }
+
+
+        return super.onKeyDown(keyCode, event);
 
     }
 

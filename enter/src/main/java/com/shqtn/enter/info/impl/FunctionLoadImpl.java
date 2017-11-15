@@ -10,6 +10,8 @@ import com.shqtn.enter.info.IFunctionLoad;
 import java.util.List;
 
 /**
+ * 控制 主页功能页面加载
+ * @author android strivei_bug@yeah.net
  * Created by android on 2017/9/25.
  */
 

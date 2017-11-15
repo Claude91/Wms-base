@@ -91,6 +91,7 @@ public class RackUpLpnSubmitPresenter extends AbstractLpnSubmitPresenterImpl {
         ArrayList<RackUpLpnSubmitParams.Pis> list = new ArrayList<>();
         RackUpLpnSubmitParams.Pis pis = new RackUpLpnSubmitParams.Pis();
 
+        pis.setIkey(mOperateLpn.getIkey());
         pis.setPoscode(getView().getRackCode());//目标货位
         pis.setCcode(mOperateLpn.getCcode());
         pis.setRdcode(mOperateLpn.getRdcode());

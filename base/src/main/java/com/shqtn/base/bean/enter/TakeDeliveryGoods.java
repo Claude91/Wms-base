@@ -184,6 +184,11 @@ public class TakeDeliveryGoods extends IGoods implements Parcelable {
         return rquantity;
     }
 
+    @Override
+    public String getGoodsSku() {
+        return skuCode;
+    }
+
     public TakeDeliveryGoods() {
     }
 

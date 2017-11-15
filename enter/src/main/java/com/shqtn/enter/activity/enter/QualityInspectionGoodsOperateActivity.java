@@ -34,6 +34,11 @@ import java.util.List;
 import static com.shqtn.enter.R.id.activity_quality_inspection_goods_operate_ltv_std;
 import static com.shqtn.enter.R.id.view;
 
+/**
+ * 用于质量检测页面，质检的具体操作
+ *
+ * @author android strive_bug@yeah.net
+ */
 public class QualityInspectionGoodsOperateActivity extends BaseActivity implements ComputerQualityInspectionStatusQty.OnNumberChangeListener {
 
     private RecyclerView rv;
@@ -175,7 +180,7 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity implemen
                     s = s.substring(0, s.length() - 1);
                 }
                 double inputQty = NumberUtils.getDouble(s);
-                mComputerQty.changeNoOkQty(inputQty);
+                mComputerQty.changeBackQty(inputQty);
             }
         });
 
@@ -252,9 +257,11 @@ public class QualityInspectionGoodsOperateActivity extends BaseActivity implemen
         QualityInspectionGoodsSubmitParams params = new QualityInspectionGoodsSubmitParams();
         params.setBatchNo(mOperateGoods.getBatchNo());
         params.setIkey(mOperateGoods.getIkey());
-        Reason reason = mReasonList.get(selectReasonIndex);
-        if (reason != null) {
-            params.setReasonCode(reason.getReasonCode());//不良品代码
+        if (selectReasonIndex != -1) {
+            Reason reason = mReasonList.get(selectReasonIndex);
+            if (reason != null) {
+                params.setReasonCode(reason.getReasonCode());//不良品代码
+            }
         }
         params.setSkuCode(mOperateGoods.getSkuCode());
         params.setAssOkQty(mOperateGoods.getAssOkQty());

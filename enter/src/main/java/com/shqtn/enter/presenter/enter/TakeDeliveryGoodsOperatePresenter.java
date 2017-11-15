@@ -1,6 +1,7 @@
 package com.shqtn.enter.presenter.enter;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.shqtn.base.C;
 import com.shqtn.base.bean.ResultBean;
@@ -23,13 +24,15 @@ import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 
 /**
  * 收货任务
+ *
  * @author ql
- * Created by android on 2017/9/26.
+ *         Created by android on 2017/9/26.
  */
 public class TakeDeliveryGoodsOperatePresenter extends DecodeCallbackImpl implements TakeDelGoodsOperateController.Presenter {
 
     private TakeDelGoodsOperateController.View mView;
     private IAty mAty;
+    private String batchNo;
     private String mOperateManifest;
 
     private TakeDeliveryGoods mOperateGoods;
@@ -45,7 +48,7 @@ public class TakeDeliveryGoodsOperatePresenter extends DecodeCallbackImpl implem
     @Override
     public void init(Bundle bundle) {
         mOperateGoods = bundle.getParcelable(C.OPERATE_GOODS);
-
+        batchNo = bundle.getString(C.BATCH_NO_STR);
         mOperateManifest = bundle.getString(C.MANIFEST_STR);
 
         mTakeDeliveryModel = new TakeDeliveryModel();
@@ -71,6 +74,10 @@ public class TakeDeliveryGoodsOperatePresenter extends DecodeCallbackImpl implem
         if (addBatchNo) {
             mView.setInputBatchNoHint("请输入批次号");
             mView.setIsInputBatchNo(true);
+            // 曾一鸣 二傻子让我添加的，让读取到了批次号 直接赋值
+            if (!TextUtils.isEmpty(batchNo)) {
+                mView.setInputBatchNo(batchNo);
+            }
         } else {
             mView.setIsInputBatchNo(false);
             mView.setInputBatchNoHint("不需要添加批次号");
@@ -130,6 +137,9 @@ public class TakeDeliveryGoodsOperatePresenter extends DecodeCallbackImpl implem
             String takeQtyStr = mView.getTakeQty();
             double takeQty = NumberUtils.getDouble(takeQtyStr);
             double goodsQty = goods.getGoodsQty();
+            if (goodsQty <= 0) {
+                goodsQty = 1;
+            }
             double totalQty = NumberUtils.getDouble(takeQty + goodsQty);
             mView.setTakeQty(String.valueOf(totalQty));
         } else {

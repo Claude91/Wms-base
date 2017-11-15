@@ -150,6 +150,9 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        et.setFocusable(true);
+        et.setFocusableInTouchMode(true);
+        et.requestFocus();
     }
 
     private void initChildrenView(Context context) {

@@ -138,7 +138,6 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
     private void toRackUpLpnOperateActivity(RackUpGoods rackUpGoods) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.OPERATE_LPN, rackUpGoods);
-
         getAty().startActivity(InfoLoadUtils.getInstance().getInActivityLoad().getRackUpLpnOperateActivity(bundle), bundle, 12);
     }
 

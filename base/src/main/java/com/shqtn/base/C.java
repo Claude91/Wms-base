@@ -34,4 +34,5 @@ public class C {
     public static final String AREA_CODE = "AREA_CODE";
     public static final String MANIFEST_BEAN = "MANIFEST_BEAN";
     public static final String TAKE_BOX_PLAN = "TAKE_BOX_PLAN";
+    public static final String BATCH_NO_STR = "BATCH_NO_STR";
 }

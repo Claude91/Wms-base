@@ -222,6 +222,7 @@
     </ScrollView>
 
     <TextView
+        android:layout_marginTop="6dp"
         android:id="@+id/activity_rack_up_goods_operate_tv_submit"
         style="@style/bottomBtnStyle"
         android:layout_width="match_parent"

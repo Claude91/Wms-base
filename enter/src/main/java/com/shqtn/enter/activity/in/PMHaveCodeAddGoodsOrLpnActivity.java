@@ -1,6 +1,5 @@
 package com.shqtn.enter.activity.in;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -55,7 +54,7 @@ public class PMHaveCodeAddGoodsOrLpnActivity extends BaseActivity implements Cod
     private CommonAdapter<ItemLpnOrGoods> mLpnOrGoodsAdapter;
 
     private CodeController.DecodeCallback mDecodeCallback;
-    private CodeController.Presenter mCodePrestener;
+    private CodeController.Presenter mCodePresenter;
 
 
     private PalletLpnCheckParams mLpnCheckParams;
@@ -128,9 +127,9 @@ public class PMHaveCodeAddGoodsOrLpnActivity extends BaseActivity implements Cod
 
         };
 
-        mCodePrestener = new CodePresenterImpl(this);
-        mCodePrestener.setDecodeCallback(mDecodeCallback);
-        mCodePrestener.setDecodeType(CodeCallback.TAG_GOODS, CodeCallback.TAG_LPN);
+        mCodePresenter = new CodePresenterImpl(this);
+        mCodePresenter.setDecodeCallback(mDecodeCallback);
+        mCodePresenter.setDecodeType(CodeCallback.TAG_GOODS, CodeCallback.TAG_LPN);
     }
 
     private void checkLpnNo(String lpnNo) {
@@ -210,7 +209,7 @@ public class PMHaveCodeAddGoodsOrLpnActivity extends BaseActivity implements Cod
         setInputCode.setOnToTextSearchListener(new SystemEditText.OnToTextSearchListener() {
             @Override
             public void onSearchText(String content) {
-                mCodePrestener.toDecode(content);
+                mCodePresenter.toDecode(content);
             }
         });
 

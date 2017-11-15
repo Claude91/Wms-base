@@ -4,7 +4,11 @@ import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.info.IFunctionLoad;
 
 /**
- * Created by android on 2017/9/22.
+ * 必须进行初始化，可以控制每个功能页面的 显示，跳转，
+ * 控制首页功能页面，<t>FunctionMainActivityLoad 控制页面进行加载，</t>
+ *
+ * @author android strive_bug@yeah.net
+ *         Created by android on 2017/9/22.
  */
 
 public class InfoLoadUtils {

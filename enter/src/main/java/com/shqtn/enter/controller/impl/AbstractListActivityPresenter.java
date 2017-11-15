@@ -19,6 +19,7 @@ import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.ListActivityController;
 
 /**
+ * @author ql e-mail:strive_bug@yeah.net
  * Created by android on 2017/9/22.
  */
 
@@ -93,7 +94,7 @@ public abstract class AbstractListActivityPresenter extends ListActivityControll
         return new CommonAdapter<B>(getAty().getContext(), null, R.layout.item_manifest) {
             @Override
             public void setItemContent(ViewHolder holder, B b, int position) {
-                holder.setLabelText(R.id.item_manifest_ltv,b.getManifest());
+                holder.setLabelText(R.id.item_manifest_ltv, b.getManifest());
             }
         };
     }
@@ -138,7 +139,7 @@ public abstract class AbstractListActivityPresenter extends ListActivityControll
 
     @Override
     public void decodeOther(AllotBean code) {
-
+        getView().displayMsgDialog("条码不匹配，请重新输入");
     }
 
     @Override

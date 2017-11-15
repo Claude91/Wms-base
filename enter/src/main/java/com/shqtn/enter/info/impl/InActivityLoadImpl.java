@@ -16,7 +16,10 @@ import com.shqtn.enter.presenter.in.GoodsAdjustAddMoveGoodsPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustLpnSubmitPresenter;
 
 /**
+ * 库内操作
  * Created by android on 2017/9/30.
+ *
+ * @author android strive_bug@yeah.net
  */
 
 public class InActivityLoadImpl implements IActivityLoad.InActivityLoad {

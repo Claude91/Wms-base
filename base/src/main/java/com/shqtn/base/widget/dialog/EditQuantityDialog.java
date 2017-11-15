@@ -70,11 +70,11 @@ public class EditQuantityDialog implements View.OnClickListener {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 switch (keyCode) {
-                    case KeyEvent.KEYCODE_F2:
-                        onClickYesF2(dialog);
-                        return true;
                     case KeyEvent.KEYCODE_F3:
-                        onClickCancelF3(dialog);
+                        onClickYesF3(dialog);
+                        return true;
+                    case KeyEvent.KEYCODE_F4:
+                        onClickCancelF4(dialog);
                         return true;
                     case KeyEvent.KEYCODE_F10:
                         onClickF10(dialog);
@@ -97,7 +97,7 @@ public class EditQuantityDialog implements View.OnClickListener {
         onClickDelete();
     }
 
-    private void onClickCancelF3(DialogInterface dialog) {
+    private void onClickCancelF4(DialogInterface dialog) {
         mListener.clickCancel();
         dialog.cancel();
 
@@ -142,7 +142,7 @@ public class EditQuantityDialog implements View.OnClickListener {
         cashierInputFilter.setMAX_VALUE(maxQuantity);
     }
 
-    private void onClickYesF2(DialogInterface dialog) {
+    private void onClickYesF3(DialogInterface dialog) {
         mListener.clickOk(getEtQuantity());
         dialog.cancel();
     }

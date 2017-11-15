@@ -179,6 +179,12 @@ public class RackUpGoodsOperateActivity extends BaseActivity implements SystemEd
         params.setPisList(list);
         ModelService.post(ApiUrl.URL_RACK_UP_SUBMIT, params, new ResultCallback() {
             @Override
+            public void onAfter() {
+                super.onAfter();
+                submiting = false;
+            }
+
+            @Override
             public void onBefore(Request request) {
                 super.onBefore(request);
                 cancelProgressDialog();
