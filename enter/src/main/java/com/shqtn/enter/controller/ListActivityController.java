@@ -93,6 +93,14 @@ public interface ListActivityController {
 
         public abstract void setView(View v);
 
+        public IAty getAty() {
+            return null;
+        }
+
+        public View getView() {
+            return null;
+        }
+
         public abstract void setBottomView(BottomView v);
 
         public abstract void onPullDownToRefresh();
@@ -108,6 +116,10 @@ public interface ListActivityController {
          * 点击清空选择
          */
         public abstract void clickClearSelect();
+
+        public void onStart() {
+
+        }
 
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {

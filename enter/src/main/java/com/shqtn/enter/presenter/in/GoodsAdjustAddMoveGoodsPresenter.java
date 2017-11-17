@@ -103,6 +103,12 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
     };
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getView().onRefreshComplete();
+    }
+
+    @Override
     public void init() {
         super.init();
         mOperateRackNo = getBundle().getString(C.RACK_NO);
