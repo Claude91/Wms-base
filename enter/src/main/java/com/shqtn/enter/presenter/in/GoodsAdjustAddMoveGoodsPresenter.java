@@ -142,8 +142,9 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
                 /*
                 锁定货位上货品 ，锁定成功后再进行下一步
                  */
-                toLockMoveGoods(mAddMoveGoodsList);
-
+                //鲍国军 提出，所有版本都不添加锁定 货品 2017-11-20 修改
+                //toLockMoveGoods(mAddMoveGoodsList);
+                toInputTargetRackActivity();
             }
         });
 
@@ -259,10 +260,8 @@ public class GoodsAdjustAddMoveGoodsPresenter extends AbstractListActivityPresen
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_F4) {
-             /*
-                锁定货位上货品 ，锁定成功后再进行下一步
-                 */
-            toLockMoveGoods(mAddMoveGoodsList);
+            //toLockMoveGoods(mAddMoveGoodsList);
+            toInputTargetRackActivity();
             return true;
         }
 
