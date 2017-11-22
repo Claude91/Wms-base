@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.shqtn.base.clipboard.ClipBoardManager;
+import com.shqtn.base.utils.LogUtils;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -42,9 +43,9 @@ public abstract class BaseApp extends Application {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Looper.loop();
-                handler = new Handler();
                 Looper.prepare();
+                handler = new Handler();
+                Looper.loop();
             }
         }).start();
     }
@@ -71,7 +72,7 @@ public abstract class BaseApp extends Application {
             @Override
             public void run() {
                 String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-
+                LogUtils.i(BaseApp.class.getCanonicalName(), Thread.currentThread().getName());
                 File file = new File(absolutePath, name);
                 if (!file.exists()) {
                     try {

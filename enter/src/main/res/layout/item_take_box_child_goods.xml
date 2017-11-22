@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_blue"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_top_or_bottom"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/margin_top_normal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_take_box_child_goods_ltv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_white_color"
+            app:labelText="@string/name"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_take_box_child_goods_ltv_sku"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:color="@color/text_white_color"
+            app:labelText="@string/sku"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_take_box_child_goods_ltv_batch_no"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:color="@color/text_white_color"
+            app:labelText="@string/batch_no"
+            app:size="@dimen/text_label_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/item_take_box_child_goods_ltv_unit"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:color="@color/text_white_color"
+                app:labelText="@string/unit"
+                app:size="@dimen/text_label_size" />
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/item_take_box_child_goods_ltv_qty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:color="@color/text_white_color"
+                app:labelText="@string/quantity"
+                app:size="@dimen/text_label_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:background="@drawable/slt_btn_normal"
+        android:src="@drawable/icon_delete"
+        android:id="@+id/item_take_box_child_goods_iv_del"
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
+</FrameLayout>

@@ -5,6 +5,9 @@ package com.shqtn.base.bean.params;
  */
 
 public class TakeBoxCheckingBoxStatusParams {
+    //最外层包装， 也就是大的包装
+    public static final String FLAG_BOX = "0";
+    public static final String FLAG_CHILD = "1";
     /**
      * 1.ikey;--到货明细Ikey
      2.lpnNo;--箱号

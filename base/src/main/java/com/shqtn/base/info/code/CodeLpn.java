@@ -12,6 +12,24 @@ import java.util.ArrayList;
 public class CodeLpn implements Parcelable {
 
     private String lpnNo;
+    private boolean tag;
+    private String packStatus;
+
+    public String getPackStatus() {
+        return packStatus;
+    }
+
+    public void setPackStatus(String packStatus) {
+        this.packStatus = packStatus;
+    }
+
+    public boolean isTag() {
+        return tag;
+    }
+
+    public void setTag(boolean tag) {
+        this.tag = tag;
+    }
 
     /**
      * 当前lpn中的货品数量

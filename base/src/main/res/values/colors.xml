@@ -16,6 +16,8 @@
     <color name="gray">#ececec</color>
     <color name="home_title_bg_color">#a5caf4</color>
 
+    <color name="hideColor">#00ffffff</color>
+
 
     <color name="text_color_blue">#0d6a8f</color>
     <color name="text_white_color">#e9e9e9</color>

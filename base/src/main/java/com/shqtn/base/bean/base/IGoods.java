@@ -9,6 +9,15 @@ public abstract class IGoods {
     private Double skuQty;
     private String goodsSku;
     private String goodsBatchNo;
+    private boolean tag;
+
+    public boolean isTag() {
+        return tag;
+    }
+
+    public void setTag(boolean tag) {
+        this.tag = tag;
+    }
 
     public void setGoodsQty(Double skuQty) {
         this.skuQty = skuQty;

@@ -109,21 +109,21 @@ public interface IActivityLoad {
         Class getTakeDelGoodsOperateActivity(Bundle bundle);
 
         /**
-         * RackUpGoods   C.OPERATE_GOODS
+         * RackUpGoods   C.OPERATE_LEVEL
          *
          * @return
          */
         Class getRackUpLpnOperateActivity(Bundle bundle);
 
         /**
-         * RackUpGoods   C.OPERATE_GOODS
+         * RackUpGoods   C.OPERATE_LEVEL
          *
          * @return
          */
         Class getRackUpGoodsOperateActivity(Bundle bundle);
 
         /**
-         * C.OPERATE_GOODS  保存着当前要操作的货品
+         * C.OPERATE_LEVEL  保存着当前要操作的货品
          * QualityInspectionGoods
          *
          * @param bundle
@@ -134,7 +134,7 @@ public interface IActivityLoad {
 
         /**
          * bundle.putString(C.MANIFEST_STR,mManifest);
-         * bundle.putParcelable(C.OPERATE_GOODS,takeBoxGoods);
+         * bundle.putParcelable(C.OPERATE_LEVEL,takeBoxGoods);
          *
          * @param bundle
          * @return
@@ -144,7 +144,7 @@ public interface IActivityLoad {
 
         /**
          * bundle.putString(C.MANIFEST_STR,mManifest);
-         * bundle.putParcelable(C.OPERATE_GOODS,takeBoxGoods);
+         * bundle.putParcelable(C.OPERATE_LEVEL,takeBoxGoods);
          * bundle.putParcelable(C.TAKE_BOX_PLAN,takeBoxPlan);
          *
          * @param bundle
@@ -242,7 +242,7 @@ public interface IActivityLoad {
         /**
          * C.MANIFEST_STR string 任务单据号
          * C.RACK_NO string 货位编码
-         * C.OPERATE_GOODS RackDownGoods 操作货品详情
+         * C.OPERATE_LEVEL RackDownGoods 操作货品详情
          * C.SCANNING_QTY double qty 扫描数量
          *
          * @param bundle
@@ -295,7 +295,7 @@ public interface IActivityLoad {
         Class getSortingGoodsListActivity(Bundle bundle);
 
         /**
-         * bundle.putParcelable(C.OPERATE_GOODS,sortingGoods);//SortingGoods
+         * bundle.putParcelable(C.OPERATE_LEVEL,sortingGoods);//SortingGoods
          * bundle.putDouble(C.SCANNING_GOODS_QTY,goodsQty);
          *
          * @param bundle

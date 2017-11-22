@@ -9,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.NameTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,17 +27,21 @@ import java.util.List;
 public abstract class CommonAdapter<E> extends BaseAdapter {
 
     private List<E> data; // 数据源
-    private Context mContext;
     private int layoutId;
 
     public CommonAdapter(Context context, List<E> data, int layoutId) {
-        this.mContext = context;
         this.data = data;
         this.layoutId = layoutId;
     }
-    public List<E> getList(){
+
+    public CommonAdapter(int layoutId) {
+        this.layoutId = layoutId;
+    }
+
+    public List<E> getList() {
         return data;
     }
+
     public void update(List<E> data) {
         this.data = data;
         notifyDataSetChanged();
@@ -59,20 +65,25 @@ public abstract class CommonAdapter<E> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = ViewHolder.getViewHolder(mContext, convertView, layoutId);
+        ViewHolder holder = ViewHolder.getViewHolder(parent.getContext(), convertView, layoutId);
 
-        setItemContent(holder, getItem(position),position);
+        setItemContent(holder, getItem(position), position);
 
         return holder.getConvertView();
     }
 
     /**
      * 设置item中各控件显示的内容
-     *  @param holder
+     *
+     * @param holder
      * @param e
      * @param position
      */
     public abstract void setItemContent(ViewHolder holder, E e, int position);
+
+    public void setNewData(ArrayList<E> newData) {
+        this.data = newData;
+    }
 
     /**
      * 持有者类（内部类）
@@ -125,8 +136,9 @@ public abstract class CommonAdapter<E> extends BaseAdapter {
             ((TextView) getViewById(viewId)).setText(text);
             return this;
         }
-        public ViewHolder setLabelText(int viewId,CharSequence text){
-            ((LabelTextView)getViewById(viewId)).setText(text);
+
+        public ViewHolder setLabelText(int viewId, CharSequence text) {
+            ((LabelTextView) getViewById(viewId)).setText(text);
             return this;
         }
 

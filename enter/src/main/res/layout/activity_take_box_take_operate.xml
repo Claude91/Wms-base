@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:color="@color/text_black_color"
-            app:labelText="外包装箱号"
+            app:labelText="外包装箱号(F2)"
             app:size="@dimen/text_label_size" />
     </LinearLayout>
 
@@ -64,11 +64,11 @@
             android:textColor="@color/text_white_color" />
 
         <com.shqtn.base.widget.LabelTextView
-            android:id="@+id/activity_take_box_take_operate_ltv_max_qty"
+            android:id="@+id/activity_take_box_take_operate_ltv_taking_qty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:color="@color/text_white_color"
-            app:labelText="最大数量"
+            app:labelText="装箱中"
             app:size="12sp"
             app:text="0" />
 
@@ -78,7 +78,17 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             app:color="@color/text_white_color"
-            app:labelText="已装数量"
+            app:labelText="完成"
+            app:size="12sp"
+            app:text="0" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_take_box_take_operate_ltv_untake_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            app:color="@color/text_white_color"
+            app:labelText="未装箱"
             app:size="12sp"
             app:text="0" />
     </LinearLayout>
@@ -112,7 +122,7 @@
             android:layout_height="0dp" />
 
         <TextView
-            android:id="@+id/activity_take_box_take_operate_tv_submit_f4"
+            android:id="@+id/activity_take_box_take_operate_tv_submit_over_f4"
             style="@style/bottomBtnStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

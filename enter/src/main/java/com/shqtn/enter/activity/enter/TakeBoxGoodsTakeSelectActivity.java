@@ -94,7 +94,7 @@ public class TakeBoxGoodsTakeSelectActivity extends BaseActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TakeBoxPlan takeBoxPlan = mPlanList.get(i - 1);
+                TakeBoxPlan takeBoxPlan = mPlanList.get(i);
                 toTakeOperateActivity(takeBoxPlan);
             }
         });
@@ -105,6 +105,7 @@ public class TakeBoxGoodsTakeSelectActivity extends BaseActivity {
     private void toTakeOperateActivity(TakeBoxPlan takeBoxPlan) {
         Bundle bundle = getBundle();
         bundle.putParcelable(C.TAKE_BOX_PLAN, takeBoxPlan);
+        bundle.putParcelable(C.OPERATE_GOODS,mOperateGoods);
         Class takeBoxTakeOperateActivity = InfoLoadUtils.getInstance().getEnterActivityLoad().getTakeBoxTakeOperateActivity(bundle);
         startActivity(takeBoxTakeOperateActivity, bundle, REQUEST_OPERATE_CODE);
     }
