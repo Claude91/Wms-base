@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.shqtn.base.clipboard.ClipBoardManager;
+import com.shqtn.base.http.OkHttpUtils;
 import com.shqtn.base.utils.LogUtils;
 
 import java.io.BufferedWriter;
@@ -35,6 +36,9 @@ public abstract class BaseApp extends Application {
     public void onCreate() {
         super.onCreate();
         baseApp = this;
+        OkHttpUtils okHttpUtils = OkHttpUtils.getInstance();
+        okHttpUtils.setNormalTimeOut();
+
         clipboardmanager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         clipboardmanager.addPrimaryClipChangedListener(mClipListener);
         init();

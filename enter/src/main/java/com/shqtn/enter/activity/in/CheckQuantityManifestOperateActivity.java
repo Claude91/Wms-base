@@ -2,6 +2,7 @@ package com.shqtn.enter.activity.in;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
+import com.shqtn.base.widget.dialog.EditQuantityDialog;
 import com.shqtn.enter.R;
 import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
@@ -63,6 +65,30 @@ public class CheckQuantityManifestOperateActivity extends BaseActivity implement
             int tag = (int) view.getTag(R.id.rv_item_id);
             mGoodsDetailsList.remove(tag);
             mGoodsAdapter.update(mGoodsDetailsList);
+        }
+    };
+
+
+    private View.OnClickListener mItemEditQtyListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag(R.id.rv_item_id);
+            clickPosition = position;
+            displayEditQty(mEditDialogResult);
+        }
+    };
+
+    private EditQuantityDialog.OnResultListener mEditDialogResult = new EditQuantityDialog.OnResultListener() {
+        @Override
+        public void clickOk(double quantity) {
+            CheckQuantityGoodsDetails checkQuantityGoodsDetails = mGoodsDetailsList.get(clickPosition);
+            checkQuantityGoodsDetails.setAddQty(quantity);
+            mGoodsAdapter.update(mGoodsDetailsList);
+        }
+
+        @Override
+        public void clickCancel() {
+
         }
     };
 
@@ -139,6 +165,11 @@ public class CheckQuantityManifestOperateActivity extends BaseActivity implement
         mGoodsAdapter = new CommonAdapter<CheckQuantityGoodsDetails>(this, null, R.layout.item_goods_check_quantity) {
             @Override
             public void setItemContent(ViewHolder holder, CheckQuantityGoodsDetails checkQuantityGoodsDetails, int position) {
+                View convertView = holder.getConvertView();
+                convertView.setClickable(true);
+                convertView.setTag(R.id.rv_item_id,position);
+                convertView.setOnClickListener(mItemEditQtyListener);
+
                 double addQty = checkQuantityGoodsDetails.getAddQty();
                 View viewDelete = holder.getViewById(R.id.item_goods_check_quantity_imgBtn_delete);
                 viewDelete.setTag(R.id.rv_item_id, position);
@@ -179,6 +210,8 @@ public class CheckQuantityManifestOperateActivity extends BaseActivity implement
 
     }
 
+    private int clickPosition;
+
     @Override
     public void initWidget() {
         super.initWidget();
@@ -186,8 +219,9 @@ public class CheckQuantityManifestOperateActivity extends BaseActivity implement
         ltvSrc.setText(CheckType.getPeriodName(mOperateManifest.getPeriod()));
         ltvType.setText(CheckType.getTypeName(mOperateManifest.getCheckType()));
         ltvManifest.setText(mOperateManifest.getDocNo());
-
         lvCheckGoods.setAdapter(mGoodsAdapter);
+
+
     }
 
     @Override

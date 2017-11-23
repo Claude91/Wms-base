@@ -74,6 +74,7 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
             } else if (SCANNING_BOX == scanningType) {
                 checkLpnBox(lpn);
             }
+            cancelProgressDialog();
         }
 
         @Override
@@ -85,12 +86,14 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
                 }
                 takeBoxChildOperate.addChildren(goods);
                 takeBoxChildOperate.getAdapter().notifyDataSetChanged();
+                cancelProgressDialog();
             }
         }
 
         @Override
         public void decodeOther(AllotBean code) {
             super.decodeOther(code);
+            cancelProgressDialog();
             displayMsgDialog("类型不匹配，请重新扫描");
         }
     };
@@ -120,7 +123,7 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         mTakeBoxCheckingBoxStatusParams.setIkey(mOperateGoods.getIkey());
         mTakeBoxCheckingBoxStatusParams.setLpnNo(lpnNo);
         mTakeBoxCheckingBoxStatusParams.setPackLevel(level);
-
+        displayProgressDialog("检测箱子状态 ");
         if (mCheckBoxCallback == null) {
             mCheckBoxCallback = new ResultCallback() {
                 @Override

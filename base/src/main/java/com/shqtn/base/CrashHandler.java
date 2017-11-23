@@ -32,11 +32,16 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private Map<String, String> infos = new HashMap<String, String>();
 //    //用于格式化日期,作为日志文件名的一部分
 //    private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss",Locale.getDefault());
-    /** 保证只有一个CrashHandler实例 */
+
+    /**
+     * 保证只有一个CrashHandler实例
+     */
     private CrashHandler() {
     }
 
-    /** 获取CrashHandler实例 ,单例模式 */
+    /**
+     * 获取CrashHandler实例 ,单例模式
+     */
     public static CrashHandler getInstance() {
         return INSTANCE;
     }
@@ -67,7 +72,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 Log.e(TAG, "error : ", e);
-            }  finally{
+            } finally {
 
             }
         }
@@ -83,15 +88,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (ex == null) {
             return false;
         }
-        //使用Toast来显示异常信息
-        new Thread() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                Toast.makeText(mContext, "很抱歉,程序出现异常,即将退出.", Toast.LENGTH_LONG).show();
-                Looper.loop();
-            }
-        }.start();
         //收集设备参数信息
         collectDeviceInfo(mContext);
         //保存日志文件
@@ -101,6 +97,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 收集设备参数信息
+     *
      * @param ctx
      */
     public void collectDeviceInfo(Context ctx) {
@@ -134,7 +131,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * 保存错误信息到文件中
      *
      * @param ex
-     * @return  返回文件名称,便于将文件传送到服务器
+     * @return 返回文件名称, 便于将文件传送到服务器
      */
     private String saveCrashInfo2File(Throwable ex) {
 
@@ -156,7 +153,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         }
         printWriter.close();
         String errormsg = writer.toString();
-        Log.e(TAG,errormsg);
+        Log.e(TAG, errormsg);
         BaseApp.getInstance().saveError(errormsg);
         return null;
     }

@@ -85,6 +85,7 @@ public class PackingManifestListPresenter extends AbstractListActivityPresenter 
 
 
         view.setAdapter(mManifestAdapter);
+        refresh();
     }
 
     @Override
@@ -165,4 +166,11 @@ public class PackingManifestListPresenter extends AbstractListActivityPresenter 
     public boolean isOpenStartRefreshing() {
         return true;
     }
+
+    @Override
+    public void onPullDownToRefresh() {
+        super.onPullDownToRefresh();
+        refresh();
+    }
+
 }

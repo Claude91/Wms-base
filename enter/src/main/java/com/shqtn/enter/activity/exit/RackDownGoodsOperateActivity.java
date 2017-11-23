@@ -106,7 +106,7 @@ public class RackDownGoodsOperateActivity extends BaseActivity implements CodeCo
     public void initWidget() {
         super.initWidget();
         double inputQty = scanningQty;
-        double canInputMaxQty = NumberUtils.getDouble(mOperateGoods.getQuantity() - mOperateGoods.getPutOffQuantity());
+        double canInputMaxQty =mOperateGoods.getQuantity();
         if (scanningQty <= 0) {
             inputQty = canInputMaxQty;
         }
@@ -182,7 +182,7 @@ public class RackDownGoodsOperateActivity extends BaseActivity implements CodeCo
             displayMsgDialog("请编写正确数量数量");
             return false;
         }
-        double planQty = mOperateGoods.getQuantity() - mOperateGoods.getPutOffQuantity();
+        double planQty = mOperateGoods.getQuantity();
         planQty = NumberUtils.getDouble(planQty);
         if (planQty < inputQty) {
             displayMsgDialog("超出计划下架数量，请修改数量");

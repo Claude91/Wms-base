@@ -1,5 +1,6 @@
 package com.shqtn.enter.presenter.exit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -39,6 +40,7 @@ public class SortingGoodsListPresenter extends AbstractListActivityPresenter {
         @Override
         public void onAfter() {
             super.onAfter();
+            getView().onRefreshComplete();
             getView().cancelProgressDialog();
         }
 
@@ -94,6 +96,11 @@ public class SortingGoodsListPresenter extends AbstractListActivityPresenter {
         refresh();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        refresh();
+    }
 
     @Override
     public void decodeGoods(CodeGoods goods) {

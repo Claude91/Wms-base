@@ -89,8 +89,12 @@ public class SortingManifestListPresenter extends AbstractListActivityPresenter 
         mManifestParams.setPage(C.PAGE);
         mManifestParams.setPageSize(C.PAGE_SIZE);
         mManifestParams.setWhCode(DepotUtils.getDepot(getAty().getContext()).getWhcode());
+        refresh();
 
     }
+
+
+
 
 
     @Override
@@ -166,6 +170,7 @@ public class SortingManifestListPresenter extends AbstractListActivityPresenter 
             }
         };
     }
+
 
     private void toGoodsListActivity(String deliveryNo) {
         Bundle bundle = new Bundle();

@@ -9,13 +9,13 @@ public abstract class IGoods {
     private Double skuQty;
     private String goodsSku;
     private String goodsBatchNo;
-    private boolean tag;
+    private Boolean tag;
 
     public boolean isTag() {
-        return tag;
+        return tag == null ? false : tag;
     }
 
-    public void setTag(boolean tag) {
+    public void setTag(Boolean tag) {
         this.tag = tag;
     }
 
