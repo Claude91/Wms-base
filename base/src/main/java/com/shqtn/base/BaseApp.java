@@ -42,16 +42,7 @@ public abstract class BaseApp extends Application {
         clipboardmanager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         clipboardmanager.addPrimaryClipChangedListener(mClipListener);
         init();
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(getApplicationContext());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Looper.prepare();
-                handler = new Handler();
-                Looper.loop();
-            }
-        }).start();
+        CrashHandler.getInstance().init(this);
     }
 
     /**
@@ -68,109 +59,6 @@ public abstract class BaseApp extends Application {
         }
     };
 
-    Handler handler;
-    public static final String name = "wms_error.txt";
-
-    public void saveError(final Exception e) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                LogUtils.i(BaseApp.class.getCanonicalName(), Thread.currentThread().getName());
-                File file = new File(absolutePath, name);
-                if (!file.exists()) {
-                    try {
-                        if (file.createNewFile()) {
-                            return;
-                        }
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                FileOutputStream fileOutputStream = null;
-                BufferedWriter bw = null;
-                try {
-                    fileOutputStream = new FileOutputStream(file, true);
-                    bw = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    e.printStackTrace(new PrintStream(baos));
-                    StringBuilder sb = new StringBuilder();
-
-                    sb.append("*****************************************************************************").
-                            append("错误时间:")
-                            .append(System.currentTimeMillis()).append("\r\n").append(baos.toString());
-                    bw.write(sb.toString());
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } finally {
-                    if (bw != null) {
-                        try {
-                            bw.close();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                    if (fileOutputStream != null) {
-                        try {
-                            fileOutputStream.close();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                }
-            }
-        });
-
-    }
-
-    public void saveError(final String e) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-
-                File file = new File(absolutePath, name);
-                if (!file.exists()) {
-                    try {
-                        if (file.createNewFile()) {
-                            return;
-                        }
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                FileOutputStream fileOutputStream = null;
-                BufferedWriter bw = null;
-                try {
-                    fileOutputStream = new FileOutputStream(file, true);
-                    bw = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
-                    bw.write(e);
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } finally {
-                    if (bw != null) {
-                        try {
-                            bw.close();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                    if (fileOutputStream != null) {
-                        try {
-                            fileOutputStream.close();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                }
-            }
-        });
-
-    }
 
     public abstract void init();
 
