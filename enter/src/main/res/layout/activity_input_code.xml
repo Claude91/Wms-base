@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_input_code"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shqtn.enter.InputCodeActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:rightText="完成(F1)"
+        app:title="编辑" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/setEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintContent="请请扫描字符串编码" />
+
+    <LinearLayout
+        style="@style/padding_left_top_right_style"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/activity_input_code_tv_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输入字符:" />
+
+        <TextView
+            android:id="@+id/activity_input_code_tv_input_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_normal" />
+    </LinearLayout>
+</LinearLayout>

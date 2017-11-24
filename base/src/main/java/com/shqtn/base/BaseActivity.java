@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,6 +27,8 @@ import com.shqtn.base.listener.OnClickDeleteListener;
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.DialogFactory;
 import com.shqtn.base.utils.StringUtils;
+import com.shqtn.base.utils.ToastUtils;
+import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
 import com.shqtn.base.widget.dialog.EditQuantityDialog;
@@ -49,6 +52,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private IKeyDownPresenter mKeyDownPresenter;
     private ActivityResultCallback activityResultCallback;
 
+    public SystemEditText setInputCode;
+
+    public TitleView titleView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,10 +63,24 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         ActivityUtils.getInstance().addAty(this);
         super.onCreate(savedInstanceState);
         setRootView();
+        otherInit();
         initializer();
 
     }
 
+    public void otherInit() {
+
+    }
+
+    @Override
+    public void toast(CharSequence msg) {
+        ToastUtils.show(this, msg.toString());
+    }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+    }
 
     // 仅仅是为了代码整洁点
     private void initializer() {
@@ -517,4 +537,5 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         mEditQuantityDialog.hideBtnDelete();
         mEditQuantityDialog.setOnClickDeleteListener(null);
     }
+
 }

@@ -27,6 +27,7 @@ public class InfoLoadUtils {
 
     private IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad;
     private IActivityLoad.InActivityLoad inActivityLoad;
+    private IActivityLoad.OtherActivityLoad otherActivityLoad;
     private IActivityLoad.EnterActivityLoad enterActivityLoad;
     private IActivityLoad.ExitActivityLoad exitActivityLoad;
 
@@ -53,6 +54,13 @@ public class InfoLoadUtils {
         return enterActivityLoad;
     }
 
+    public IActivityLoad.OtherActivityLoad getOtherActivityLoad(){
+        if (enterActivityLoad == null) {
+            throw new NullPointerException("请在App 中初始化 InfoLoadUtils.Config   当前IactivityLoad.OtherActivityLoad");
+        }
+        return otherActivityLoad;
+    }
+
     public IActivityLoad.ExitActivityLoad getExitActivityLoad() {
         if (exitActivityLoad == null) {
             throw new NullPointerException("请在App 中初始化 InfoLoadUtils.Config   当前IactivityLoad.ExitActivityLoad");
@@ -75,6 +83,7 @@ public class InfoLoadUtils {
     }
 
 
+
     public static class Config {
 
         public Config setFunctionMainLoad(IActivityLoad.FunctionMainActivityLoad f) {
@@ -94,6 +103,10 @@ public class InfoLoadUtils {
 
         public Config setInActivityLoad(IActivityLoad.InActivityLoad f) {
             getInstance().inActivityLoad = f;
+            return this;
+        }
+        public Config setOtherActivityLoad(IActivityLoad.OtherActivityLoad f) {
+            getInstance().otherActivityLoad = f;
             return this;
         }
 

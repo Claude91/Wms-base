@@ -25,7 +25,9 @@
         <activity android:name=".activity.enter.TakeBoxGoodsTakeSelectActivity" />
         <activity android:name=".activity.enter.TakeBoxTakeOperateActivity" />
         <activity android:name=".activity.in.PMHaveCodeAddGoodsOrLpnActivity" />
-        <activity android:name=".activity.PalletDetailsActivity"></activity>
+        <activity android:name=".activity.PalletDetailsActivity" />
+        <activity android:name=".print.aty.BoxPrintActivity" />
+        <activity android:name=".InputCodeActivity"></activity>
     </application>
 
 </manifest>

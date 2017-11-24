@@ -1,9 +1,11 @@
 package com.shqtn.enter.info.impl;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 
 import com.shqtn.enter.FunctionBean;
 import com.shqtn.enter.InfoLoadUtils;
+import com.shqtn.enter.R;
 import com.shqtn.enter.info.IActivityLoad;
 import com.shqtn.enter.info.IFunctionLoad;
 
@@ -11,8 +13,9 @@ import java.util.List;
 
 /**
  * 控制 主页功能页面加载
+ *
  * @author android strivei_bug@yeah.net
- * Created by android on 2017/9/25.
+ *         Created by android on 2017/9/25.
  */
 
 public class FunctionLoadImpl implements IFunctionLoad {
@@ -42,14 +45,18 @@ public class FunctionLoadImpl implements IFunctionLoad {
 
         try {
             //装箱
-            FunctionBean takeBoxMain = getTakeBoxMain(functionMainActivityLoad);
+            Bundle bundle = new Bundle();
+            FunctionBean takeBoxMain = createFunctionBean("装箱", R.drawable.home_take_box
+                    , bundle, functionMainActivityLoad.getQualityInspectionMain(bundle));
             list.add(takeBoxMain);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
         try {
             //质检
-            FunctionBean qualityInspectionMain = getQualityInspectionMain(functionMainActivityLoad);
+            Bundle bundle = new Bundle();
+            FunctionBean qualityInspectionMain = createFunctionBean("质检", R.drawable.home_quanlity_checking
+                    , bundle, functionMainActivityLoad.getQualityInspectionMain(bundle));
             list.add(qualityInspectionMain);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -84,6 +91,18 @@ public class FunctionLoadImpl implements IFunctionLoad {
             FunctionBean enterPallet = getPalletManagerHaveCodeInMain(functionMainActivityLoad);
             list.add(enterPallet);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addOtherFunction(List<FunctionBean> list) {
+        //printBox
+        //下架
+        try {
+            FunctionBean printBox = getPrintBoxMain(functionMainActivityLoad);
+            list.add(printBox);
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -159,16 +178,15 @@ public class FunctionLoadImpl implements IFunctionLoad {
         return bean;
     }
 
-
-    public FunctionBean getQualityInspectionMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+    private FunctionBean createFunctionBean(String label, @DrawableRes int iconId, Bundle bundle, Class clazz) {
         FunctionBean bean = new FunctionBean();
-        bean.setName("质检");
-        bean.setIconId(com.shqtn.base.R.drawable.home_quanlity_checking);
-        Bundle bundle = bean.getBundle();
-        Class takeDelManifestListActivity = functionMainActivityLoad.getQualityInspectionMain(bundle);
-        bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
+        bean.setName(label);
+        bean.setBundle(bundle);
+        bean.setAtyClazzName(clazz.getCanonicalName());
+        bean.setIconId(iconId);
         return bean;
     }
+
 
     public FunctionBean getDepotOutMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
@@ -231,15 +249,6 @@ public class FunctionLoadImpl implements IFunctionLoad {
         return bean;
     }
 
-    public FunctionBean getTakeBoxMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
-        FunctionBean bean = new FunctionBean();
-        bean.setName("装箱");
-        bean.setIconId(com.shqtn.base.R.drawable.home_take_box);
-        Bundle bundle = bean.getBundle();
-        Class takeDelManifestListActivity = functionMainActivityLoad.getTakeBoxMain(bundle);
-        bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
-        return bean;
-    }
 
     public FunctionBean getRackUpMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
         FunctionBean bean = new FunctionBean();
@@ -257,6 +266,16 @@ public class FunctionLoadImpl implements IFunctionLoad {
         bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
         Bundle bundle = bean.getBundle();
         Class takeDelManifestListActivity = functionMainActivityLoad.getTakeDelMainActivity(bundle);
+        bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
+        return bean;
+    }
+
+    private FunctionBean getPrintBoxMain(IActivityLoad.FunctionMainActivityLoad functionMainActivityLoad) {
+        FunctionBean bean = new FunctionBean();
+        bean.setName("打印");
+        bean.setIconId(com.shqtn.base.R.drawable.home_take_delivery);
+        Bundle bundle = bean.getBundle();
+        Class takeDelManifestListActivity = functionMainActivityLoad.getPrintBoxMain(bundle);
         bean.setAtyClazzName(takeDelManifestListActivity.getCanonicalName());
         return bean;
     }

@@ -3,6 +3,7 @@
     <item type="id" name="function_in"/>
     <item type="id" name="function_exit"/>
     <item type="id" name="function_enter"/>
+    <item type="id" name="function_other"/>
 
     <item name="decode" type="id"/>
     <item name="decode_failed" type="id"/>

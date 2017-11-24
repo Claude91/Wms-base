@@ -89,6 +89,11 @@ public interface IActivityLoad {
          * @return
          */
         Class getPMHaveCodeInMain(Bundle bundle);
+
+        /**
+         * 打印入口
+         */
+        Class getPrintBoxMain(Bundle bundle);
     }
 
     public interface EnterActivityLoad {
@@ -219,6 +224,15 @@ public interface IActivityLoad {
         Class getPalletDetailsActivity(Bundle bundle);
     }
 
+    public interface OtherActivityLoad {
+        /**
+         * 打印箱号
+         *
+         * @param bundle
+         * @return
+         */
+        Class getPrintBoxActivity(Bundle bundle);
+    }
 
     public interface ExitActivityLoad {
         /**

@@ -52,16 +52,6 @@ public class FunctionBean {
     public void setBundle(Bundle bundle) {
         this.bundle = bundle;
     }
-    public void putPresenterName(Class presenter){
-        if (bundle == null){
-            bundle = new Bundle();
-        }
-        bundle.putString(C.PRESENTER,presenter.getCanonicalName());
-    }
-
-    public String getControllerName() {
-        return controllerName;
-    }
 
     public void setControllerName(String controllerName) {
         this.controllerName = controllerName;

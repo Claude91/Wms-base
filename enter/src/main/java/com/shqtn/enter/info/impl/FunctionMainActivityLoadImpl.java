@@ -17,6 +17,7 @@ import com.shqtn.enter.presenter.exit.SortingManifestListPresenter;
 import com.shqtn.enter.presenter.in.CheckQuantityManifestListPresenter;
 import com.shqtn.enter.presenter.in.GoodsAdjustRackPresenter;
 import com.shqtn.enter.presenter.in.pallet.PalletManagerHaveCodeInLpnPresenter;
+import com.shqtn.enter.print.aty.BoxPrintActivity;
 
 /**
  * Created by android on 2017/9/30.
@@ -115,5 +116,10 @@ public class FunctionMainActivityLoadImpl implements IActivityLoad.FunctionMainA
         Bundle listActivityBundle = ListActivity.createListActivityBundle(PalletManagerHaveCodeInLpnPresenter.class);
         bundle.putAll(listActivityBundle);
         return ListActivity.class;
+    }
+
+    @Override
+    public Class getPrintBoxMain(Bundle bundle) {
+        return BoxPrintActivity.class;
     }
 }

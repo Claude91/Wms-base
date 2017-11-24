@@ -39,4 +39,7 @@ public interface IDialogView {
     void displayEditQty(double maxQty, EditQuantityDialog.OnResultListener resultListener);
 
     void cancelEditQty();
+
+    void toast(CharSequence msg);
+
 }

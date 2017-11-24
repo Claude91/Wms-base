@@ -8,17 +8,17 @@ import android.support.annotation.NonNull;
 
 public class StringUtils {
 
-    public static boolean isEmpty(String str){
-        if (str == null || str.isEmpty()){
+    public static boolean isEmpty(CharSequence str){
+        if (str == null || str.length() == 0){
             return true;
         }
         return false;
     }
-    public static boolean isEmpty(@NonNull String ... str){
+    public static boolean isEmpty(@NonNull CharSequence ... str){
         if (str == null){
             return true;
         }
-        for (String s : str) {
+        for (CharSequence s : str) {
             if (isEmpty(s)) {
                 return true;
             }

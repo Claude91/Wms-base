@@ -8,6 +8,7 @@ import com.shqtn.enter.info.impl.ExitActivityLoadImpl;
 import com.shqtn.enter.info.impl.FunctionLoadImpl;
 import com.shqtn.enter.info.impl.FunctionMainActivityLoadImpl;
 import com.shqtn.enter.info.impl.InActivityLoadImpl;
+import com.shqtn.enter.info.impl.OtherActivityLoadImpl;
 
 
 /**
@@ -34,6 +35,7 @@ public class MyApp extends BaseApp {
         loadConfig.setEnterActivityLoad(new EnterActivityLoadImpl())
                 .setExitActivityLoad(new ExitActivityLoadImpl())
                 .setInActivityLoad(new InActivityLoadImpl())
+                .setOtherActivityLoad(new OtherActivityLoadImpl())
                 .setFunctionMainLoad(new FunctionMainActivityLoadImpl())
                 .setFunctionLoad(new FunctionLoadImpl())
                 .setActivityLoad(new ActivityLoadImpl());

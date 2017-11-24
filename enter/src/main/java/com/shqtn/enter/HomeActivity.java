@@ -3,6 +3,7 @@ package com.shqtn.enter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.LayoutRes;
 import android.view.View;
 
 import com.shqtn.base.BaseActivity;
@@ -13,7 +14,6 @@ import com.shqtn.enter.activity.DepotChangeAty;
 import com.shqtn.enter.frag.FunctionFragment;
 import com.shqtn.enter.frag.UserDetailsFragment;
 import com.shqtn.enter.info.impl.FunctionLoadImpl;
-
 
 public class HomeActivity extends BaseActivity {
 
@@ -69,11 +69,12 @@ public class HomeActivity extends BaseActivity {
                     case BUTTON_TAG_USER_DETAILS:
                         changeFragment(R.id.home_fl_content, mUserDetailsFragment);
                         break;
+                    default:
                 }
             }
         });
 
-        if (DepotUtils.getDepot(this) == null){
+        if (DepotUtils.getDepot(this) == null) {
             toDepotSelectActivity();
         }
 

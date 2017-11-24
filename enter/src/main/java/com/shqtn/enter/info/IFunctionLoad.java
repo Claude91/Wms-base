@@ -31,4 +31,11 @@ public interface IFunctionLoad {
      * @return
      */
     void addInDepotFunction(List<FunctionBean> list);
+
+    /**
+     * 添加其他功能
+     *
+     * @param list
+     */
+    void addOtherFunction(List<FunctionBean> list);
 }

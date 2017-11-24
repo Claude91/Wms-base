@@ -18,4 +18,7 @@ public class ActivityLoadImpl implements IActivityLoad {
     public Class getHomeActivity() {
         return HomeActivity.class;
     }
+
+
+
 }
