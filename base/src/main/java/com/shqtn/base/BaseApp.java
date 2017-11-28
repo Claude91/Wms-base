@@ -11,6 +11,7 @@ import android.os.Looper;
 import com.shqtn.base.clipboard.ClipBoardManager;
 import com.shqtn.base.http.OkHttpUtils;
 import com.shqtn.base.utils.LogUtils;
+import com.shqtn.base.utils.VibrateHelper;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
@@ -43,6 +44,8 @@ public abstract class BaseApp extends Application {
         clipboardmanager.addPrimaryClipChangedListener(mClipListener);
         init();
         CrashHandler.getInstance().init(this);
+
+        VibrateHelper.getInstance().init(this);
     }
 
     /**

@@ -1,11 +1,16 @@
 package com.shqtn.base.http;
 
+import android.view.ViewAnimationUtils;
+
 import com.google.gson.Gson;
+import com.shqtn.base.BaseApp;
 import com.shqtn.base.R;
 import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.DataUtils;
 import com.shqtn.base.utils.LogUtils;
+import com.shqtn.base.utils.MediaPlayUtils;
+import com.shqtn.base.utils.VibrateHelper;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zhy.http.okhttp.callback.Callback;
@@ -48,6 +53,8 @@ public abstract class ResultCallback extends Callback<ResultBean> {
         } else {
             onFailed(ActivityUtils.getInstance().getTopAty().getString(R.string.httpLinkFailed));
         }
+        MediaPlayUtils.playError(BaseApp.getInstance());
+        VibrateHelper.getInstance().vibrate();
     }
 
     public abstract void onFailed(String msg);
@@ -59,6 +66,8 @@ public abstract class ResultCallback extends Callback<ResultBean> {
             onSuccess(response);
         } else {
             onFailed(response.getMessage());
+            MediaPlayUtils.playError(BaseApp.getInstance());
+            VibrateHelper.getInstance().vibrate();
         }
     }
 

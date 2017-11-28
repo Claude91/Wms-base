@@ -2,6 +2,7 @@ package com.shqtn.enter.frag;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.ql.bindview.BindView;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -140,6 +141,11 @@ public class FunctionFragment extends BaseFragment {
         rvExit = view.findViewById(R.id.frag_home_depot_exit_recyclerView);
         rvIn = view.findViewById(R.id.frag_home_depot_in_recyclerView);
         rvOther = view.findViewById(R.id.frag_home_depot_other_recyclerView);
+
+        inGroup = view.findViewById(R.id.frag_home_depot_in_group);
+        exitGroup = view.findViewById(R.id.frag_home_depot_exit_group);
+        enterGroup = view.findViewById(R.id.frag_home_depot_enter_group);
+        otherGroup = view.findViewById(R.id.frag_home_depot_other_group);
     }
 
 

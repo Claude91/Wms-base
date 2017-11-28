@@ -2,6 +2,7 @@ package com.shqtn.base.info.code.help;
 
 import android.support.annotation.IntDef;
 
+import com.shqtn.base.BaseApp;
 import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.code.AllotBean;
@@ -10,6 +11,8 @@ import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.CodeRack;
 import com.shqtn.base.info.code.CodeUtils;
+import com.shqtn.base.utils.MediaPlayUtils;
+import com.shqtn.base.utils.VibrateHelper;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -20,9 +23,11 @@ import java.lang.annotation.RetentionPolicy;
 
 
 public class CodeCallback extends ResultCallback {
-    @IntDef({TAG_GOODS,TAG_LPN,TAG_RACK,TAG_MANIFEST})
+    @IntDef({TAG_GOODS, TAG_LPN, TAG_RACK, TAG_MANIFEST})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface ScanningTag{}
+    public @interface ScanningTag {
+    }
+
     public static final int TAG_GOODS = 0X110;
     public static final int TAG_LPN = 0X111;
     public static final int TAG_RACK = 0X112;
@@ -129,6 +134,8 @@ public class CodeCallback extends ResultCallback {
 
 
     public void onOtherCode(AllotBean codeBean) {
+        MediaPlayUtils.playError(BaseApp.getInstance());
+        VibrateHelper.getInstance().vibrate();
         if (mOnCodeListener != null) mOnCodeListener.onOtherCode(codeBean);
 
     }

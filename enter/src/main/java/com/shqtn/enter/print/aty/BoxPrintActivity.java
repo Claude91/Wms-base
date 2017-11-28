@@ -2,8 +2,11 @@ package com.shqtn.enter.print.aty;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.shqtn.base.BaseActivity;
@@ -15,6 +18,15 @@ import com.shqtn.base.widget.dialog.EditQuantityDialog;
 import com.shqtn.enter.BaseEnterActivity;
 import com.shqtn.enter.InputCodeActivity;
 import com.shqtn.enter.R;
+import com.zebra.sdk.comm.BluetoothConnection;
+import com.zebra.sdk.comm.Connection;
+import com.zebra.sdk.comm.ConnectionException;
+import com.zebra.sdk.comm.TcpConnection;
+import com.zebra.sdk.device.ZebraIllegalArgumentException;
+import com.zebra.sdk.graphics.internal.ZebraImageAndroid;
+import com.zebra.sdk.printer.ZebraPrinter;
+import com.zebra.sdk.printer.ZebraPrinterFactory;
+import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 
 import static com.shqtn.enter.R.id.activity_box_print_batch_no_group;
 import static com.shqtn.enter.R.id.switcher;
@@ -96,5 +108,38 @@ public class BoxPrintActivity extends BaseEnterActivity {
 
     private void decode(String code) {
 
+    }
+
+
+    private void printPhotoFromExternal(final Bitmap bitmap) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    Looper.prepare();
+                    Connection connection = getZebraPrinterConn();
+                    connection.open();
+                    ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
+
+                    printer.printImage(new ZebraImageAndroid(bitmap), 0, 0, 550, 412, false);
+                    connection.close();
+                } catch (ConnectionException e) {
+                } catch (ZebraPrinterLanguageUnknownException e) {
+                } finally {
+                    bitmap.recycle();
+                    Looper.myLooper().quit();
+                }
+            }
+        }).start();
+
+    }
+
+    private Connection getZebraPrinterConn() {
+        return new BluetoothConnection(getMaxAddress());
+    }
+
+    public String getMaxAddress() {
+        return "";
     }
 }
