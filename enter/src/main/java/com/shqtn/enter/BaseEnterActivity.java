@@ -7,9 +7,10 @@ import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
 
 /**
+ * 创建时间:2017/11/24
+ * 描述:
+ *
  * @author ql
- *         创建时间:2017/11/24
- *         描述:
  */
 
 public abstract class BaseEnterActivity extends BaseActivity {

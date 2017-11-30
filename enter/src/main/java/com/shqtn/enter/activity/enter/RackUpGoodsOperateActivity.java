@@ -284,6 +284,6 @@ public class RackUpGoodsOperateActivity extends BaseActivity implements SystemEd
 
     @Override
     public void decodeOther(AllotBean code) {
-
+        displayMsgDialog("扫描编码不正确，请从新扫描");
     }
 }

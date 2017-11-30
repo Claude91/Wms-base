@@ -3,6 +3,7 @@
     package="com.shqtn.enter">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
@@ -28,7 +29,8 @@
         <activity android:name=".activity.in.PMHaveCodeAddGoodsOrLpnActivity" />
         <activity android:name=".activity.PalletDetailsActivity" />
         <activity android:name=".print.aty.BoxPrintActivity" />
-        <activity android:name=".InputCodeActivity"></activity>
+        <activity android:name=".InputCodeActivity" />
+        <activity android:name=".DecodeDetailsActivity"></activity>
     </application>
 
 </manifest>
