@@ -1,9 +1,6 @@
 package com.shqtn.base.utils;
 
 import android.content.Context;
-import android.os.Build;
-import android.os.Parcel;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 
 /**
@@ -15,7 +12,7 @@ import android.os.Vibrator;
 public class VibrateHelper {
 
     private static VibrateHelper mInstance;
-
+    private boolean errorVibrate;
     public static final int NORMAL_TIME = 300;
 
     private long vTime = NORMAL_TIME;
@@ -33,20 +30,34 @@ public class VibrateHelper {
         return mInstance;
     }
 
-    public VibrateHelper(){
+    public VibrateHelper() {
 
     }
 
     public void init(Context context) {
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-
     }
 
     public void vibrate() {
-        vibrator.vibrate(vTime);
+        if (isErrorVibrate()) {
+            vibrator.vibrate(vTime);
+        }
     }
 
     public void setTime(long time) {
         vTime = time;
+    }
+
+    public boolean isErrorVibrate() {
+        return errorVibrate;
+    }
+
+    /**
+     * 设置 是否开启错误状态下开启 震动
+     *
+     * @param isOpen
+     */
+    public void setErrorVibrate(boolean isOpen) {
+        errorVibrate = isOpen;
     }
 }

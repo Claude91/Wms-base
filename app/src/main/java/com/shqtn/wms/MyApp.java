@@ -1,6 +1,8 @@
 package com.shqtn.wms;
 
 import com.shqtn.base.BaseApp;
+import com.shqtn.base.utils.MediaPlayUtils;
+import com.shqtn.base.utils.VibrateHelper;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.info.impl.ActivityLoadImpl;
 import com.shqtn.enter.info.impl.EnterActivityLoadImpl;
@@ -35,10 +37,12 @@ public class MyApp extends BaseApp {
         loadConfig.setEnterActivityLoad(new EnterActivityLoadImpl())
                 .setExitActivityLoad(new ExitActivityLoadImpl())
                 .setInActivityLoad(new InActivityLoadImpl())
-                .setOtherActivityLoad(new OtherActivityLoadImpl())
                 .setFunctionMainLoad(new FunctionMainActivityLoadImpl())
-                .setFunctionLoad(new FunctionLoadImpl())
+                .setFunctionLoad(new AFunctionLoadImpl())
                 .setActivityLoad(new ActivityLoadImpl());
+
+        VibrateHelper.getInstance().setErrorVibrate(true);
+        MediaPlayUtils.getInstance().setOpenErrorPlay(true);
 
     }
 

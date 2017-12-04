@@ -12,9 +12,28 @@ import com.shqtn.base.R;
  */
 
 public class MediaPlayUtils {
+    private static MediaPlayUtils mInstance;
+
+    public static MediaPlayUtils getInstance() {
+        if (mInstance == null) {
+            synchronized (MediaPlayUtils.class) {
+                if (mInstance == null) {
+                    mInstance = new MediaPlayUtils();
+                }
+            }
+        }
+        return mInstance;
+    }
+
     private static MediaPlayer errorPlay;
 
-    public static void playError(Context context) {
+    private boolean openErrorPlay;
+
+
+    public void playError(Context context) {
+        if (!isOpenErrorPlay()) {
+            return;
+        }
         if (errorPlay == null) {
             errorPlay = MediaPlayer.create(context, R.raw.error);
             errorPlay.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -36,4 +55,12 @@ public class MediaPlayUtils {
 
     }
 
+
+    public boolean isOpenErrorPlay() {
+        return openErrorPlay;
+    }
+
+    public void setOpenErrorPlay(boolean openErrorPlay) {
+        this.openErrorPlay = openErrorPlay;
+    }
 }

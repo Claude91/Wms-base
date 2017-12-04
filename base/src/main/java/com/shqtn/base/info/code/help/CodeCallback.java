@@ -134,7 +134,7 @@ public class CodeCallback extends ResultCallback {
 
 
     public void onOtherCode(AllotBean codeBean) {
-        MediaPlayUtils.playError(BaseApp.getInstance());
+        MediaPlayUtils.getInstance().playError(BaseApp.getInstance());
         VibrateHelper.getInstance().vibrate();
         if (mOnCodeListener != null) mOnCodeListener.onOtherCode(codeBean);
 

@@ -89,6 +89,7 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //这里的s表示改变之后的内容，通常start和count组合，可以在s中读取本次改变字段中新的内容。而before表示被改变的内容的数量。
+                mTextChangeManager.textChange(s, start, before, count);
             }
 
             @Override
@@ -241,6 +242,7 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
                 mTextChangeManager.setOnTimeAfterTextChangeListener(this);
                 ClipBoardManager.getInstance().addListener(this);
                 break;
+            default:
         }
         SystemEditModeUtils.saveMode(getContext(), modeType);
     }

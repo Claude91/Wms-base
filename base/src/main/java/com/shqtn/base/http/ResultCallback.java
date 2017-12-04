@@ -53,7 +53,7 @@ public abstract class ResultCallback extends Callback<ResultBean> {
         } else {
             onFailed(ActivityUtils.getInstance().getTopAty().getString(R.string.httpLinkFailed));
         }
-        MediaPlayUtils.playError(BaseApp.getInstance());
+        MediaPlayUtils.getInstance().playError(BaseApp.getInstance());
         VibrateHelper.getInstance().vibrate();
     }
 
@@ -66,7 +66,7 @@ public abstract class ResultCallback extends Callback<ResultBean> {
             onSuccess(response);
         } else {
             onFailed(response.getMessage());
-            MediaPlayUtils.playError(BaseApp.getInstance());
+            MediaPlayUtils.getInstance().playError(BaseApp.getInstance());
             VibrateHelper.getInstance().vibrate();
         }
     }

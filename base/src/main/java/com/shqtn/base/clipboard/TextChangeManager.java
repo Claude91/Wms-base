@@ -2,7 +2,6 @@ package com.shqtn.base.clipboard;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextWatcher;
 
 import com.shqtn.base.utils.StringUtils;
 
@@ -16,6 +15,8 @@ public class TextChangeManager {
     private final static Handler mHandler = new Handler(Looper.getMainLooper());
     private IChangeView mIChangeView;
 
+    private boolean isTextInputSearch;//用于判断是否已经输入 查询过
+
     private OnTimeAfterTextChangeListener mOnTimeAfterTextChangeListener;
 
 
@@ -27,9 +28,14 @@ public class TextChangeManager {
     private boolean isDoing;
 
     public void startReaderTime() {
+        if (isTextInputSearch) {
+            isTextInputSearch = false;
+            return;
+        }
         if (isDoing) return;
         isDoing = true;
         //开始计数
+
         if (mGetSystemRunnable == null) {
             mGetSystemRunnable = new Runnable() {
                 @Override
@@ -73,6 +79,24 @@ public class TextChangeManager {
         }
         lastText = mIChangeView.getText();
         mHandler.postDelayed(mGetSystemRunnable, waitingGetTime);
+    }
+
+
+    /**
+     * 由于symbol 品牌的SDK 测试调不通，监听输入框输入字符数量，
+     * symbol 输入模式 类似于 在中文输入法中，输入英文 + enter键直接赋值到 输入框中。
+     *
+     * @param s     输入后输入框内容
+     * @param start 开始输入的位置
+     * @param end
+     * @param count 输入字符的数量
+     */
+    public void textChange(CharSequence s, int start, int end, int count) {
+        if (count > SYSTEM_MIN_LENGTH) {
+            CharSequence charSequence = s.subSequence(start, s.length());
+            mOnTimeAfterTextChangeListener.onTextChange(charSequence.toString());
+            isTextInputSearch = true;
+        }
     }
 
     public void setIChangeView(IChangeView mIChangeView) {
