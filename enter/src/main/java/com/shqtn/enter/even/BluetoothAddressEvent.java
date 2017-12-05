@@ -1,14 +1,13 @@
 package com.shqtn.enter.even;
 
-import com.shqtn.base.bean.DepotBean;
-
-import org.greenrobot.eventbus.EventBus;
-
 /**
- * Created by android on 2017/10/23.
+ * 创建时间:2017/12/4
+ * 描述:
+ *
+ * @author ql
  */
 
-public class DepotEvent extends EventBus {
+public class BluetoothAddressEvent {
     private static DepotEvent mInstance;
 
     public static DepotEvent getInstance() {
@@ -23,7 +22,7 @@ public class DepotEvent extends EventBus {
     }
 
     public void postMsg(String address) {
-        post(address);
+        mInstance.post(address);
     }
 
 }

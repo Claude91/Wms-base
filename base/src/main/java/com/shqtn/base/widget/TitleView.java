@@ -128,7 +128,7 @@ public class TitleView extends FrameLayout {
                 @Override
                 public void onClick(View v) {
                     if (mOnRightTextClickListener != null) {
-                        mOnRightTextClickListener.onOnClick();
+                        mOnRightTextClickListener.onClickTitleRightText();
                     }
                 }
             });
@@ -191,7 +191,7 @@ public class TitleView extends FrameLayout {
     }
 
     public interface OnRightTextClickListener {
-        void onOnClick();
+        void onClickTitleRightText();
     }
 
     public interface OnRightIconClickListener {

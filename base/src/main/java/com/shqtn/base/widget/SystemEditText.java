@@ -278,7 +278,11 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         if (!isCanReaderText()) {
             return;
         }
+
         et.setText(content);
+        if (mTextChangeManager.isPassRead(content, System.currentTimeMillis())) {
+            return;
+        }
         toSearch();
     }
 

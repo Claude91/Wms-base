@@ -302,9 +302,19 @@ public class ApiUrl {
 
         URL_PACKING_DEPOT_OF_MANIFEST = BASE_URL + "os/deliverByBox/getPackageBox";
 
-
+        print_decode = BASE_URL + "base/printpackbox/findSku";
+        print_create_image = BASE_URL +  "base/printpackbox/createImg";
     }
 
+    /**
+     * 打印页面 解码 货品
+     */
+    public static String print_decode = BASE_URL + "base/printpackbox/findSku";
+
+    /**
+     * 打印生成图片 通过SKU 以及其他参数生成一张标签图片
+     */
+    public static String print_create_image = BASE_URL +  "base/printpackbox/createImg";
 
     /**
      * 包装出库 通过任务单 获取Lpn列表

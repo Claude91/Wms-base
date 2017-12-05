@@ -2,6 +2,7 @@ package com.shqtn.base.clipboard;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 
 import com.shqtn.base.utils.StringUtils;
 
@@ -26,6 +27,9 @@ public class TextChangeManager {
     private Runnable mGetSystemRunnable;
     private String lastText;
     private boolean isDoing;
+
+    private String readText;//解码得到的字符串
+    private long readTime; //得到解码的字符串时间 ；
 
     public void startReaderTime() {
         if (isTextInputSearch) {
@@ -96,6 +100,8 @@ public class TextChangeManager {
             CharSequence charSequence = s.subSequence(start, s.length());
             mOnTimeAfterTextChangeListener.onTextChange(charSequence.toString());
             isTextInputSearch = true;
+            readText = charSequence.toString();
+            readTime = System.currentTimeMillis();
         }
     }
 
@@ -107,6 +113,33 @@ public class TextChangeManager {
         this.mOnTimeAfterTextChangeListener = mOnTimeAfterTextChangeListener;
     }
 
+
+    /**
+     * 是否经过当前读码器
+     *
+     * @param text     解码 字符串
+     * @param readTime 解码时间
+     * @return
+     */
+    public boolean isPassRead(String text, long readTime) {
+        if (Math.abs(this.readTime - readTime) > 600) {
+            return false;
+        }
+
+        if (this.readText == null) {
+            return false;
+        }
+
+        if (readText.length() != text.length()) {
+            return false;
+        }
+
+        if (!readText.equals(text)) {
+            return false;
+        }
+
+        return true;
+    }
 
     public interface IChangeView {
         void clearText();

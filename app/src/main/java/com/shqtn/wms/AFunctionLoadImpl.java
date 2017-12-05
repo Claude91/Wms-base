@@ -14,8 +14,4 @@ import java.util.List;
 
 public class AFunctionLoadImpl extends FunctionLoadImpl {
 
-    @Override
-    public void addOtherFunction(List<FunctionBean> list) {
-
-    }
 }

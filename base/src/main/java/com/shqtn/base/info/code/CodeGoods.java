@@ -7,6 +7,7 @@ import com.shqtn.base.bean.base.IGoods;
 import com.shqtn.base.utils.NumberUtils;
 
 /**
+ * {"skuCode":"08600043","batchNo":"","ownerCode":"","quantity":"","skuName":"三通","unitName":"PCS","std":"配￠40PPR管"}
  * Created by android on 2017/7/14.
  */
 

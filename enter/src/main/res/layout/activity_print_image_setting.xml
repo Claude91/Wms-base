@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_print_image_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shqtn.enter.print.aty.PrintImageSettingActivity">
+
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:rightText="完成"
+        app:title="打印设置" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        android:text="照片大小设置"
+        android:textColor="@color/text_white_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_top_normal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="起始位置-X" />
+
+            <EditText
+                android:id="@+id/activity_print_image_setting_et_start_x"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hideColor"
+                android:gravity="right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/div_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_top_normal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="终点位置-X" />
+
+            <EditText
+                android:id="@+id/activity_print_image_setting_et_end_x"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hideColor"
+                android:gravity="right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/div_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_top_normal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="起始位置-Y" />
+
+            <EditText
+                android:id="@+id/activity_print_image_setting_et_start_y"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hideColor"
+                android:gravity="right" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/div_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_top_normal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="终点位置-Y" />
+
+            <EditText
+                android:id="@+id/activity_print_image_setting_et_end_y"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/hideColor"
+                android:gravity="right" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

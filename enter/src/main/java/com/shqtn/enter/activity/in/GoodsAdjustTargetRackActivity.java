@@ -89,7 +89,7 @@ public class GoodsAdjustTargetRackActivity extends BaseActivity implements CodeC
         titleView.setOnToBackClickListener(this);
         titleView.setOnRightTextClickListener(new TitleView.OnRightTextClickListener() {
             @Override
-            public void onOnClick() {
+            public void onClickTitleRightText() {
                 submit();
             }
         });

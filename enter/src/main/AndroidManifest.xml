@@ -3,6 +3,10 @@
     package="com.shqtn.enter">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -30,7 +34,9 @@
         <activity android:name=".activity.PalletDetailsActivity" />
         <activity android:name=".print.aty.BoxPrintActivity" />
         <activity android:name=".InputCodeActivity" />
-        <activity android:name=".DecodeDetailsActivity"></activity>
+        <activity android:name=".DecodeDetailsActivity" />
+        <activity android:name=".print.aty.InputBluetoothAddressActivity" />
+        <activity android:name=".print.aty.PrintImageSettingActivity"></activity>
     </application>
 
 </manifest>

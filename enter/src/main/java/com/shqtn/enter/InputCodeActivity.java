@@ -78,7 +78,7 @@ public class InputCodeActivity extends BaseEnterActivity implements TitleView.On
     }
 
     @Override
-    public void onOnClick() {
+    public void onClickTitleRightText() {
         CharSequence inputCode = tvInputCode.getText();
         if (StringUtils.isEmpty(inputCode)) {
             toast("请输入字符");

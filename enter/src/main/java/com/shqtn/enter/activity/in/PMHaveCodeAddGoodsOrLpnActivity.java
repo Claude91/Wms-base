@@ -175,7 +175,7 @@ public class PMHaveCodeAddGoodsOrLpnActivity extends BaseActivity implements Cod
         titleView.setOnToBackClickListener(this);
         titleView.setOnRightTextClickListener(new TitleView.OnRightTextClickListener() {
             @Override
-            public void onOnClick() {
+            public void onClickTitleRightText() {
                 toLpnDetailsActivity();
             }
         });
