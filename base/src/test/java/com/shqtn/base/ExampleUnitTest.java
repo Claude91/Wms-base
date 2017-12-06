@@ -1,7 +1,13 @@
 package com.shqtn.base;
 
+import com.shqtn.base.info.ApiUrl;
+import com.squareup.okhttp.Request;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.FileCallBack;
+
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -38,9 +44,8 @@ public class ExampleUnitTest {
         System.out.print(list.size() + "现在数量");
         list.remove(e);
         System.out.print("删除后的数量" + list.size());
-
-
     }
+
 
     public static class Bean {
         String f;

@@ -13,10 +13,10 @@ import com.shqtn.enter.print.preferences.ImageSizePreference;
  */
 
 public class ImageSizeInfo {
-    public static final int TOP_LEFT = 0;
-    public static final int TOP_RIGHT = 554;
-    public static final int BOTTOM_LEFT = 0;
-    public static final int BOTTOM_RIGHT = 554;
+    public static final int X_START = 50;
+    public static final int X_END = 500;
+    public static final int Y_START = 40;
+    public static final int Y_END = 400;
 
     /**
      * 打印大小进行初始化操作
@@ -39,10 +39,10 @@ public class ImageSizeInfo {
      */
     public static void resetImageSize(Context context) {
         ImageSize imageSize = new ImageSize();
-        imageSize.setStartY(TOP_LEFT);
-        imageSize.setStartX(TOP_RIGHT);
-        imageSize.setEndY(BOTTOM_LEFT);
-        imageSize.setEndX(BOTTOM_RIGHT);
+        imageSize.setStartY(Y_START);
+        imageSize.setStartX(X_START);
+        imageSize.setEndY(Y_END);
+        imageSize.setEndX(X_END);
         ImageSizePreference.save(context, imageSize);
 
     }

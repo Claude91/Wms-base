@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.shqtn.base.bean.ResultBean;
+import com.shqtn.base.http.ErrorHint;
 import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.ApiUrl;
@@ -23,13 +29,16 @@ import com.shqtn.base.widget.dialog.EditQuantityDialog;
 import com.shqtn.enter.BaseEnterActivity;
 import com.shqtn.enter.InputCodeActivity;
 import com.shqtn.enter.R;
+import com.shqtn.enter.even.BluetoothAddressEvent;
 import com.shqtn.enter.print.bean.BarCode;
 import com.shqtn.enter.print.bean.Decode;
 import com.shqtn.enter.print.bean.ImageSize;
+import com.shqtn.enter.print.bean.PrintImagePathBean;
 import com.shqtn.enter.print.bean.params.PrintDecodeParams;
 import com.shqtn.enter.print.preferences.BluetoothAddressPreferences;
 import com.shqtn.enter.print.BluetoothHelper;
 import com.shqtn.enter.print.preferences.ImageSizePreference;
+import com.squareup.okhttp.Request;
 import com.zebra.sdk.comm.BluetoothConnection;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
@@ -37,14 +46,16 @@ import com.zebra.sdk.graphics.internal.ZebraImageAndroid;
 import com.zebra.sdk.printer.ZebraPrinter;
 import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
+import com.zhy.http.okhttp.callback.FileCallBack;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.shqtn.enter.R.id.activity_box_print_batch_no_group;
 
 public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnRightTextClickListener {
     public static final int REQUEST_INPUT_BATCH_NO = 2;
@@ -53,6 +64,7 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
     private View batchNoGroup, qtyGroup;
     private LabelTextView ltvSku, ltvUnit, ltvStd, ltvName;
     private TextView tvPrintImg;
+    private ScrollView mScrollView;
     final BluetoothAdapter defaultAdapter = BluetoothAdapter.getDefaultAdapter();
     private LabelTextView ltvBluetoothAddress;
 
@@ -78,6 +90,7 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
     @Override
     public void initData() {
         super.initData();
+        BluetoothAddressEvent.getInstance().register(this);
         mBluetoothAddress = BluetoothAddressPreferences.getAddress(this);
     }
 
@@ -86,7 +99,7 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
         super.bindView();
         tvBatchNo = (TextView) findViewById(R.id.activity_box_print_tv_batch_no);
         tvQty = (TextView) findViewById(R.id.activity_box_print_tv_qty);
-        batchNoGroup = findViewById(activity_box_print_batch_no_group);
+        batchNoGroup = findViewById(R.id.activity_box_print_batch_no_group);
         qtyGroup = findViewById(R.id.activity_box_print_qty_group);
 
         batchNoGroup.setOnClickListener(this);
@@ -100,6 +113,8 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
         ltvBluetoothAddress = (LabelTextView) findViewById(R.id.activity_box_print_ltv_bluetooth_address);
 
         tvPrintImg = (TextView) findViewById(R.id.activity_box_print_tv_print);
+
+        mScrollView = (ScrollView) findViewById(R.id.activity_box_print_scroll_view);
 
         titleView.setOnRightTextClickListener(this);
     }
@@ -156,6 +171,7 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
                 decode(content);
             }
         });
+
     }
 
     @Override
@@ -238,7 +254,7 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
             if (!StringUtils.isEmpty(batchNo)) {
                 mOperateDecode.setBatchNo(batchNo);
             }
-
+            displayMsgDialog("生成标签中");
 
             ModelService.post(ApiUrl.print_create_image, mOperateDecode, new ResultCallback() {
                 @Override
@@ -249,10 +265,62 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
 
                 @Override
                 public void onSuccess(ResultBean response) {
+                    PrintImagePathBean printImagePath = getData(response.getData(), PrintImagePathBean.class);
 
+                    toDownloadImage(printImagePath);
                 }
+
+
             });
         }
+    }
+
+    private void toDownloadImage(PrintImagePathBean printImagePath) {
+        displayProgressDialog("网络获取图片中,请等待");
+        String fileDir = getCacheDir().getAbsolutePath();
+        String fileName = printImagePath.getImgPath();
+        File file = new File(fileDir, fileName);
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                cancelProgressDialog();
+                displayMsgDialog("创建本地文件失败");
+                return;
+            }
+        }
+
+        ModelService.post(String.format("%s%s:%s%s", ApiUrl.HTTP, ApiUrl.IP, ApiUrl.POST, printImagePath.getImgPath()), null, new FileCallBack(fileDir, fileName) {
+            @Override
+            public void inProgress(float progress) {
+
+            }
+
+            @Override
+            public void onError(Request request, Exception e) {
+                cancelProgressDialog();
+                displayMsgDialog(ErrorHint.getErrorHint(e));
+            }
+
+            @Override
+            public void onResponse(File response) {
+                Bitmap bitmap = BitmapFactory.decodeFile(response.getAbsolutePath());
+                showPrintBitmap(bitmap);
+                printPhotoFromExternal(bitmap);
+            }
+        });
+    }
+
+    private void showPrintBitmap(Bitmap bitmap) {
+        ImageView iv = (ImageView) findViewById(R.id.print_iv);
+        iv.setImageBitmap(bitmap);
+        mScrollView.scrollTo(0, mScrollView.getMeasuredHeight());
     }
 
     private void checkPrintStatus() {
@@ -362,5 +430,11 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
             ltvSku.setText(skuCode);
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BluetoothAddressEvent.getInstance().unregister(this);
     }
 }

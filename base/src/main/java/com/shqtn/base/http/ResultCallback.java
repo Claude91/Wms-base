@@ -43,16 +43,8 @@ public abstract class ResultCallback extends Callback<ResultBean> {
         if (e != null) {
             e.printStackTrace();
         }
-        if (e instanceof SocketTimeoutException) {
-            onFailed(ActivityUtils.getInstance().getTopAty().getString(R.string.socketTimeOutHint));
-        } else if (e instanceof SocketException) {
-            onFailed(ActivityUtils.getInstance().getTopAty().getString(R.string.socketException));
-        } else if (e instanceof RuntimeException) {
-            String content = e.getMessage();
-            onFailed(content);
-        } else {
-            onFailed(ActivityUtils.getInstance().getTopAty().getString(R.string.httpLinkFailed));
-        }
+        String errorHint = ErrorHint.getErrorHint(e);
+        onFailed(errorHint);
         MediaPlayUtils.getInstance().playError(BaseApp.getInstance());
         VibrateHelper.getInstance().vibrate();
     }

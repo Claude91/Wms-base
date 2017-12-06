@@ -34,6 +34,7 @@
         app:text="请输入蓝牙地址点击编辑" />
 
     <ScrollView
+        android:id="@+id/activity_box_print_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -187,6 +188,10 @@
                     android:background="@color/div_color" />
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/print_iv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </ScrollView>
