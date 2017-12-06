@@ -5,11 +5,9 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -30,13 +28,13 @@ import com.shqtn.enter.BaseEnterActivity;
 import com.shqtn.enter.InputCodeActivity;
 import com.shqtn.enter.R;
 import com.shqtn.enter.even.BluetoothAddressEvent;
+import com.shqtn.enter.print.BluetoothHelper;
 import com.shqtn.enter.print.bean.BarCode;
 import com.shqtn.enter.print.bean.Decode;
 import com.shqtn.enter.print.bean.ImageSize;
 import com.shqtn.enter.print.bean.PrintImagePathBean;
 import com.shqtn.enter.print.bean.params.PrintDecodeParams;
 import com.shqtn.enter.print.preferences.BluetoothAddressPreferences;
-import com.shqtn.enter.print.BluetoothHelper;
 import com.shqtn.enter.print.preferences.ImageSizePreference;
 import com.squareup.okhttp.Request;
 import com.zebra.sdk.comm.BluetoothConnection;
@@ -53,7 +51,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -183,8 +180,12 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
             InputCodeActivity.set("批次号编辑", "批次号", "请输入批次号", bundle);
             startActivity(InputCodeActivity.class, bundle, REQUEST_INPUT_BATCH_NO);
         } else if (i == R.id.activity_box_print_qty_group) {
-            displayEditQty(mInputQtyListener);
+            toEditQty();
         }
+    }
+
+    private void toEditQty() {
+        displayEditQty(mInputQtyListener);
     }
 
     @Override
@@ -194,6 +195,13 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
             String inputBatchNo = InputCodeActivity.getBatchNo(data);
             tvBatchNo.setText(inputBatchNo);
         }
+    }
+
+    @Override
+    public boolean onKeyF2() {
+        toEditQty();
+        return true;
+
     }
 
     private void decode(String code) {
@@ -244,9 +252,9 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
             if (tvPrintImg.isSelected()) {
                 return;
             }
-          /*  if (!checkBluetooth()) {
+            if (!checkBluetooth()) {
                 return;
-            }*/
+            }
             String qty = tvQty.getText().toString();
 
             mOperateDecode.setQuantity(NumberUtils.getInt(qty));
@@ -254,7 +262,7 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
             if (!StringUtils.isEmpty(batchNo)) {
                 mOperateDecode.setBatchNo(batchNo);
             }
-            displayMsgDialog("生成标签中");
+            displayProgressDialog("生成标签中");
 
             ModelService.post(ApiUrl.print_create_image, mOperateDecode, new ResultCallback() {
                 @Override

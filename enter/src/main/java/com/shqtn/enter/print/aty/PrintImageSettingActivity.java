@@ -69,7 +69,7 @@ public class PrintImageSettingActivity extends BaseEnterActivity implements Titl
         }
 
         ImageSize imageSize = new ImageSize();
-        imageSize.setStartY(NumberUtils.getInt(startX));
+        imageSize.setStartX(NumberUtils.getInt(startX));
         imageSize.setEndX(NumberUtils.getInt(endX));
         imageSize.setStartY(NumberUtils.getInt(startY));
         imageSize.setEndY(NumberUtils.getInt(endY));
