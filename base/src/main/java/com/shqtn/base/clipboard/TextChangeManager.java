@@ -98,8 +98,10 @@ public class TextChangeManager {
     public void textChange(CharSequence s, int start, int end, int count) {
         if (count > SYSTEM_MIN_LENGTH) {
             CharSequence charSequence = s.subSequence(start, s.length());
+
             mOnTimeAfterTextChangeListener.onTextChange(charSequence.toString());
             isTextInputSearch = true;
+            mIChangeView.clearText();
             readText = charSequence.toString();
             readTime = System.currentTimeMillis();
         }
