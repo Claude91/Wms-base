@@ -3,6 +3,7 @@ package com.shqtn.base.widget;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,6 +33,7 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
     private View vInputModeGroup;
     private EditText et;
     private View vSearch;
+    private long lastToSearchTime;
 
 
     public final static int MODE_AUTO = 0;//自动
@@ -180,8 +182,16 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
 
     private void toSearch() {
-        if (mOnToTextSearchListener != null)
-            mOnToTextSearchListener.onSearchText(et.getText().toString());
+        if (mOnToTextSearchListener != null) {
+            /**
+             * 添加过滤重复 查询问题.
+             */
+            long l = System.currentTimeMillis();
+            if (l - lastClickTime > 400) {
+                mOnToTextSearchListener.onSearchText(et.getText().toString());
+                lastClickTime = l;
+            }
+        }
     }
 
     private long lastClickTime;

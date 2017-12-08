@@ -422,21 +422,25 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
 
     public void resetGoodsView(Decode decodeView) {
         String skuName = decodeView.getSkuName();
-        if (!StringUtils.isEmpty(skuName))
-            ltvName.setText(skuName);
+        if (StringUtils.isEmpty(skuName)) {
+            skuName = "";
+        }
+        ltvName.setText(skuName);
         String std = decodeView.getStd();
-        if (!StringUtils.isEmpty(std)) {
-            ltvStd.setText(std);
+        if (StringUtils.isEmpty(std)) {
+            std = "";
         }
+        ltvStd.setText(std);
         String unitName = decodeView.getUnitName();
-        if (!StringUtils.isEmpty(unitName)) {
-            ltvUnit.setText(unitName);
+        if (StringUtils.isEmpty(unitName)) {
+            unitName = "";
         }
-
+        ltvUnit.setText(unitName);
         String skuCode = decodeView.getSkuCode();
-        if (!StringUtils.isEmpty(skuCode)) {
-            ltvSku.setText(skuCode);
+        if (StringUtils.isEmpty(skuCode)) {
+            skuCode = "";
         }
+        ltvSku.setText(skuCode);
 
     }
 
