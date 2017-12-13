@@ -198,37 +198,33 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
     @Override
     public void onClick(View view) {
-        long nowTime = System.currentTimeMillis();
-        if (nowTime - lastClickTime > FLITE_DOUBLE_CLICK_TIME) {
-            lastClickTime = nowTime;
 
-            int id = view.getId();
-            if (id == R.id.view_system_edit_search) {
-                toSearch();
-            } else if (id == R.id.view_system_edit_input_mode) {
-                if (mModeSelectDialog == null) {
-                    mModeSelectDialog = new AlertDialog.Builder(getContext())
-                            .setTitle("输入模式选择")
-                            .setItems(new String[]{"自动", "手动", "系统录入"}, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    if (i == 0) {
-                                        mModeType = MODE_AUTO;
-                                    } else if (i == 1) {
-                                        mModeType = MODE_HAND;
-                                    } else if (i == 2) {
-                                        mModeType = MODE_SYSTEM;
-                                    }
-                                    setModeText(mModeType);
+        int id = view.getId();
+        if (id == R.id.view_system_edit_search) {
+            toSearch();
+        } else if (id == R.id.view_system_edit_input_mode) {
+            if (mModeSelectDialog == null) {
+                mModeSelectDialog = new AlertDialog.Builder(getContext())
+                        .setTitle("输入模式选择")
+                        .setItems(new String[]{"自动", "手动", "系统录入"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (i == 0) {
+                                    mModeType = MODE_AUTO;
+                                } else if (i == 1) {
+                                    mModeType = MODE_HAND;
+                                } else if (i == 2) {
+                                    mModeType = MODE_SYSTEM;
                                 }
-                            })
-                            .show();
-                } else {
-                    mModeSelectDialog.show();
-                }
+                                setModeText(mModeType);
+                            }
+                        })
+                        .show();
+            } else {
+                mModeSelectDialog.show();
             }
-
         }
+
     }
 
     public void setMode(int mode) {

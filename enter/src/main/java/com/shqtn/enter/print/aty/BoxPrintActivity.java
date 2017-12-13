@@ -442,6 +442,12 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
         }
         ltvSku.setText(skuCode);
 
+        String batchNo = decodeView.getBatchNo();
+        if (StringUtils.isEmpty(batchNo)) {
+            batchNo = "";
+        }
+        tvBatchNo.setText(batchNo);
+
     }
 
     @Override
