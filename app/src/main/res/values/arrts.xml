@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="NameTextView">
-        <attr name="name" format="string"/>
-    </declare-styleable>
-
-
-</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.shqtn.wms">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.shqtn.enter.LoginActivity" />
+        <activity android:name="com.shqtn.enter.HomeActivity" />
+        <activity android:name="com.shqtn.enter.IPChangeAty" />
+        <activity android:name="com.shqtn.enter.ListActivity" />
+        <activity android:name="com.shqtn.enter.activity.enter.TakeDelGoodsOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.enter.RackUpGoodsOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.LpnSubmitActivity" />
+        <activity android:name="com.shqtn.enter.activity.DepotChangeAty" />
+        <activity android:name="com.shqtn.enter.activity.in.GoodsAdjustTargetRackActivity" />
+        <activity android:name="com.shqtn.enter.activity.enter.QualityInspectionGoodsOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.exit.RackDownGoodsOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.exit.DepotOutGoodsOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.exit.SortingGoodsOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.exit.PackingAddLpnOrGoodsOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.in.CheckQuantityManifestOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.enter.TakeBoxGoodsTakeSelectActivity" />
+        <activity android:name="com.shqtn.enter.activity.enter.TakeBoxTakeOperateActivity" />
+        <activity android:name="com.shqtn.enter.activity.in.PMHaveCodeAddGoodsOrLpnActivity" />
+        <activity android:name="com.shqtn.enter.activity.PalletDetailsActivity" />
+        <activity android:name="com.shqtn.enter.print.aty.BoxPrintActivity" />
+        <activity android:name="com.shqtn.enter.InputCodeActivity" />
+        <activity android:name="com.shqtn.enter.DecodeDetailsActivity" />
+        <activity android:name="com.shqtn.enter.print.aty.InputBluetoothAddressActivity" />
+        <activity android:name="com.shqtn.enter.print.aty.PrintImageSettingActivity"></activity>
+    </application>
+
+</manifest>
