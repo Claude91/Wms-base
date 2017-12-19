@@ -40,11 +40,15 @@ public class MyApp extends BaseApp {
                 .setFunctionMainLoad(new PFunctionMainActivityLoadImpl())
                 .setFunctionLoad(new PFunctionLoadImpl())
                 .setActivityLoad(new PActivityLoad());
+        initUrl();
+
+    }
+
+    private void initUrl() {
         String ip = IpChangeUtils.getIp(this);
         String port = IpChangeUtils.getPort(this);
         String base_ = "/q7wms-express-rf/api/rf/wms/";
         ApiUrl.changeBase(ip,port, base_);
-
     }
 
 

@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.shqtn.base.*;
+import com.shqtn.base.BaseActivity;
+import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.DepotBean;
 import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.bean.enter.TakeDeliveryGoods;
@@ -17,10 +18,13 @@ import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
+import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
 import com.shqtn.enter.utils.NormalInitView;
+import com.shqtn.wms.info.YTApiUrl;
+import com.shqtn.wms.presenter.enter.params.TakeDeliveryScanningGoodsParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +38,22 @@ import java.util.List;
  * @author ql
  */
 public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresenter {
+    public static final int MANIFEST_SCANNING_GOODS = 1;
+    public static final int MANIFEST_NORMAL = 0;
     private CommonAdapter mManifestAdapter;
 
     private TakeDelManifestListParams mManifestParams = new TakeDelManifestListParams();
+    private TakeDeliveryScanningGoodsParams mScanningGoodsParams = new TakeDeliveryScanningGoodsParams();
 
     private List<TakeDeliveryManifest> mManifestList = new ArrayList<>();
+
+
+    /**
+     * 用于表示当前显示的list
+     */
+    private List<TakeDeliveryManifest> mNowShowList;
+
+    private int showTag = MANIFEST_NORMAL;
 
     private ResultCallback mManifestCallback = new ResultCallback() {
 
@@ -73,11 +88,14 @@ public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresent
                     mManifestList.addAll(rows);
                 }
             }
-            mManifestAdapter.update(mManifestList);
+            mNowShowList = mManifestList;
+            changeShow(MANIFEST_NORMAL);
+            mManifestAdapter.update(mNowShowList);
             page++;
             mManifestParams.setPage(page);
         }
     };
+    private ResultCallback scanningGoodsCallback;
 
 
     @Override
@@ -87,7 +105,7 @@ public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresent
         view.setTitle(getAty().getString(com.shqtn.enter.R.string.take_delivery));
         mManifestAdapter = createManifestAdapter();
         view.setAdapter(mManifestAdapter);
-        view.setEditTextHint(getAty().getString(com.shqtn.enter.R.string.please_input_manifest));
+        view.setEditTextHint("请扫描任务单号或货品编码");
         view.setListViewModel(PullToRefreshBase.Mode.BOTH);
         view.setScanningType(CodeCallback.TAG_MANIFEST, CodeCallback.TAG_GOODS);
 
@@ -97,13 +115,11 @@ public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresent
         mManifestParams = new TakeDelManifestListParams();
         mManifestParams.setPage(com.shqtn.base.C.PAGE);
         mManifestParams.setPageSize(com.shqtn.base.C.PAGE_SIZE);
+
         DepotBean depot = DepotUtils.getDepot(getAty().getContext());
 
-        for (int i = 0; i < 20; i++) {
-            TakeDeliveryManifest m = new TakeDeliveryManifest();
+        mScanningGoodsParams.setWhCode(depot.getWhcode());
 
-            // mManifestList.add(m);
-        }
         mManifestAdapter.update(mManifestList);
 
         if (depot == null) {
@@ -116,7 +132,9 @@ public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresent
 
     @Override
     public void clickClearSelect() {
-        mManifestAdapter.update(mManifestList);
+        mNowShowList = mManifestList;
+        changeShow(MANIFEST_NORMAL);
+        mManifestAdapter.update(mNowShowList);
     }
 
     private void onLoadMoreData() {
@@ -125,7 +143,7 @@ public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresent
 
     @Override
     public void clickItem(int position) {
-        TakeDeliveryManifest takeDeliveryManifest = mManifestList.get(position - 1);
+        TakeDeliveryManifest takeDeliveryManifest = mNowShowList.get(position - 1);
         toGoodsListActivity(takeDeliveryManifest.getManifest());
     }
 
@@ -169,7 +187,43 @@ public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresent
     public void decodeGoods(CodeGoods goods) {
         super.decodeGoods(goods);
         //扫描货品，
+        mScanningGoodsParams.setBatchNo(goods.getBatchNo());
+        mScanningGoodsParams.setSkuCode(goods.getSkuCode());
+        if (scanningGoodsCallback == null) {
+            scanningGoodsCallback = new ResultCallback() {
+                @Override
+                public void onFailed(String msg) {
+                    getView().displayMsgDialog(msg);
+                    getView().cancelProgressDialog();
+                }
+
+                @Override
+                public void onSuccess(ResultBean response) {
+                    ArrayList<TakeDeliveryManifest> rows = getRows(response.getRows(), TakeDeliveryManifest.class);
+                    getView().cancelProgressDialog();
+                    changeShow(MANIFEST_SCANNING_GOODS);
+                    mNowShowList = rows;
+                    mManifestAdapter.update(mNowShowList);
+                    ToastUtils.show(getAty().getContext(), "查询成功");
+                }
+            };
+        }
+        ModelService.post(YTApiUrl.take_delivery_decode_goods_get_manifest_list, mScanningGoodsParams, scanningGoodsCallback);
     }
+
+    private void changeShow(int showTag) {
+        this.showTag = showTag;
+
+        switch (showTag) {
+            case MANIFEST_NORMAL:
+                getView().setListViewModel(PullToRefreshBase.Mode.BOTH);
+                break;
+            case MANIFEST_SCANNING_GOODS:
+                getView().setListViewModel(PullToRefreshBase.Mode.DISABLED);
+                break;
+        }
+    }
+
 
     @Override
     public void onPullDownToRefresh() {
@@ -182,6 +236,7 @@ public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresent
     public void onPullUpToRefresh() {
         super.onPullUpToRefresh();
         onLoadMoreData();
+
     }
 
     @Override

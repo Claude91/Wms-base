@@ -36,9 +36,9 @@
             style="@style/label_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorBlue"
+            android:background="@drawable/slt_btn_blue"
             android:text="清空选项"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </LinearLayout>
 
 

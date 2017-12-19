@@ -1,5 +1,7 @@
 package com.shqtn.wms;
 
+import com.shqtn.base.info.ApiUrl;
+import com.shqtn.base.utils.IpChangeUtils;
 import com.shqtn.base.utils.MediaPlayUtils;
 import com.shqtn.base.utils.VibrateHelper;
 import com.shqtn.enter.BaseApp;
@@ -9,6 +11,7 @@ import com.shqtn.enter.info.impl.EnterActivityLoadImpl;
 import com.shqtn.enter.info.impl.ExitActivityLoadImpl;
 import com.shqtn.enter.info.impl.InActivityLoadImpl;
 import com.shqtn.enter.info.impl.OtherActivityLoadImpl;
+import com.shqtn.wms.info.YTApiUrl;
 import com.shqtn.wms.info.YTFunctionLoadImpl;
 import com.shqtn.wms.info.YTFunctionMainActivityLoadImpl;
 
@@ -16,7 +19,7 @@ import com.shqtn.wms.info.YTFunctionMainActivityLoadImpl;
 /**
  * Created by Administrator on 2016-11-3.
  */
-public class MyApp extends BaseApp {
+public class MyApp extends BaseApp implements ApiUrl.OnIpChangeListener {
     private static MyApp mMyApp = null;
 
     public static MyApp getInstance() {
@@ -44,8 +47,18 @@ public class MyApp extends BaseApp {
 
         VibrateHelper.getInstance().setErrorVibrate(true);
         MediaPlayUtils.getInstance().setOpenErrorPlay(true);
+        String ip = IpChangeUtils.getIp(this);
+        String port = IpChangeUtils.getPort(this);
+
+        ApiUrl.reg(this);
+        ApiUrl.changeBase(ip,port);
+
 
     }
 
 
+    @Override
+    public void onChangeUrl() {
+        YTApiUrl.changeUrl(ApiUrl.BASE_URL);
+    }
 }
