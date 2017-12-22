@@ -9,15 +9,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/all" />
-            <option value="$PROJECT_DIR$/b" />
-            <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/bindview" />
-            <option value="$PROJECT_DIR$/enter" />
             <option value="$PROJECT_DIR$/pullToRefresh" />
             <option value="$PROJECT_DIR$/qmui" />
-            <option value="$PROJECT_DIR$/wms-p" />
-            <option value="$PROJECT_DIR$/yutian" />
+            <option value="$PROJECT_DIR$/version_a" />
+            <option value="$PROJECT_DIR$/version_b" />
+            <option value="$PROJECT_DIR$/wms_a_p" />
+            <option value="$PROJECT_DIR$/wms_a_yutian" />
+            <option value="$PROJECT_DIR$/wms_b_all" />
+            <option value="$PROJECT_DIR$/wms_lib_base" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

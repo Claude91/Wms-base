@@ -1,1 +1,1 @@
-include ':yutian', ':enter', ':bindview', ':base', ':wms-p', ':b', ':all', 'pullToRefresh', ':qmui'
+include ':wms_a_yutian', ':version_a', ':bindview', ':wms_lib_base', ':wms_a_p', ':version_b', ':wms_b_all', 'pullToRefresh', ':qmui'

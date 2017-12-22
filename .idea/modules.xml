@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/WMS_ALL.iml" filepath="$PROJECT_DIR$/WMS_ALL.iml" />
       <module fileurl="file://$PROJECT_DIR$/Wms-base.iml" filepath="$PROJECT_DIR$/Wms-base.iml" />
       <module fileurl="file://$PROJECT_DIR$/all/all.iml" filepath="$PROJECT_DIR$/all/all.iml" />
       <module fileurl="file://$PROJECT_DIR$/b/b.iml" filepath="$PROJECT_DIR$/b/b.iml" />
@@ -10,7 +11,13 @@
       <module fileurl="file://$PROJECT_DIR$/enter/enter.iml" filepath="$PROJECT_DIR$/enter/enter.iml" />
       <module fileurl="file://$PROJECT_DIR$/pullToRefresh/pullToRefresh.iml" filepath="$PROJECT_DIR$/pullToRefresh/pullToRefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/qmui/qmui.iml" filepath="$PROJECT_DIR$/qmui/qmui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/version_a/version_a.iml" filepath="$PROJECT_DIR$/version_a/version_a.iml" />
+      <module fileurl="file://$PROJECT_DIR$/version_b/version_b.iml" filepath="$PROJECT_DIR$/version_b/version_b.iml" />
       <module fileurl="file://$PROJECT_DIR$/wms-p/wms-p.iml" filepath="$PROJECT_DIR$/wms-p/wms-p.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wms_a_p/wms_a_p.iml" filepath="$PROJECT_DIR$/wms_a_p/wms_a_p.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wms_a_yutian/wms_a_yutian.iml" filepath="$PROJECT_DIR$/wms_a_yutian/wms_a_yutian.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wms_b_all/wms_b_all.iml" filepath="$PROJECT_DIR$/wms_b_all/wms_b_all.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wms_lib_base/wms_lib_base.iml" filepath="$PROJECT_DIR$/wms_lib_base/wms_lib_base.iml" />
       <module fileurl="file://$PROJECT_DIR$/yutian/yutian.iml" filepath="$PROJECT_DIR$/yutian/yutian.iml" />
     </modules>
   </component>
