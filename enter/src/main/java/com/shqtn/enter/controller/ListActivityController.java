@@ -113,7 +113,7 @@ public interface ListActivityController {
         public abstract boolean isOpenStartRefreshing();
 
         /**
-         * 点击清空选择
+         * 点击右上角清空按钮
          */
         public abstract void clickClearSelect();
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_serial"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shqtn.b.AddSerialActivity">
+
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="添加序列号" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/setEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView" />
+
+    <LinearLayout
+        android:id="@+id/activity_add_serial_group_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setEditText"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_add_serial_ltv_add_qty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:labelText="已添加数量"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_add_serial_ltv_total_qty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:labelText="总数量"
+            app:size="@dimen/text_label_size" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/activity_add_serial_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/activity_add_serial_bottom_group"
+        android:layout_below="@id/activity_add_serial_group_1"
+        android:divider="@color/div_color"
+        android:dividerHeight="6dp" />
+
+    <LinearLayout
+        android:id="@+id/activity_add_serial_bottom_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/activity_add_serial_tv_yes"
+            style="@style/bottomBtnStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="完成" />
+    </LinearLayout>
+</RelativeLayout>

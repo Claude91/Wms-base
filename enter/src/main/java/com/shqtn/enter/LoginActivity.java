@@ -17,6 +17,7 @@ import com.shqtn.base.info.ApiUrl;
 import com.shqtn.base.info.LoginInfo;
 import com.shqtn.base.utils.ActivityUtils;
 import com.shqtn.base.utils.Base64Utils;
+import com.shqtn.base.utils.IpChangeUtils;
 import com.shqtn.base.utils.LoginUtils;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.utils.ToastUtils;
@@ -89,6 +90,13 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void toLogin() {
+
+        String ip = IpChangeUtils.getIp(this);
+        if (StringUtils.isEmpty(ip)) {
+            displayMsgDialog("请填写IP");
+            return;
+        }
+
         String account = login_et_editAccount.getText().toString();
         String password = login_et_editPassWord.getText().toString();
 

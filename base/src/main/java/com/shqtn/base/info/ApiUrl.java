@@ -1,10 +1,18 @@
 package com.shqtn.base.info;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 用于存放基础网址
  * Created by Administrator on 2016-11-16.
  */
 public class ApiUrl {
+    public interface OnIpChangeListener {
+        void onChangeUrl();
+    }
+
+    private static final List<OnIpChangeListener> mChangeListener = new ArrayList<>();
 
     //http://192.168.0.171:8089/shqtn-wms-rf/
     public static String HTTP = "http://";
@@ -38,6 +46,15 @@ public class ApiUrl {
 
     public static void changeBase(String ip, String post) {
         changeBase(ip, post, BASE_);
+    }
+
+
+    public static void reg(OnIpChangeListener l) {
+        mChangeListener.add(l);
+    }
+
+    public static void unReg(OnIpChangeListener l) {
+        mChangeListener.remove(l);
     }
 
     public static void changeBase(String ip, String post, String base_) {
@@ -303,7 +320,11 @@ public class ApiUrl {
         URL_PACKING_DEPOT_OF_MANIFEST = BASE_URL + "os/deliverByBox/getPackageBox";
 
         print_decode = BASE_URL + "base/printpackbox/findSku";
-        print_create_image = BASE_URL +  "base/printpackbox/createImg";
+        print_create_image = BASE_URL + "base/printpackbox/createImg";
+
+        for (OnIpChangeListener onIpChangeListener : mChangeListener) {
+            onIpChangeListener.onChangeUrl();
+        }
     }
 
     /**
@@ -314,7 +335,7 @@ public class ApiUrl {
     /**
      * 打印生成图片 通过SKU 以及其他参数生成一张标签图片
      */
-    public static String print_create_image = BASE_URL +  "base/printpackbox/createImg";
+    public static String print_create_image = BASE_URL + "base/printpackbox/createImg";
 
     /**
      * 包装出库 通过任务单 获取Lpn列表

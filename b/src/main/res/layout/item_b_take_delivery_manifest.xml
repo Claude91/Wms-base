@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/margin_top_normal"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/margin_top_normal">
+    <!--1.收货任务单号，2.批次号，3.sku,4，sku名称，收货单号，ERP单号，数量-->
+    <com.shqtn.base.widget.LabelTextView
+        android:id="@+id/item_b_take_delivery_manifest_ltv_manifest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:labelText="@string/manifestName"
+        app:size="@dimen/text_label_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@color/qmui_config_color_gray_8"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_top_normal"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/margin_top_normal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_b_take_delivery_manifest_ltv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelText="@string/name"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_b_take_delivery_manifest_ltv_batch_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:labelText="@string/batch_no"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_b_take_delivery_manifest_ltv_sku"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:labelText="@string/goods_sku"
+            app:size="@dimen/text_label_size" />
+
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_b_take_delivery_manifest_ltv_erp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:labelText="ERP单号"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/item_b_take_delivery_manifest_ltv_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:labelText="@string/qtyName"
+            app:size="@dimen/text_label_size" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
