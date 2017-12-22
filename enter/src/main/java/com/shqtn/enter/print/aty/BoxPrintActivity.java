@@ -262,6 +262,7 @@ public class BoxPrintActivity extends BaseEnterActivity implements TitleView.OnR
             if (!StringUtils.isEmpty(batchNo)) {
                 mOperateDecode.setBatchNo(batchNo);
             }
+            mOperateDecode.setGoodsBatchNo(null);
             displayProgressDialog("生成标签中");
 
             ModelService.post(ApiUrl.print_create_image, mOperateDecode, new ResultCallback() {

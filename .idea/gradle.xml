@@ -9,6 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/all" />
+            <option value="$PROJECT_DIR$/b" />
             <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/bindview" />
             <option value="$PROJECT_DIR$/enter" />
