@@ -155,7 +155,7 @@ public class RackUpGoodsOperateActivity extends BaseActivity implements SystemEd
         if (submiting) {
             return;
         }
-        submiting = true;
+
         String operateQtyText = ltvOperateQty.getText();
         double operateQty = NumberUtils.getDouble(operateQtyText);
         String targetRack = ltvTargetRack.getText();
@@ -164,6 +164,9 @@ public class RackUpGoodsOperateActivity extends BaseActivity implements SystemEd
             displayMsgDialog(failedHint);
             return;
         }
+
+        submiting = true;
+
 
         displayProgressDialog("提交中");
 

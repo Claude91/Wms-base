@@ -112,6 +112,12 @@ public class TakeDelGoodsOperateActivity extends BaseActivity implements TakeDel
     }
 
     @Override
+    public boolean onKeyF2() {
+        mPresenter.clickToEditQty();
+        return true;
+    }
+
+    @Override
     public void clickBack() {
         mPresenter.clickToBack();
     }

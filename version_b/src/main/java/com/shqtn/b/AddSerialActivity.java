@@ -57,6 +57,10 @@ public class AddSerialActivity extends BaseBActivity implements TitleView.OnRigh
         bundle.putInt(ADD_SERIALS_SIZE, size);
     }
 
+    public static ArrayList<String> getSerialList(Intent data){
+        return data.getStringArrayListExtra(RESULT_ADD_SERIALS);
+    }
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_add_serial);
