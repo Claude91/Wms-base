@@ -1,5 +1,13 @@
 package com.shqtn.b.enter.result;
 
+import com.shqtn.base.bean.BatchAttr;
+import com.shqtn.base.bean.BatchAttrVo;
+import com.shqtn.base.bean.SerialNoVo;
+import com.shqtn.base.bean.base.IGoods;
+import com.shqtn.base.bean.params.TakeDeliveryGoodsSubmitParams;
+
+import java.util.List;
+
 /**
  * 创建时间:2017/12/22
  * 描述:
@@ -7,7 +15,7 @@ package com.shqtn.b.enter.result;
  * @author ql
  */
 
-public class BTakeDeliveryManifest {
+public class BTakeDeliveryManifest extends IGoods {
 
 
     /**
@@ -42,10 +50,10 @@ public class BTakeDeliveryManifest {
     private String lineNum;
     private String skuCode;
     private String skuName;
-    private Double pQty; // 计划数量
+    private double pQty; // 计划数量
     private String unitCode;
     private String unitName;
-    private int quantity;// 收货数量
+    private double quantity;// 收货数量
     private String batchFlag;// 批次管控标志位（Y:是，N：否）
     private String batchNoFlag;// 批次号获取方式
     private String serialFlag;// 序列号管控标志位（Y:是，N：否）
@@ -53,6 +61,39 @@ public class BTakeDeliveryManifest {
     private String batchNo;
     private long ts;
     private int orgnIkey;
+    private List<BatchAttr> batchAttrList; // 批次属性
+
+    private List<SerialNoVo> serialNoList; // 序列号匹配，如果为空则不需要进行匹配
+
+    @Override
+    public String getGoodsSku() {
+        return skuCode;
+    }
+
+    @Override
+    public String getGoodsBatchNo() {
+        return batchNo;
+    }
+
+    public double getpQty() {
+        return pQty;
+    }
+
+    public List<BatchAttr> getBatchAttrList() {
+        return batchAttrList;
+    }
+
+    public void setBatchAttrList(List<BatchAttr> batchAttrList) {
+        this.batchAttrList = batchAttrList;
+    }
+
+    public List<SerialNoVo> getSerialNoList() {
+        return serialNoList;
+    }
+
+    public void setSerialNoList(List<SerialNoVo> serialNoList) {
+        this.serialNoList = serialNoList;
+    }
 
     public String getBatchNo() {
         return batchNo;
@@ -71,7 +112,7 @@ public class BTakeDeliveryManifest {
     }
 
 
-    public void setpQty(Double pQty) {
+    public void setpQty(double pQty) {
         this.pQty = pQty;
     }
 
@@ -147,11 +188,11 @@ public class BTakeDeliveryManifest {
         this.skuName = skuName;
     }
 
-    public Double getPQty() {
+    public double getPQty() {
         return pQty;
     }
 
-    public void setPQty(Double pQty) {
+    public void setPQty(double pQty) {
         this.pQty = pQty;
     }
 
@@ -171,11 +212,11 @@ public class BTakeDeliveryManifest {
         this.unitName = unitName;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

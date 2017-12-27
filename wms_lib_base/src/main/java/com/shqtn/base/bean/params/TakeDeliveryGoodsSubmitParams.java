@@ -1,5 +1,8 @@
 package com.shqtn.base.bean.params;
 
+import com.shqtn.base.bean.BatchAttr;
+import com.shqtn.base.bean.SerialNoVo;
+
 import java.util.List;
 
 /**
@@ -19,7 +22,7 @@ public class TakeDeliveryGoodsSubmitParams {
     }
     )；*/
     private double accQuantity;
-    private List<BatchAttrListBean> batchList;
+    private List<BatchAttr> batchList;
     private Long ihkey;
     private Long ikey;
     private String skuCode;
@@ -37,11 +40,11 @@ public class TakeDeliveryGoodsSubmitParams {
         this.accQuantity = accQuantity;
     }
 
-    public List<BatchAttrListBean> getBatchList() {
+    public List<BatchAttr> getBatchList() {
         return batchList;
     }
 
-    public void setBatchList(List<BatchAttrListBean> batchList) {
+    public void setBatchList(List<BatchAttr> batchList) {
         this.batchList = batchList;
     }
 
@@ -101,54 +104,6 @@ public class TakeDeliveryGoodsSubmitParams {
         this.serialNoList = serialNoList;
     }
 
-    public static class BatchAttrListBean {
-        private String skuCode;
-        private String description;
-        private String attrType;
-        private String attrValue;
 
-        public String getSkuCode() {
-            return skuCode;
-        }
 
-        public void setSkuCode(String skuCode) {
-            this.skuCode = skuCode;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public String getAttrType() {
-            return attrType;
-        }
-
-        public void setAttrType(String attrType) {
-            this.attrType = attrType;
-        }
-
-        public String getAttrValue() {
-            return attrValue;
-        }
-
-        public void setAttrValue(String attrValue) {
-            this.attrValue = attrValue;
-        }
-    }
-
-    public static class SerialNoVo {
-        private String serialNo; // 序列号
-
-        public String getSerialNo() {
-            return serialNo;
-        }
-
-        public void setSerialNo(String serialNo) {
-            this.serialNo = serialNo;
-        }
-    }
 }

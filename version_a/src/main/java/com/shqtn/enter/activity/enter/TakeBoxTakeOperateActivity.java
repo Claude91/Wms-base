@@ -579,7 +579,7 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         public void addChildren(CodeGoods goods) {
             ArrayList<CodeGoods> childs = getChilds();
             for (CodeGoods child : childs) {
-                if (GoodsUtils.isSameNoBacthNo(child, goods)) {
+                if (GoodsUtils.isSameNoBatchNo(child, goods)) {
                     double quantity = child.getQuantity();
                     quantity = NumberUtils.getDouble(quantity + goods.getQuantity());
                     child.setQuantity(quantity);

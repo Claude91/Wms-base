@@ -1,5 +1,7 @@
 package com.shqtn.b.enter.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
@@ -12,9 +14,21 @@ import android.widget.TextView;
 import com.shqtn.b.AddSerialActivity;
 import com.shqtn.b.BaseBActivity;
 import com.shqtn.b.R;
+import com.shqtn.b.enter.EnterUrl;
+import com.shqtn.b.enter.params.TakeDelManifestDetailsParams;
 import com.shqtn.b.enter.result.BTakeDeliveryManifest;
 import com.shqtn.base.C;
+import com.shqtn.base.bean.DepotBean;
+import com.shqtn.base.bean.ResultBean;
+import com.shqtn.base.bean.SerialNoVo;
+import com.shqtn.base.http.ModelService;
+import com.shqtn.base.http.ResultCallback;
+import com.shqtn.base.info.code.CodeGoods;
+import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.model.TakeDeliveryModel;
+import com.shqtn.base.utils.DepotUtils;
+import com.shqtn.base.utils.GoodsUtils;
+import com.shqtn.base.utils.NumberUtils;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
@@ -23,6 +37,7 @@ import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements CodeController.View {
 
@@ -45,13 +60,15 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
     private TextView tvSubmit;
 
     private CodeController.Presenter mCodePresenter;
-    private ArrayList<String> addSerials;
-
+    private ArrayList<String> mAddSerials;
+    private ArrayList<String> srcSerials;
     private String mOperateManifest;
     private BTakeDeliveryManifest mOperateManifestBean;
     private boolean canEditQty;//
+    private boolean isInputBatchNo;
 
     private TakeDeliveryModel mTakeDeliveryModel;
+
 
     private EditQuantityDialog.OnResultListener resultListener = new EditQuantityDialog.OnResultListener() {
         @Override
@@ -71,6 +88,9 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
         super.initData();
         mCodePresenter = new CodePresenterImpl(this);
         mCodePresenter.setDecodeCallback(this);
+        mCodePresenter.setDecodeType(CodeCallback.TAG_GOODS);
+
+        mTakeDeliveryModel = new TakeDeliveryModel();
 
         mOperateManifest = getBundle().getString(C.MANIFEST_STR);
 
@@ -103,12 +123,60 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
         tvSubmit.setOnClickListener(this);
         titleView.setOnToBackClickListener(this);
         tvTakeQty.setOnClickListener(this);
-        addBottomSerial();
+
+        loadDetails(mOperateManifest);
+    }
+
+    @Override
+    public void decodeGoods(CodeGoods goods) {
+        cancelProgressDialog();
+        if (isAddSerial()) {
+            displayMsgDialog("序列号管控，请添加序列号");
+            return;
+        }
+        if (!GoodsUtils.isSame(mOperateManifestBean, goods)) {
+            String skuCode = goods.getSkuCode();
+            String batchNo = goods.getBatchNo();
+            if (skuCode == null) {
+                skuCode = "";
+            }
+            if (batchNo == null) {
+                batchNo = "";
+            }
+            displayMsgDialog(String.format("查询货品不匹配\n货品编码:%s \n批次号:%s", skuCode, batchNo));
+        }
+        double goodsQty = goods.getGoodsQty();
+        if (goodsQty <= 0) {
+            goodsQty = 1;
+        }
+        String totalQtyStr = tvTakeQty.getText().toString();
+        double totalQty = NumberUtils.getDouble(totalQtyStr);
+
+        totalQty = NumberUtils.getDouble(totalQty + goodsQty);
+        tvTakeQty.setText(String.valueOf(totalQty));
 
     }
 
     private void loadDetails(String manifestNo) {
+        displayProgressDialog("加载数据中");
+        TakeDelManifestDetailsParams params = new TakeDelManifestDetailsParams();
+        DepotBean depot = DepotUtils.getDepot(this);
+        params.setWhCode(depot.getWhcode());
+        params.setAsnNo(manifestNo);
+        ModelService.post(EnterUrl.take_del_search_manifest_details, params, new ResultCallback() {
+            @Override
+            public void onFailed(String msg) {
+                cancelProgressDialog();
+                displayMsgDialog(msg);
+            }
 
+            @Override
+            public void onSuccess(ResultBean response) {
+                cancelProgressDialog();
+                mOperateManifestBean = getData(response.getData(), BTakeDeliveryManifest.class);
+                resetGoodsView();
+            }
+        });
     }
 
     /**
@@ -122,11 +190,12 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
             canEditQty = false;
         }
         if (mTakeDeliveryModel.isAddBatchNo(mOperateManifestBean.getBatchFlag(), mOperateManifestBean.getBatchNoFlag())) {
-
+            //需要输入BatchNo;
+            setIsInputBatchNo(true);
         } else {
+            setIsInputBatchNo(false);
 
         }
-        setIsInputBatchNo(false);
         String skuCode = mOperateManifestBean.getSkuCode();
         if (StringUtils.isEmpty(skuCode)) {
             skuCode = NULL_;
@@ -144,20 +213,35 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
             unitName = NULL_;
         }
 
-        Double pQty = mOperateManifestBean.getPQty();
-        if (pQty == null) {
-            pQty = 0D;
+        double pQty = mOperateManifestBean.getPQty();
+        double quantity = mOperateManifestBean.getQuantity();
+
+        String asnNo = mOperateManifestBean.getAsnNo();
+        if (StringUtils.isEmpty(asnNo)) {
+            asnNo = NULL_;
         }
-        String planQty = String.format("%.2f", pQty);
+
+        String planQty = String.format("%.2f", NumberUtils.getDouble(pQty - quantity));
         ltvSkuName.setText(skuName);
-        ltvSkuName.setText(skuCode);
+        ltvSkuCode.setText(skuCode);
         etInputBatchNo.setText(batchNo);
         ltvUnitName.setText(unitName);
         ltvPlanQty.setText(planQty);
-
+        ltvOperateManifest.setText(asnNo);
         if (isAddSerial()) {
+
+            List<SerialNoVo> serialNoList = mOperateManifestBean.getSerialNoList();
+            if (serialNoList != null) {
+                srcSerials = new ArrayList<>();
+                for (SerialNoVo serialNoVo : serialNoList) {
+                    srcSerials.add(serialNoVo.getSerialNo());
+                }
+            }
+
             addBottomSerial();
             canEditQty = false;
+        } else {
+            canEditQty = true;
         }
     }
 
@@ -186,7 +270,7 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
 
     private void addBottomSerial() {
         TextView tvSerial = new TextView(this);
-        tvSerial.setText("添加序列号");
+        tvSerial.setText("添加序列号F4");
         tvSerial.setOnClickListener(this);
         tvSerial.setOnClickListener(this);
         tvSerial.setId(R.id.btn_serial);
@@ -204,6 +288,7 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
         super.widgetClick(v);
         int i = v.getId();
         if (i == R.id.activity_b_take_delivery_goods_details_tv_submit) {
+            toSubmit();
         } else if (i == R.id.activity_b_take_delivery_goods_details_tv_take_qty) {
             displayEditQtyDialog();
         } else if (i == R.id.btn_serial) {
@@ -211,17 +296,56 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
         }
     }
 
+    private void toSubmit() {
+        if (!isCanSubmit()) {
+            return;
+        }
+        // TODO: 2017/12/26 点击提交信息
+
+    }
+
+    private boolean isCanSubmit() {
+        String batchNo;
+        if (isInputBatchNo) {
+            //需要判断当前货品是否需要添加批次号
+            batchNo = etInputBatchNo.getText().toString();
+            if (StringUtils.isEmpty(batchNo)) {
+                displayMsgDialog("请输入批次号");
+                return false;
+            }
+        }
+
+        if (isAddSerial()) {
+//           当前是序列号管控，需要添加序列号
+            if (mAddSerials == null) {
+                displayMsgDialog("请输入序列号");
+                return false;
+            }
+        } else {
+            double takeQty = NumberUtils.getDouble(tvTakeQty.getText().toString());
+            if (takeQty <= 0) {
+                displayMsgDialog("请输入正确收货数量");
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void toAddSerialActivity() {
+        if (!isAddSerial()) {
+            return;
+        }
         Bundle bundle = new Bundle();
-        AddSerialActivity.put(addSerials, bundle);
-        startActivity(AddSerialActivity.class, REQUEST_ADD_SERIAL);
+        AddSerialActivity.put(srcSerials, mAddSerials, mOperateManifestBean.getPQty(), bundle);
+        startActivity(AddSerialActivity.class, bundle, REQUEST_ADD_SERIAL);
     }
 
 
     public void setIsInputBatchNo(boolean isInputBatchNo) {
+        this.isInputBatchNo = isInputBatchNo;
         if (!isInputBatchNo) {
             etInputBatchNo.setFocusable(false);
-
+            etInputBatchNo.setClickable(false);
             etInputBatchNo.setFocusableInTouchMode(false);
         } else {
             etInputBatchNo.setFocusableInTouchMode(true);
@@ -233,8 +357,20 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
     }
 
     @Override
+    public boolean onKeyF1() {
+        toSubmit();
+        return true;
+    }
+
+    @Override
     public boolean onKeyF2() {
         displayEditQtyDialog();
+        return true;
+    }
+
+    @Override
+    public boolean onKeyF4() {
+        toAddSerialActivity();
         return true;
     }
 
@@ -249,4 +385,16 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ADD_SERIAL && resultCode == Activity.RESULT_OK) {
+            mAddSerials = AddSerialActivity.getSerialList(data);
+            int qty = 0;
+            if (mAddSerials != null) {
+                qty = mAddSerials.size();
+            }
+
+            tvTakeQty.setText(String.valueOf(qty));
+        }
+    }
 }

@@ -22,9 +22,9 @@ public class TakeDeliveryModel {
     private final static String SERIAL_NO_FLAG = "0";
 
     /**
-     * 当前显示对象 batchNoFlag 不等于0 即需要编写
+     * 当前显示对象 batchNoFlag =2 需要進行編輯
      */
-    private final static String BATCH_NO_FLAG = "0";
+    private final static String BATCH_NO_FLAG = "2";
 
     /**
      *
@@ -41,7 +41,7 @@ public class TakeDeliveryModel {
         * 判断当前货品是否需要编写批次属性
          */
         if (BATCH_FLAG.equals(batchFlag)) {
-            if (!BATCH_NO_FLAG.equals(batchNoFlag)) {
+            if (BATCH_NO_FLAG.equals(batchNoFlag)) {
                 return true;
             }
         }

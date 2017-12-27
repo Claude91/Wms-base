@@ -5,16 +5,15 @@ import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.shqtn.b.R;
-import com.shqtn.b.enter.EnterUril;
+import com.shqtn.b.enter.EnterUrl;
+import com.shqtn.b.enter.params.TakeDelManifestDetailsParams;
+import com.shqtn.b.enter.params.TakeDelSearchManifestByGoodsParams;
 import com.shqtn.b.enter.result.BTakeDeliveryManifest;
 import com.shqtn.b.enter.ui.BTakeDeliveryGoodsDetailsActivity;
-import com.shqtn.base.BaseActivity;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.DepotBean;
 import com.shqtn.base.bean.ResultBean;
-import com.shqtn.base.bean.enter.TakeDeliveryGoods;
-import com.shqtn.base.bean.enter.TakeDeliveryManifest;
 import com.shqtn.base.bean.params.TakeDelManifestListParams;
 import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
@@ -24,8 +23,6 @@ import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.StringUtils;
-import com.shqtn.base.utils.ToastUtils;
-import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
 import com.shqtn.enter.utils.NormalInitView;
@@ -50,6 +47,10 @@ public class BTakeDeliveryManifestPresenter extends AbstractListActivityPresente
 
     private List<BTakeDeliveryManifest> mSearchManifestList;
 
+    private TakeDelManifestDetailsParams mTakeDelManifestDetailsParams = new TakeDelManifestDetailsParams();
+    private TakeDelSearchManifestByGoodsParams mTakeDelSearchManifestByGoodsParams = new TakeDelSearchManifestByGoodsParams();
+
+
     private ResultCallback mManifestCallback = new ResultCallback() {
 
         @Override
@@ -66,12 +67,13 @@ public class BTakeDeliveryManifestPresenter extends AbstractListActivityPresente
 
         @Override
         public void onSuccess(ResultBean response) {
-            ArrayList<BTakeDeliveryManifest> rows = getRows(response.getRows(), BTakeDeliveryManifest.class);
+            ArrayList<BTakeDeliveryManifest> rows = getRows(response.getData(), BTakeDeliveryManifest.class);
             int page = mManifestParams.getPage();
             if (page == C.PAGE) {
                 mManifestList.clear();
                 if (rows == null || rows.size() == 0) {
                     getView().displayMsgDialog(getAty().getString(com.shqtn.enter.R.string.not_manifest));
+                    mSearchManifestList = mManifestList;
                     mManifestAdapter.update(mManifestList);
                     return;
                 }
@@ -83,12 +85,53 @@ public class BTakeDeliveryManifestPresenter extends AbstractListActivityPresente
                     mManifestList.addAll(rows);
                 }
             }
-            mManifestAdapter.update(mManifestList);
+            mSearchManifestList = mManifestList;
+            mManifestAdapter.update(mSearchManifestList);
             page++;
             mManifestParams.setPage(page);
         }
     };
+    private ResultCallback searchManifestDetailsCallback = new ResultCallback() {
+        @Override
+        public void onAfter() {
+            super.onAfter();
+            getView().cancelProgressDialog();
+        }
 
+        @Override
+        public void onFailed(String msg) {
+            getView().displayMsgDialog(msg);
+        }
+
+        @Override
+        public void onSuccess(ResultBean response) {
+            BTakeDeliveryManifest bTakeDeliveryManifest = getData(response.getData(), BTakeDeliveryManifest.class);
+            if (bTakeDeliveryManifest == null) {
+                getView().displayMsgDialog(String.format("当前仓库未查询到任务单号:%s", mTakeDelManifestDetailsParams.getAsnNo()));
+                return;
+            }
+            toGoodsDetailsActivity(mTakeDelManifestDetailsParams.getAsnNo());
+        }
+    };
+    ResultCallback searchManifestByGoodsCallback = new ResultCallback() {
+        @Override
+        public void onFailed(String msg) {
+            getView().cancelProgressDialog();
+            getView().displayMsgDialog(msg);
+        }
+
+        @Override
+        public void onSuccess(ResultBean response) {
+            getView().cancelProgressDialog();
+            mSearchManifestList = getRows(response.getData(), BTakeDeliveryManifest.class);
+
+            mManifestAdapter.update(mSearchManifestList);
+            getView().setListViewModel(PullToRefreshBase.Mode.DISABLED);
+
+            getView().toast("查询成功");
+
+        }
+    };
 
     @Override
     public void init() {
@@ -142,14 +185,16 @@ public class BTakeDeliveryManifestPresenter extends AbstractListActivityPresente
         mManifestParams.setPage(C.PAGE);
         mManifestParams.setPageSize(C.PAGE_SIZE);
         DepotBean depot = DepotUtils.getDepot(getAty().getContext());
-
         mManifestAdapter.update(mManifestList);
 
         if (depot == null) {
             NormalInitView.notSelectDepot(getView());
             return;
         }
-        mManifestParams.setWhCode(depot.getWhcode());
+        String whcode = depot.getWhcode();
+        mManifestParams.setWhCode(whcode);
+        mTakeDelManifestDetailsParams.setWhCode(whcode);
+        mTakeDelSearchManifestByGoodsParams.setWhCode(whcode);
         refresh();
     }
 
@@ -187,57 +232,24 @@ public class BTakeDeliveryManifestPresenter extends AbstractListActivityPresente
     }
 
     @Override
-    public void decodeManifest(final CodeManifest manifest) {
+    public void decodeManifest(CodeManifest manifest) {
         super.decodeManifest(manifest);
         getView().displayProgressDialog(getAty().getString(com.shqtn.enter.R.string.matching));
-        ModelService.post(ApiUrl.URL_TAKE_DELIVERY_GOODS_LIST + manifest.getDocNo(), null, new ResultCallback() {
-            @Override
-            public void onAfter() {
-                super.onAfter();
-                getView().cancelProgressDialog();
-            }
-
-            @Override
-            public void onFailed(String msg) {
-                getView().displayMsgDialog(msg);
-            }
-
-            @Override
-            public void onSuccess(ResultBean response) {
-                ArrayList<TakeDeliveryGoods> arrayList = getRows(response.getData(), TakeDeliveryGoods.class);
-                if (arrayList == null || arrayList.size() == 0) {
-                    getView().displayMsgDialog(getAty().getString(com.shqtn.enter.R.string.noGoodsOfManifest));
-                } else {
-                    toGoodsDetailsActivity(manifest.getDocNo());
-                }
-            }
-        });
+        mTakeDelManifestDetailsParams.setAsnNo(manifest.getDocNo());
+        ModelService.post(EnterUrl.take_del_search_manifest_details, mTakeDelManifestDetailsParams, searchManifestDetailsCallback);
     }
 
     @Override
     public void decodeGoods(CodeGoods goods) {
         super.decodeGoods(goods);
         getView().displayProgressDialog(getAty().getString(com.shqtn.enter.R.string.matching));
-        // TODO: 2017/12/25 查询货品
-        ModelService.post(EnterUril.take_del_search_manifest_for_goods, null, new ResultCallback() {
-            @Override
-            public void onFailed(String msg) {
-                getView().cancelProgressDialog();
-                getView().displayMsgDialog(msg);
-            }
 
-            @Override
-            public void onSuccess(ResultBean response) {
-                getView().cancelProgressDialog();
-                mSearchManifestList = getRows(response.getRows(), BTakeDeliveryManifest.class);
 
-                mManifestAdapter.update(mSearchManifestList);
-                getView().setListViewModel(PullToRefreshBase.Mode.DISABLED);
+        mTakeDelSearchManifestByGoodsParams.setBatchNo(goods.getBatchNo());
+        mTakeDelSearchManifestByGoodsParams.setSkuCode(goods.getSkuCode());
 
-                getView().toast("查询成功");
 
-            }
-        });
+        ModelService.post(EnterUrl.take_del_search_manifest_by_goods, mTakeDelSearchManifestByGoodsParams, searchManifestByGoodsCallback);
 
 
     }

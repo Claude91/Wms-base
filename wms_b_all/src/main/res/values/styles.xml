@@ -8,8 +8,7 @@
         <item name="colorAccent">#cabcbc</item>
         <item name="android:launchMode">singleTop</item>
         <item name="android:screenOrientation">portrait</item>
-        <item name="android:configChanges">screenLayout|keyboardHidden</item>
-        <item name="android:windowSoftInputMode">adjustPan|stateHidden</item>
+        <item name="android:configChanges">screenSize|keyboardHidden</item>
+        <item name="android:windowSoftInputMode">adjustUnspecified|stateHidden|adjustPan</item>
     </style>
-
 </resources>

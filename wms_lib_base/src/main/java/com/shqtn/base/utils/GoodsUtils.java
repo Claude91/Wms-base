@@ -15,6 +15,7 @@ public class GoodsUtils {
 
     /**
      * 用于判断是否是相同的 货品
+     * 匹配 skuCode,batchNo;
      *
      * @param srcGoods
      * @param compareGoods
@@ -41,14 +42,17 @@ public class GoodsUtils {
 
         return true;
     }
+
     /**
      * 用于判断是否是相同的 货品
+     * 匹配skuCode;
+     * 不匹配batchNo
      *
      * @param srcGoods
      * @param compareGoods
      * @return
      */
-    public static <T extends IGoods, E extends IGoods> boolean isSameNoBacthNo(IGoods srcGoods, IGoods compareGoods) {
+    public static <T extends IGoods, E extends IGoods> boolean isSameNoBatchNo(IGoods srcGoods, IGoods compareGoods) {
         if (srcGoods == null || StringUtils.isEmpty(srcGoods.getGoodsSku()) || compareGoods == null)
             return false;
 
@@ -83,7 +87,7 @@ public class GoodsUtils {
         }
         ArrayList<T> arrayList = new ArrayList<>();
         for (T iGoods : goodsList) {
-            boolean sameNoBacthNo = isSameNoBacthNo(iGoods, goods);
+            boolean sameNoBacthNo = isSameNoBatchNo(iGoods, goods);
             if (sameNoBacthNo) {
                 arrayList.add(iGoods);
             }
@@ -153,7 +157,7 @@ public class GoodsUtils {
     }
 
     public static double getGoodsQty(CodeGoods goods) {
-        if (goods.getGoodsQty() <=0){
+        if (goods.getGoodsQty() <= 0) {
             return 1;
         }
 

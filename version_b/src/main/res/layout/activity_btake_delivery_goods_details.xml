@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top_or_bottom"
                     app:color="@color/text_white_color"
-                    app:labelText="预收货数量"
+                    app:labelText="剩余收货数量"
                     app:size="@dimen/text_label_size" />
 
                 <LinearLayout

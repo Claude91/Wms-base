@@ -14,17 +14,19 @@ import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
+import com.shqtn.enter.info.IFunctionLoad;
 
 import java.util.ArrayList;
 
 public class AddSerialActivity extends BaseBActivity implements TitleView.OnRightTextClickListener {
     public static final String SRC_SERIALS = "src_serials";
     public static final String ADD_SERIALS_SIZE = "addSerialsSize";
+    public static final String ADD_SERIALS = "addSerials";
 
     public static final String RESULT_ADD_SERIALS = "resultAddSerials";
 
     private ArrayList<String> srcSerials;//需要进行匹配的序列号
-    private int addSerialsSize;
+    private double addSerialsSize;
     private TextView tvYes;
     private LabelTextView ltvAddQty, ltvTotalQty;
     private ListView lv;
@@ -49,15 +51,15 @@ public class AddSerialActivity extends BaseBActivity implements TitleView.OnRigh
     };
 
 
-    public static void put(ArrayList<String> srcSerials, Bundle bundle) {
+    public static void put(ArrayList<String> srcSerials, ArrayList<String> addSerials, double totalSize, Bundle bundle) {
         bundle.putStringArrayList(SRC_SERIALS, srcSerials);
+        bundle.putStringArrayList(ADD_SERIALS, addSerials);
+
+        bundle.putDouble(ADD_SERIALS_SIZE, totalSize);
     }
 
-    public static void putAddSize(int size, Bundle bundle) {
-        bundle.putInt(ADD_SERIALS_SIZE, size);
-    }
 
-    public static ArrayList<String> getSerialList(Intent data){
+    public static ArrayList<String> getSerialList(Intent data) {
         return data.getStringArrayListExtra(RESULT_ADD_SERIALS);
     }
 
@@ -73,7 +75,11 @@ public class AddSerialActivity extends BaseBActivity implements TitleView.OnRigh
         Bundle bundle = getBundle();
         if (bundle != null) {
             srcSerials = bundle.getStringArrayList(SRC_SERIALS);
-            addSerialsSize = bundle.getInt(ADD_SERIALS_SIZE);
+            addSerials = bundle.getStringArrayList(ADD_SERIALS);
+            addSerialsSize = bundle.getDouble(ADD_SERIALS_SIZE);
+        }
+        if (addSerials == null) {
+            addSerials = new ArrayList<>();
         }
     }
 
@@ -95,6 +101,9 @@ public class AddSerialActivity extends BaseBActivity implements TitleView.OnRigh
 
 
         titleView.setOnRightTextClickListener(this);
+
+        ltvAddQty.setText(String.valueOf(addSerials.size()));
+        ltvTotalQty.setText(String.valueOf(getCanAddSerialMaxSize()));
 
         setInputCode.setOnToTextSearchListener(new SystemEditText.OnToTextSearchListener() {
             @Override
@@ -132,7 +141,7 @@ public class AddSerialActivity extends BaseBActivity implements TitleView.OnRigh
     }
 
     private boolean isCanAdd(String content) {
-        if (getCanAddSerialMaxSize() < addSerials.size()) {
+        if (getCanAddSerialMaxSize() == addSerials.size()) {
             displayMsgDialog("数量已经达到最大数量，不可添加");
             return false;
         }
@@ -160,7 +169,7 @@ public class AddSerialActivity extends BaseBActivity implements TitleView.OnRigh
      *
      * @return
      */
-    private int getCanAddSerialMaxSize() {
+    private double getCanAddSerialMaxSize() {
         if (srcSerials != null) {
             return srcSerials.size();
         }
@@ -176,7 +185,8 @@ public class AddSerialActivity extends BaseBActivity implements TitleView.OnRigh
             }
             Intent intent = new Intent();
             intent.putStringArrayListExtra(RESULT_ADD_SERIALS, addSerials);
-            setResult(Activity.RESULT_OK);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
         }
     }
 

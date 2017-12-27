@@ -13,8 +13,26 @@ public class BatchAttr implements Parcelable {
        "description": "糖分",
        "skuCode": "A001000002"
      */
-    private String attrValue;
+    private String skuCode;
     private String description;
+    private String attrType;
+    private String attrValue;
+
+    public String getSkuCode() {
+        return skuCode;
+    }
+
+    public void setSkuCode(String skuCode) {
+        this.skuCode = skuCode;
+    }
+
+    public String getAttrType() {
+        return attrType;
+    }
+
+    public void setAttrType(String attrType) {
+        this.attrType = attrType;
+    }
 
     public String getAttrValue() {
         return attrValue;
@@ -33,6 +51,9 @@ public class BatchAttr implements Parcelable {
     }
 
 
+    public BatchAttr() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -40,16 +61,17 @@ public class BatchAttr implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.attrValue);
+        dest.writeString(this.skuCode);
         dest.writeString(this.description);
-    }
-
-    public BatchAttr() {
+        dest.writeString(this.attrType);
+        dest.writeString(this.attrValue);
     }
 
     protected BatchAttr(Parcel in) {
-        this.attrValue = in.readString();
+        this.skuCode = in.readString();
         this.description = in.readString();
+        this.attrType = in.readString();
+        this.attrValue = in.readString();
     }
 
     public static final Creator<BatchAttr> CREATOR = new Creator<BatchAttr>() {
