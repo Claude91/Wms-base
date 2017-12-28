@@ -20,6 +20,7 @@ public class TakeDeliveryModel {
      * 用于判断当前货品是否要添加 序列号 不等于0 即需要添加
      */
     private final static String SERIAL_NO_FLAG = "0";
+    private final static String SERIAL_NO_FLAG_RF = "2";
 
     /**
      * 当前显示对象 batchNoFlag =2 需要進行編輯
@@ -44,6 +45,20 @@ public class TakeDeliveryModel {
             if (BATCH_NO_FLAG.equals(batchNoFlag)) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * 判断是否是 RF 采集序列号
+     *
+     * @param serialNoFlag
+     * @return
+     */
+    public boolean isRfInSerial(String serialNoFlag) {
+        if (SERIAL_NO_FLAG_RF.equals(serialNoFlag)) {
+            return true;
         }
 
         return false;

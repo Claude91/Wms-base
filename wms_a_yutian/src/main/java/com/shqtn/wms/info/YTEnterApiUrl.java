@@ -9,14 +9,14 @@ import com.shqtn.base.info.ApiUrl;
  * @author ql
  */
 
-public class YTApiUrl {
+public class YTEnterApiUrl {
 
     /**
      * 收货列表- 通过货品筛选任务单号列表
      */
     public static String take_delivery_decode_goods_get_manifest_list;
 
-    public static void changeUrl(String baseUrl) {
+    public static void changeUrl() {
         take_delivery_decode_goods_get_manifest_list = ApiUrl.BASE_URL + "rk/receivingAct/listAsnNoBySku";
     }
 }

@@ -6,6 +6,7 @@ import com.shqtn.base.bean.SerialNoVo;
 import com.shqtn.base.bean.base.IGoods;
 import com.shqtn.base.bean.params.TakeDeliveryGoodsSubmitParams;
 
+import java.sql.Clob;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class BTakeDeliveryManifest extends IGoods {
      * pqty : 10
      */
     private String erpPorder; // ERP单据号
-    private int ikey;
+    private long ikey;
     private String asnNo;// ASN/收货单号
     private long recDate; // 收货日期
     private String ownerCode;//// 货主编码
@@ -59,11 +60,30 @@ public class BTakeDeliveryManifest extends IGoods {
     private String serialFlag;// 序列号管控标志位（Y:是，N：否）
     private String serialNoFlag;// 序列号获取方式
     private String batchNo;
+    private double accQuantity;//数量
     private long ts;
     private int orgnIkey;
     private List<BatchAttr> batchAttrList; // 批次属性
 
     private List<SerialNoVo> serialNoList; // 序列号匹配，如果为空则不需要进行匹配
+    private List<SerialNoVo> shSerialNoList; // 外部采集已经收货的序列号
+
+
+    public double getAccQuantity() {
+        return accQuantity;
+    }
+
+    public void setAccQuantity(double accQuantity) {
+        this.accQuantity = accQuantity;
+    }
+
+    public List<SerialNoVo> getShSerialNoList() {
+        return shSerialNoList;
+    }
+
+    public void setShSerialNoList(List<SerialNoVo> shSerialNoList) {
+        this.shSerialNoList = shSerialNoList;
+    }
 
     @Override
     public String getGoodsSku() {
@@ -116,11 +136,11 @@ public class BTakeDeliveryManifest extends IGoods {
         this.pQty = pQty;
     }
 
-    public int getIkey() {
+    public long getIkey() {
         return ikey;
     }
 
-    public void setIkey(int ikey) {
+    public void setIkey(long ikey) {
         this.ikey = ikey;
     }
 

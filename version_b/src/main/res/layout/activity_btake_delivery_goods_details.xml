@@ -63,6 +63,7 @@
                     app:color="@color/text_white_color"
                     app:labelText="货品名称"
                     app:size="@dimen/text_label_size" />
+
                 <com.shqtn.base.widget.LabelTextView
                     android:id="@+id/activity_b_take_delivery_goods_details_ltv_sku"
                     android:layout_width="match_parent"
@@ -96,6 +97,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_top_normal"
                         android:background="@drawable/shape_edit_div"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -107,7 +110,6 @@
                     app:color="@color/text_white_color"
                     app:labelText="单位名称"
                     app:size="@dimen/text_label_size" />
-
 
 
                 <com.shqtn.base.widget.LabelTextView

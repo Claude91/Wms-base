@@ -95,6 +95,7 @@ public class BTakeDeliveryManifestPresenter extends AbstractListActivityPresente
         @Override
         public void onAfter() {
             super.onAfter();
+            getView().onRefreshComplete();
             getView().cancelProgressDialog();
         }
 

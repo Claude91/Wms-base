@@ -4,7 +4,11 @@ import android.os.Bundle;
 
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.info.impl.FunctionMainActivityLoadImpl;
-import com.shqtn.wms.presenter.YTTakeDeliveryManifestPresenter;
+import com.shqtn.enter.presenter.exit.DepotOutAreaListPresenter;
+import com.shqtn.enter.presenter.exit.RackDownManifestListPresenter;
+import com.shqtn.wms.presenter.enter.YTTakeDeliveryManifestPresenter;
+import com.shqtn.wms.presenter.exit.YTDepotOutManifestPresenter;
+import com.shqtn.wms.presenter.exit.YTRackDownManifestPresenter;
 
 /**
  * 创建时间:2017/12/18
@@ -28,4 +32,10 @@ public class YTFunctionMainActivityLoadImpl extends FunctionMainActivityLoadImpl
         return ListActivity.class;
     }
 
+    @Override
+    public Class getRackDownMain(Bundle bundle) {
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(YTRackDownManifestPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
+    }
 }

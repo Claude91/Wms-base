@@ -11,9 +11,10 @@ import com.shqtn.enter.info.impl.EnterActivityLoadImpl;
 import com.shqtn.enter.info.impl.ExitActivityLoadImpl;
 import com.shqtn.enter.info.impl.InActivityLoadImpl;
 import com.shqtn.enter.info.impl.OtherActivityLoadImpl;
-import com.shqtn.wms.info.YTApiUrl;
+import com.shqtn.wms.info.YTEnterApiUrl;
 import com.shqtn.wms.info.YTFunctionLoadImpl;
 import com.shqtn.wms.info.YTFunctionMainActivityLoadImpl;
+import com.shqtn.wms.info.YTExitApiUrl;
 
 
 /**
@@ -51,7 +52,7 @@ public class MyApp extends BaseApp implements ApiUrl.OnIpChangeListener {
         String port = IpChangeUtils.getPort(this);
 
         ApiUrl.reg(this);
-        ApiUrl.changeBase(ip,port);
+        ApiUrl.changeBase(ip, port);
 
 
     }
@@ -59,6 +60,7 @@ public class MyApp extends BaseApp implements ApiUrl.OnIpChangeListener {
 
     @Override
     public void onChangeUrl() {
-        YTApiUrl.changeUrl(ApiUrl.BASE_URL);
+        YTEnterApiUrl.changeUrl();
+        YTExitApiUrl.changeUrl();
     }
 }

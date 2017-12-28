@@ -11,11 +11,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.shqtn.b.AddSerialActivity;
+import com.shqtn.b.SerialAddActivity;
 import com.shqtn.b.BaseBActivity;
 import com.shqtn.b.R;
 import com.shqtn.b.enter.EnterUrl;
 import com.shqtn.b.enter.params.TakeDelManifestDetailsParams;
+import com.shqtn.b.enter.params.TakeDelSubmitParams;
 import com.shqtn.b.enter.result.BTakeDeliveryManifest;
 import com.shqtn.base.C;
 import com.shqtn.base.bean.DepotBean;
@@ -62,6 +63,9 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
     private CodeController.Presenter mCodePresenter;
     private ArrayList<String> mAddSerials;
     private ArrayList<String> srcSerials;
+
+    private ArrayList<String> noSerials;//已经添加过得序列号，不能继续添加
+
     private String mOperateManifest;
     private BTakeDeliveryManifest mOperateManifestBean;
     private boolean canEditQty;//
@@ -134,7 +138,7 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
             displayMsgDialog("序列号管控，请添加序列号");
             return;
         }
-        if (!GoodsUtils.isSame(mOperateManifestBean, goods)) {
+        if (!GoodsUtils.isSameNoBatchNo(mOperateManifestBean, goods)) {
             String skuCode = goods.getSkuCode();
             String batchNo = goods.getBatchNo();
             if (skuCode == null) {
@@ -145,6 +149,13 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
             }
             displayMsgDialog(String.format("查询货品不匹配\n货品编码:%s \n批次号:%s", skuCode, batchNo));
         }
+        if (isInputBatchNo) {
+            String batchNo = goods.getBatchNo();
+            if (!StringUtils.isEmpty(batchNo)) {
+                etInputBatchNo.setText(batchNo);
+            }
+        }
+
         double goodsQty = goods.getGoodsQty();
         if (goodsQty <= 0) {
             goodsQty = 1;
@@ -185,10 +196,6 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
     private void resetGoodsView() {
         String NULL_ = "";
 
-        if (isAddSerial()) {
-            addBottomSerial();
-            canEditQty = false;
-        }
         if (mTakeDeliveryModel.isAddBatchNo(mOperateManifestBean.getBatchFlag(), mOperateManifestBean.getBatchNoFlag())) {
             //需要输入BatchNo;
             setIsInputBatchNo(true);
@@ -229,12 +236,24 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
         ltvPlanQty.setText(planQty);
         ltvOperateManifest.setText(asnNo);
         if (isAddSerial()) {
+            // 序列号 数组
+            if (!mTakeDeliveryModel.isRfInSerial(mOperateManifestBean.getSerialNoFlag())) {
+                List<SerialNoVo> serialNoList = mOperateManifestBean.getSerialNoList();
+                if (serialNoList != null) {
+                    srcSerials = new ArrayList<>();
+                    for (SerialNoVo serialNoVo : serialNoList) {
+                        srcSerials.add(serialNoVo.getSerialNo());
+                    }
+                }
+            }
 
-            List<SerialNoVo> serialNoList = mOperateManifestBean.getSerialNoList();
-            if (serialNoList != null) {
-                srcSerials = new ArrayList<>();
-                for (SerialNoVo serialNoVo : serialNoList) {
-                    srcSerials.add(serialNoVo.getSerialNo());
+            // 序列号 数组 已经提交过得数组
+            //再次添加序列号时 不可添加此数组内字符
+            List<SerialNoVo> shSerialNoList = mOperateManifestBean.getShSerialNoList();
+            if (shSerialNoList != null) {
+                noSerials = new ArrayList<>();
+                for (SerialNoVo serialNoVo : shSerialNoList) {
+                    noSerials.add(serialNoVo.getSerialNo());
                 }
             }
 
@@ -248,7 +267,7 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
 
     private void displayEditQtyDialog() {
         if (isCanEditQty()) {
-            displayEditQty(mOperateManifestBean.getPQty(), resultListener);
+            displayEditQty(NumberUtils.getDouble(mOperateManifestBean.getPQty() - mOperateManifestBean.getQuantity()), resultListener);
         } else {
             displayMsgDialog("当前货品为序列号管控，请添加序列号");
         }
@@ -300,7 +319,44 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
         if (!isCanSubmit()) {
             return;
         }
-        // TODO: 2017/12/26 点击提交信息
+        displayProgressDialog("提交中");
+
+        TakeDelSubmitParams submitParams = new TakeDelSubmitParams();
+        submitParams.setAsnNo(mOperateManifestBean.getAsnNo());
+
+        submitParams.setWhCode(mOperateManifestBean.getWhCode());
+        submitParams.setIkey(mOperateManifestBean.getIkey());
+        submitParams.setOrgnIkey(mOperateManifestBean.getOrgnIkey());
+
+        String takeQtyStr = tvTakeQty.getText().toString();
+        submitParams.setAccQuantity(NumberUtils.getDouble(takeQtyStr));
+        String batchNo = etInputBatchNo.getText().toString();
+        submitParams.setBatchNo(batchNo);
+
+        submitParams.setSkuCode(mOperateManifestBean.getSkuCode());
+        if (mAddSerials != null) {
+            ArrayList<SerialNoVo> l = new ArrayList<>();
+            for (String mAddSerial : mAddSerials) {
+                l.add(new SerialNoVo(mAddSerial));
+            }
+            submitParams.setSerialNoList(l);
+        }
+
+
+        ModelService.post(EnterUrl.take_del_submit, submitParams, new ResultCallback() {
+            @Override
+            public void onFailed(String msg) {
+                cancelProgressDialog();
+                displayMsgDialog(msg);
+            }
+
+            @Override
+            public void onSuccess(ResultBean response) {
+                cancelProgressDialog();
+                toast("提交成功");
+                finish();
+            }
+        });
 
     }
 
@@ -336,8 +392,9 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
             return;
         }
         Bundle bundle = new Bundle();
-        AddSerialActivity.put(srcSerials, mAddSerials, mOperateManifestBean.getPQty(), bundle);
-        startActivity(AddSerialActivity.class, bundle, REQUEST_ADD_SERIAL);
+        SerialAddActivity.put(srcSerials, mAddSerials, NumberUtils.getDouble(mOperateManifestBean.getPQty() - mOperateManifestBean.getQuantity()), bundle);
+        SerialAddActivity.putNoSerial(noSerials, bundle);
+        startActivity(SerialAddActivity.class, bundle, REQUEST_ADD_SERIAL);
     }
 
 
@@ -388,7 +445,7 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_ADD_SERIAL && resultCode == Activity.RESULT_OK) {
-            mAddSerials = AddSerialActivity.getSerialList(data);
+            mAddSerials = SerialAddActivity.getSerialList(data);
             int qty = 0;
             if (mAddSerials != null) {
                 qty = mAddSerials.size();

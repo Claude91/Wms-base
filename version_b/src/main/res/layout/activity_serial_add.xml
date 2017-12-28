@@ -5,7 +5,7 @@
     android:id="@+id/activity_add_serial"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.shqtn.b.AddSerialActivity">
+    tools:context="com.shqtn.b.SerialAddActivity">
 
 
     <com.shqtn.base.widget.TitleView
@@ -52,7 +52,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/activity_add_serial_bottom_group"
         android:layout_below="@id/activity_add_serial_group_1"
-        android:divider="@color/div_color"
+        android:layout_marginTop="6dp"
         android:dividerHeight="6dp" />
 
     <LinearLayout

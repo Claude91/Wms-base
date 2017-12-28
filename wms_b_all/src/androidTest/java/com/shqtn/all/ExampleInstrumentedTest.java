@@ -9,7 +9,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.shqtn.b.AddSerialActivity;
 import com.shqtn.b.enter.ui.BTakeDeliveryGoodsDetailsActivity;
 
 import org.junit.Before;

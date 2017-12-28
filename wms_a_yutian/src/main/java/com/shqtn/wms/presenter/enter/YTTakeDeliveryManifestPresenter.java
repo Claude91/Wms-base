@@ -1,4 +1,4 @@
-package com.shqtn.wms.presenter;
+package com.shqtn.wms.presenter.enter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import com.shqtn.enter.InfoLoadUtils;
 import com.shqtn.enter.controller.ListActivityController;
 import com.shqtn.enter.controller.impl.AbstractListActivityPresenter;
 import com.shqtn.enter.utils.NormalInitView;
-import com.shqtn.wms.info.YTApiUrl;
+import com.shqtn.wms.info.YTEnterApiUrl;
 import com.shqtn.wms.presenter.enter.params.TakeDeliveryScanningGoodsParams;
 
 import java.util.ArrayList;
@@ -208,7 +208,7 @@ public class YTTakeDeliveryManifestPresenter extends AbstractListActivityPresent
                 }
             };
         }
-        ModelService.post(YTApiUrl.take_delivery_decode_goods_get_manifest_list, mScanningGoodsParams, scanningGoodsCallback);
+        ModelService.post(YTEnterApiUrl.take_delivery_decode_goods_get_manifest_list, mScanningGoodsParams, scanningGoodsCallback);
     }
 
     private void changeShow(int showTag) {
