@@ -107,6 +107,9 @@ public class YTRackDownManifestPresenter extends AbstractListActivityPresenter {
                 if (list.size() < mByGoodsParams.getPageSize()) {
                     getView().toast("已经加载全部");
                 }
+                int page = mByGoodsParams.getPage();
+                page++;
+                mByGoodsParams.setPage(page);
             } else {
                 getView().toast("已经显示全部数据");
             }

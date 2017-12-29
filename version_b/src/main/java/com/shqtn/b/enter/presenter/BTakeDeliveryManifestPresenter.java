@@ -244,12 +244,8 @@ public class BTakeDeliveryManifestPresenter extends AbstractListActivityPresente
     public void decodeGoods(CodeGoods goods) {
         super.decodeGoods(goods);
         getView().displayProgressDialog(getAty().getString(com.shqtn.enter.R.string.matching));
-
-
         mTakeDelSearchManifestByGoodsParams.setBatchNo(goods.getBatchNo());
         mTakeDelSearchManifestByGoodsParams.setSkuCode(goods.getSkuCode());
-
-
         ModelService.post(EnterUrl.take_del_search_manifest_by_goods, mTakeDelSearchManifestByGoodsParams, searchManifestByGoodsCallback);
 
 

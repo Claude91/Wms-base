@@ -134,10 +134,6 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
     @Override
     public void decodeGoods(CodeGoods goods) {
         cancelProgressDialog();
-        if (isAddSerial()) {
-            displayMsgDialog("序列号管控，请添加序列号");
-            return;
-        }
         if (!GoodsUtils.isSameNoBatchNo(mOperateManifestBean, goods)) {
             String skuCode = goods.getSkuCode();
             String batchNo = goods.getBatchNo();
@@ -154,6 +150,29 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
             if (!StringUtils.isEmpty(batchNo)) {
                 etInputBatchNo.setText(batchNo);
             }
+        }
+
+        if (isAddSerial()) {
+            String serialNo = goods.getSerialNo();
+            if (StringUtils.isEmpty(serialNo)) {
+                displayMsgDialog("解码后货品无序列号，请检测编码中是否包含序列号");
+                return;
+            }
+            if (srcSerials != null || srcSerials.size() > 0) {
+                if (!srcSerials.contains(serialNo)) {
+                    displayMsgDialog("该货品序列号不匹配，请重新录入货品");
+                    return;
+                }
+            }
+            if (mAddSerials == null) {
+                mAddSerials = new ArrayList<>();
+            }
+            if (mAddSerials.contains(serialNo)) {
+                displayMsgDialog("不能重复添加序列号");
+                return;
+            }
+            mAddSerials.add(serialNo);
+
         }
 
         double goodsQty = goods.getGoodsQty();
