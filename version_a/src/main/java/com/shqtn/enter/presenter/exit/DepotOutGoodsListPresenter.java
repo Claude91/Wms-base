@@ -84,7 +84,7 @@ public class DepotOutGoodsListPresenter extends AbstractListActivityPresenter {
                 holder.setLabelText(R.id.item_goods_depot_out_ltv_sku, depotOutGoods.getSkuCode());
                 holder.setLabelText(R.id.item_goods_depot_out_ltv_name, depotOutGoods.getSkuName());
                 holder.setLabelText(R.id.item_goods_depot_out_ltv_over_qty, String.valueOf(depotOutGoods.getDeliveryQty()));
-                holder.setLabelText(R.id.item_goods_depot_out_ltv_plan_qty, String.valueOf(depotOutGoods.getQuantity()));
+                holder.setLabelText(R.id.item_goods_depot_out_ltv_plan_qty, String.valueOf(depotOutGoods.getQuantity() - depotOutGoods.getDeliveryQty()));
                 holder.setLabelText(R.id.item_goods_depot_out_ltv_std, depotOutGoods.getStd());
                 holder.setLabelText(R.id.item_goods_depot_out_ltv_unit, depotOutGoods.getUnitName());
 

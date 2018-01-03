@@ -36,7 +36,8 @@
         <activity android:name=".InputCodeActivity" />
         <activity android:name=".DecodeDetailsActivity" />
         <activity android:name=".print.aty.InputBluetoothAddressActivity" />
-        <activity android:name=".print.aty.PrintImageSettingActivity"></activity>
+        <activity android:name=".print.aty.PrintImageSettingActivity" />
+        <activity android:name=".setting.SettingActivity"></activity>
     </application>
 
 </manifest>

@@ -26,6 +26,12 @@ import com.shqtn.enter.R;
 
 import java.util.ArrayList;
 
+/**
+ * 描述: 修改 提交时，数量 quantity字段 更改为quantityOut 字段
+ * 与 陈伟 对应， 修改时间为 2018/1/3
+ *
+ * @date 2018/1/3
+ */
 public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQuantityEditText.OnOverstepListener {
 
     public TitleView titleView;
@@ -79,7 +85,7 @@ public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQua
         loadIkey();
         ltvName.setText(mOperateGoods.getSkuName());
         ltvSku.setText(mOperateGoods.getSkuCode());
-        double quantity = mOperateGoods.getQuantity();
+        double quantity = getCanSubmitMaxQty();
         mqEtInputQty.setMaxQuantity(quantity);
         if (scanningGoodsQty <= 0) {
             ltvQty.setText(String.valueOf(quantity));
@@ -152,7 +158,7 @@ public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQua
                 displayMsgDialog("请输入正确的数量");
                 return false;
             }
-            if (qty > mOperateGoods.getQuantity()) {
+            if (qty > getCanSubmitMaxQty()) {
                 displayMsgDialog("输入数量大于剩余数量");
                 return false;
             }
@@ -161,6 +167,15 @@ public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQua
         }
 
         return true;
+    }
+
+    /**
+     * 当前操作可提交的最大数量
+     *
+     * @return
+     */
+    private double getCanSubmitMaxQty() {
+        return NumberUtils.getDouble(mOperateGoods.getQuantity() - mOperateGoods.getDeliveryQty());
     }
 
     private void submit() {
@@ -173,7 +188,7 @@ public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQua
         params.setIkeyList(mSerialNoList);
         String qtyStr = mqEtInputQty.getText().toString();
         double qty = NumberUtils.getDouble(qtyStr);
-        params.setQuantity(qty);
+        params.setOutQuantity(qty);
 
         ModelService.post(ApiUrl.URL_DEPOT_OUT_SUBMIT, params, new ResultCallback() {
             @Override
