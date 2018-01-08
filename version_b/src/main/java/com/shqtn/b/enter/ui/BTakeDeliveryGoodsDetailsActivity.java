@@ -15,6 +15,7 @@ import com.shqtn.b.SerialAddActivity;
 import com.shqtn.b.BaseBActivity;
 import com.shqtn.b.R;
 import com.shqtn.b.enter.EnterUrl;
+import com.shqtn.b.enter.ViewInfo;
 import com.shqtn.b.enter.params.TakeDelManifestDetailsParams;
 import com.shqtn.b.enter.params.TakeDelSubmitParams;
 import com.shqtn.b.enter.result.BTakeDeliveryManifest;
@@ -307,17 +308,7 @@ public class BTakeDeliveryGoodsDetailsActivity extends BaseBActivity implements 
     }
 
     private void addBottomSerial() {
-        TextView tvSerial = new TextView(this);
-        tvSerial.setText("添加序列号F4");
-        tvSerial.setOnClickListener(this);
-        tvSerial.setOnClickListener(this);
-        tvSerial.setId(R.id.btn_serial);
-        tvSerial.setGravity(Gravity.CENTER);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.weight = 1;
-        tvSerial.setLayoutParams(params);
-        tvSerial.setTextColor(ContextCompat.getColor(this, R.color.text_white_color));
-        tvSerial.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        View tvSerial = ViewInfo.createAddSerialButton(this);
         bottomGroup.addView(tvSerial);
     }
 

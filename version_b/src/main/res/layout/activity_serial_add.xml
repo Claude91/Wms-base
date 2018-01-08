@@ -14,11 +14,47 @@
         android:layout_height="@dimen/titleHeight"
         app:title="添加序列号" />
 
+    <LinearLayout
+        android:id="@+id/activity_add_serial_mode_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView"
+        android:padding="@dimen/margin_top_normal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="点击F4进行切换:" />
+
+        <TextView
+            android:id="@+id/activity_add_serial_tv_mode_serial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="扫描序列号"
+            android:textColor="@color/s_item_org" />
+
+        <TextView
+            android:id="@+id/activity_add_serial_tv_mode_barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:text="扫描货品编号"
+            android:textColor="@color/s_item_org" />
+    </LinearLayout>
+
+
     <com.shqtn.base.widget.SystemEditText
         android:id="@+id/setEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleView" />
+        android:layout_below="@+id/activity_add_serial_mode_group"
+        app:hintContent="请扫描序列号" />
+
 
     <LinearLayout
         android:id="@+id/activity_add_serial_group_1"

@@ -1,6 +1,7 @@
 package com.shqtn.b;
 
 import com.shqtn.b.enter.EnterUrl;
+import com.shqtn.b.info.BEnterActivityLoadImpl;
 import com.shqtn.b.info.BFunctionLoadImpl;
 import com.shqtn.b.info.BFunctionMainActivityLoadImpl;
 import com.shqtn.base.info.ApiUrl;
@@ -33,7 +34,7 @@ public class BaseBApp extends BaseApp implements ApiUrl.OnIpChangeListener {
     public void init() {
         mInstance = this;
         InfoLoadUtils.Config loadConfig = new InfoLoadUtils.Config();
-        loadConfig.setEnterActivityLoad(new EnterActivityLoadImpl())
+        loadConfig.setEnterActivityLoad(new BEnterActivityLoadImpl())
                 .setExitActivityLoad(new ExitActivityLoadImpl())
                 .setInActivityLoad(new InActivityLoadImpl())
                 .setFunctionMainLoad(new BFunctionMainActivityLoadImpl())

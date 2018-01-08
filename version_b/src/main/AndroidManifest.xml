@@ -8,7 +8,8 @@
         android:supportsRtl="true">
         <activity android:name=".enter.ui.BTakeDeliveryGoodsDetailsActivity" />
         <activity android:name=".SerialAddActivity" />
-        <activity android:name=".SerialSrcActivity"></activity>
+        <activity android:name=".SerialSrcActivity" />
+        <activity android:name=".enter.ui.BQualityInspectionGoodsOperateActivity"></activity>
     </application>
 
 </manifest>
