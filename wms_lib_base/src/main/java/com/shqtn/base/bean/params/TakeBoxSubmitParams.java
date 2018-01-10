@@ -23,9 +23,19 @@ public class TakeBoxSubmitParams {
     private double countNum;
     private String packLevel;
     private String batchNo;
+    private String skuCode;
+
     private String docNo;
     private String whCode;
     private List<SubmitSku> skuList;
+
+    public String getSkuCode() {
+        return skuCode;
+    }
+
+    public void setSkuCode(String skuCode) {
+        this.skuCode = skuCode;
+    }
 
     public String getOverFlag() {
         return overFlag;

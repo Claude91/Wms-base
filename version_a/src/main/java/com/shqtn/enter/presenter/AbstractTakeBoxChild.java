@@ -4,10 +4,10 @@ import android.support.annotation.NonNull;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.shqtn.base.bean.LpnCheck;
 import com.shqtn.base.bean.enter.TakeBoxGoods;
 import com.shqtn.base.bean.enter.TakeBoxPlan;
 import com.shqtn.base.bean.params.TakeBoxSubmitParams;
-import com.shqtn.enter.controller.CodeController;
 
 import java.util.ArrayList;
 
@@ -21,6 +21,7 @@ public abstract class AbstractTakeBoxChild<T> {
     public TakeBoxPlan operateGoodsPlan;
     public TakeBoxGoods operateGoods;
     public String manifest;
+    public ArrayList<String> childsSerials;
 
     public AbstractTakeBoxChild(@NonNull TakeBoxPlan takeBoxGoodsPlan, @NonNull TakeBoxGoods takeBoxGoods) {
         this.operateGoodsPlan = takeBoxGoodsPlan;
@@ -99,4 +100,19 @@ public abstract class AbstractTakeBoxChild<T> {
     public void setManifest(String manifest) {
         this.manifest = manifest;
     }
+
+    /**
+     * 是否添加序列号button
+     *
+     * @return
+     */
+    public boolean isAddSerialButton() {
+        return false;
+    }
+
+    public void setChildsSerials(ArrayList<String> childsSerials) {
+        this.childsSerials = childsSerials;
+    }
+
+    public abstract void addOverChild(LpnCheck lpnStatus);
 }

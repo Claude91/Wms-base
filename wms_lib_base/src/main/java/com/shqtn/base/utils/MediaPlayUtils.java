@@ -12,7 +12,10 @@ import com.shqtn.base.R;
  */
 
 public class MediaPlayUtils {
+
+
     private static MediaPlayUtils mInstance;
+
 
     public static MediaPlayUtils getInstance() {
         if (mInstance == null) {
@@ -35,7 +38,7 @@ public class MediaPlayUtils {
             return;
         }
         if (errorPlay == null) {
-            errorPlay = MediaPlayer.create(context, R.raw.error);
+            errorPlay = MediaPlayer.create(context, R.raw.error_1);
             errorPlay.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
@@ -52,7 +55,6 @@ public class MediaPlayUtils {
         } else {
             errorPlay.start();
         }
-
     }
 
 
@@ -63,4 +65,6 @@ public class MediaPlayUtils {
     public void setOpenErrorPlay(boolean openErrorPlay) {
         this.openErrorPlay = openErrorPlay;
     }
+
+
 }

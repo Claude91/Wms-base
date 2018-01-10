@@ -10,7 +10,7 @@ import com.shqtn.base.bean.exit.SerialNo;
 
 public class DepotOutGoodsSubmitParams {
     private ArrayList<SerialNo> ikeyList;
-    private double quantity;
+    private double outQuantity;
 
     public ArrayList<SerialNo> getIkeyList() {
         return ikeyList;
@@ -20,11 +20,11 @@ public class DepotOutGoodsSubmitParams {
         this.ikeyList = ikeyList;
     }
 
-    public double getQuantity() {
-        return quantity;
+    public double getOutQuantity() {
+        return outQuantity;
     }
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
+    public void setOutQuantity(double outQuantity) {
+        this.outQuantity = outQuantity;
     }
 }

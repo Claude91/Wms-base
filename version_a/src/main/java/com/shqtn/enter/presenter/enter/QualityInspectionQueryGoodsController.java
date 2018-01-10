@@ -1,6 +1,5 @@
 package com.shqtn.enter.presenter.enter;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;

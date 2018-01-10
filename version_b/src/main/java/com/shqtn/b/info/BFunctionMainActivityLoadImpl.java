@@ -3,10 +3,10 @@ package com.shqtn.b.info;
 import android.os.Bundle;
 
 import com.shqtn.b.enter.presenter.BQualityInspectionQueryGoodsController;
+import com.shqtn.b.enter.presenter.BTakeBoxManifestQueryPresenter;
 import com.shqtn.b.enter.presenter.BTakeDeliveryManifestPresenter;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.info.impl.FunctionMainActivityLoadImpl;
-import com.shqtn.enter.presenter.enter.QualityInspectionQueryGoodsController;
 
 /**
  * 创建时间:2017/12/18
@@ -33,6 +33,13 @@ public class BFunctionMainActivityLoadImpl extends FunctionMainActivityLoadImpl 
     @Override
     public Class getQualityInspectionMain(Bundle bundle) {
         Bundle listActivityBundle = ListActivity.createListActivityBundle(BQualityInspectionQueryGoodsController.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
+    }
+
+    @Override
+    public Class getTakeBoxMain(Bundle bundle) {
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(BTakeBoxManifestQueryPresenter.class);
         bundle.putAll(listActivityBundle);
         return ListActivity.class;
     }

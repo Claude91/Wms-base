@@ -66,6 +66,18 @@ public class QualityInspectionGoods implements Parcelable {
 
     private String orderNo;//单号
 
+    public static final Creator<QualityInspectionGoods> CREATOR = new Creator<QualityInspectionGoods>() {
+        @Override
+        public QualityInspectionGoods createFromParcel(Parcel in) {
+            return new QualityInspectionGoods(in);
+        }
+
+        @Override
+        public QualityInspectionGoods[] newArray(int size) {
+            return new QualityInspectionGoods[size];
+        }
+    };
+
     public String getOrderNo() {
         return orderNo;
     }
@@ -301,15 +313,4 @@ public class QualityInspectionGoods implements Parcelable {
         this.orderNo = in.readString();
     }
 
-    public static final Creator<QualityInspectionGoods> CREATOR = new Creator<QualityInspectionGoods>() {
-        @Override
-        public QualityInspectionGoods createFromParcel(Parcel source) {
-            return new QualityInspectionGoods(source);
-        }
-
-        @Override
-        public QualityInspectionGoods[] newArray(int size) {
-            return new QualityInspectionGoods[size];
-        }
-    };
 }

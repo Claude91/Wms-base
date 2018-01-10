@@ -1,11 +1,20 @@
-package com.shqtn.enter.activity.enter;
+package com.shqtn.b.enter.ui;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.shqtn.base.BaseActivity;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.shqtn.b.BaseBActivity;
+import com.shqtn.b.R;
+import com.shqtn.b.SerialAddActivity;
+import com.shqtn.b.enter.BTakeChildGoodsImpl;
+import com.shqtn.b.enter.ViewInfo;
 import com.shqtn.base.C;
 import com.shqtn.base.bean.LpnCheck;
 import com.shqtn.base.bean.LpnStatus;
@@ -25,25 +34,26 @@ import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
-import com.shqtn.enter.R;
 import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
 import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 import com.shqtn.enter.presenter.AbstractTakeBoxChild;
-import com.shqtn.enter.presenter.TakeChildGoodsImpl;
 import com.shqtn.enter.presenter.TakeChildLpnImpl;
+import com.shqtn.enter.print.bean.Decode;
 
 import java.util.ArrayList;
 
-public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEditText.OnToTextSearchListener, CodeController.View {
+public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements SystemEditText.OnToTextSearchListener, CodeController.View {
     public static final int SCANNING_BOX = 0X222;
     public static final int SCANNING_CHILDREN = 0X221;
 
     public static final String OPERATE_LEVEL = "2";
+    private static final int REQUEST_ADD_SERIAL = 3;//添加序列号
 
     private TitleView titleView;
     private LabelTextView ltvTakeBoxNo, ltvTakingQty, ltvTakeOverQty, ltvUntakeQty;
     private TextView tvSubmitF1, tvTakeOverF4;
+    private ViewGroup bottomBtnGroup;
 
     private ListView lv;
     private SystemEditText setInputCode;
@@ -58,13 +68,14 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         @Override
         public void decodeLpn(CodeLpn lpn) {
             super.decodeLpn(lpn);
+            cancelProgressDialog();
             //检测当前扫描的是否是child
             if (SCANNING_CHILDREN == scanningType && CodeCallback.TAG_LPN == takeBoxChildOperate.getDecodeType()) {
                 checkChildLpn(lpn);
             } else if (SCANNING_BOX == scanningType) {
                 checkLpnBox(lpn);
             }
-            cancelProgressDialog();
+
         }
 
         @Override
@@ -73,6 +84,10 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
             if (SCANNING_CHILDREN == scanningType && CodeCallback.TAG_GOODS == takeBoxChildOperate.getDecodeType()) {
                 if (goods.getQuantity() <= 0) {
                     goods.setQuantity(1);
+                }
+                if (!takeBoxChildOperate.isCanAdd(goods)) {
+
+                    return;
                 }
                 takeBoxChildOperate.addChildren(goods);
                 takeBoxChildOperate.getAdapter().notifyDataSetChanged();
@@ -88,6 +103,11 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         }
     };
     private TakeBoxCheckingBoxStatusParams mTakeBoxCheckingBoxStatusParams;
+
+    private ArrayList<String> mAddSerials;
+
+    private boolean isTakeChildGoods;
+    private String mOperateManifest;
 
     private void checkChildLpn(CodeLpn lpn) {
         checkBox(lpn.getLpnNo(), TakeBoxCheckingBoxStatusParams.FLAG_CHILD, getChildLevel());
@@ -106,6 +126,7 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
      */
 
     private void checkBox(String lpnNo, String flag, String level) {
+        displayProgressDialog("检测箱子状态");
         if (mTakeBoxCheckingBoxStatusParams == null) {
             mTakeBoxCheckingBoxStatusParams = new TakeBoxCheckingBoxStatusParams();
         }
@@ -140,31 +161,8 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
                         String boxNo = mTakeBoxCheckingBoxStatusParams.getLpnNo();
                         takeBoxChildOperate.setBoxNo(boxNo);
                         ltvTakeBoxNo.setText(boxNo);
+                        takeBoxChildOperate.addOverChild(data);
 
-                        ArrayList childs = takeBoxChildOperate.getChilds();
-                        childs.clear();
-                        if (packSkuList != null) {
-
-                            for (LpnStatus lpnStatus : packSkuList) {
-                                if (!TextUtils.isEmpty(lpnStatus.getSkuCode())) {
-                                    //当前是货品
-                                    CodeGoods codeGoods = new CodeGoods();
-                                    codeGoods.setBatchNo(lpnStatus.getBatchNo());
-                                    codeGoods.setSkuCode(lpnStatus.getSkuCode());
-                                    codeGoods.setQuantity(lpnStatus.getSkuQty());
-                                    codeGoods.setTag(true);
-                                    childs.add(codeGoods);
-                                    continue;
-                                }
-                                CodeLpn codeLpn = new CodeLpn();
-                                codeLpn.setLpnNo(lpnStatus.getPackCode());
-                                codeLpn.setTag(true);
-                                childs.add(codeLpn);
-
-                            }
-                        }
-                        takeBoxChildOperate.setChilds(childs);
-                        takeBoxChildOperate.getAdapter();
                         toScanningChildren();
                     } else if (TakeBoxCheckingBoxStatusParams.FLAG_CHILD.equals(mTakeBoxCheckingBoxStatusParams.getFlag())) {
                         //检测 被包装
@@ -192,7 +190,7 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
 
     @Override
     protected void setRootView() {
-        setContentView(R.layout.activity_take_box_take_operate);
+        setContentView(R.layout.activity_btake_box_goods_operate);
     }
 
     @Override
@@ -200,13 +198,17 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         super.initData();
         mOperateTakeBoxPlan = getBundle().getParcelable(C.TAKE_BOX_PLAN);
         mOperateGoods = getBundle().getParcelable(C.OPERATE_GOODS);
-
+        mOperateManifest = getBundle().getString(C.MANIFEST_STR);
         String packLevel = mOperateTakeBoxPlan.getPackLevel();
-        if (OPERATE_LEVEL.equals(packLevel)) {
-            takeBoxChildOperate = new TakeChildGoodsImpl(mOperateTakeBoxPlan, mOperateGoods, this);
+        isTakeChildGoods = OPERATE_LEVEL.equals(packLevel);
+        if (isTakeChildGoods) {
+            takeBoxChildOperate = new BTakeChildGoodsImpl(mOperateTakeBoxPlan, mOperateGoods, this);
         } else {
             takeBoxChildOperate = new TakeChildLpnImpl(mOperateTakeBoxPlan, mOperateGoods, this);
         }
+
+        takeBoxChildOperate.setManifest(mOperateManifest);
+
         mCodePresenter = new CodePresenterImpl(this);
 
 
@@ -230,6 +232,8 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         tvSubmitF1.setOnClickListener(this);
         tvTakeOverF4.setOnClickListener(this);
 
+        bottomBtnGroup = (ViewGroup) findViewById(R.id.activity_take_box_take_operate_btn_group);
+
         lv = (ListView) findViewById(R.id.activity_take_box_take_operate_lv);
         setInputCode = (SystemEditText) findViewById(R.id.activity_take_box_take_operate_set_input_code);
         setInputCode.setOnToTextSearchListener(this);
@@ -240,11 +244,15 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         super.initWidget();
 
         ltvTakingQty.setText(String.valueOf(takeBoxChildOperate.getTakeingQty()));
-        ltvTakeOverQty.setText(String.valueOf(takeBoxChildOperate.getTakeingQty()));
+        ltvTakeOverQty.setText(String.valueOf(takeBoxChildOperate.getTakeOverQty()));
         ltvUntakeQty.setText(String.valueOf(takeBoxChildOperate.getUntakeOverQty()));
 
         takeBoxChildOperate.setListView(lv);
 
+        if (takeBoxChildOperate.isAddSerialButton()) {
+            View addSerialButton = ViewInfo.createAddSerialButton(this);
+            bottomBtnGroup.addView(addSerialButton);
+        }
         toScanningBoxNo();
     }
 
@@ -258,6 +266,10 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
             toOverSubmit();
         } else if (i == R.id.activity_take_box_take_operate_ltv_take_box) {
             toScanningBoxNo();
+        } else if (i == R.id.btn_serial) {
+            Bundle b = new Bundle();
+            SerialAddActivity.put(null, mAddSerials, takeBoxChildOperate.getTakeingQty(), b);
+            startActivity(SerialAddActivity.class, b, REQUEST_ADD_SERIAL);
         }
     }
 
@@ -275,9 +287,29 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         ToastUtils.show(this, takeBoxChildOperate.getHintText());
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case REQUEST_ADD_SERIAL:
+                mAddSerials = SerialAddActivity.getSerialList(data);
+                takeBoxChildOperate.setChildsSerials(mAddSerials);
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
+
+    }
+
     private void toOverSubmit() {
-        displayProgressDialog("提交中");
+
         TakeBoxSubmitParams overSubmit = takeBoxChildOperate.getOverSubmit();
+        if (overSubmit == null) {
+            return;
+        }
+        displayProgressDialog("提交中");
         ModelService.post(ApiUrl.URL_TAKE_BOX_SUBMIT, overSubmit, new ResultCallback() {
 
             @Override
@@ -289,7 +321,7 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
             @Override
             public void onSuccess(ResultBean response) {
                 cancelProgressDialog();
-                ToastUtils.show(TakeBoxTakeOperateActivity.this, "提交成功");
+                toast("提交成功");
                 finish();
             }
         });
@@ -297,8 +329,12 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
 
 
     private void toSubmit() {
-        displayProgressDialog("提交中");
         TakeBoxSubmitParams overSubmit = takeBoxChildOperate.getSubmit();
+        if (overSubmit == null) {
+            return;
+        }
+        displayProgressDialog("提交中");
+
         ModelService.post(ApiUrl.URL_TAKE_BOX_SUBMIT, overSubmit, new ResultCallback() {
 
             @Override
@@ -310,7 +346,7 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
             @Override
             public void onSuccess(ResultBean response) {
                 cancelProgressDialog();
-                ToastUtils.show(TakeBoxTakeOperateActivity.this, "提交成功");
+                toast("提交成功");
                 finish();
             }
         });
@@ -345,6 +381,5 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         String childLevel = String.valueOf(i - 1);
         return childLevel;
     }
-
 
 }

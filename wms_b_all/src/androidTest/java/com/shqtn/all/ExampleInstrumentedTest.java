@@ -9,6 +9,8 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.shqtn.b.SerialAddActivity;
+import com.shqtn.b.enter.ui.BQualityInspectionGoodsOperateActivity;
 import com.shqtn.b.enter.ui.BTakeDeliveryGoodsDetailsActivity;
 
 import org.junit.Before;
@@ -27,19 +29,13 @@ import static org.junit.Assert.*;
 @LargeTest
 public class ExampleInstrumentedTest {
     @Rule
-    public ActivityTestRule<BTakeDeliveryGoodsDetailsActivity> rule = new ActivityTestRule<BTakeDeliveryGoodsDetailsActivity>(BTakeDeliveryGoodsDetailsActivity.class);
+    public ActivityTestRule<SerialAddActivity> rule = new ActivityTestRule<SerialAddActivity>(SerialAddActivity.class);
 
     @Before
     public void d() {
-        Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putString("Manifest", "ffff");
-        intent.putExtra("bundle", bundle);
-        rule.getActivity().setIntent(intent);
     }
 
     @Test
-
     public void useAppContext2() throws Exception {
         SystemClock.sleep(50_000);
     }

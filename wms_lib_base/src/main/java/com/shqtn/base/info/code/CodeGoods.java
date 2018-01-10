@@ -59,6 +59,15 @@ public class CodeGoods extends IGoods implements Parcelable {
      */
     private String skuCode;
 
+    private String skuName;
+
+    public String getSkuName() {
+        return skuName;
+    }
+
+    public void setSkuName(String skuName) {
+        this.skuName = skuName;
+    }
 
     public double getQuantity() {
         return NumberUtils.getDouble(quantity);
@@ -260,6 +269,7 @@ public class CodeGoods extends IGoods implements Parcelable {
         dest.writeString(this.quantity);
         dest.writeString(this.batchNo);
         dest.writeString(this.skuCode);
+        dest.writeString(this.skuName);
     }
 
     protected CodeGoods(Parcel in) {
@@ -282,6 +292,7 @@ public class CodeGoods extends IGoods implements Parcelable {
         this.quantity = in.readString();
         this.batchNo = in.readString();
         this.skuCode = in.readString();
+        this.skuName = in.readString();
     }
 
     public static final Creator<CodeGoods> CREATOR = new Creator<CodeGoods>() {

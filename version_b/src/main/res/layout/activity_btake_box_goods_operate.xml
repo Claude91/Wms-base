@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_btake_box_goods_operate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shqtn.b.enter.ui.BTakeBoxGoodsOperateActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="装箱操作" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/activity_take_box_take_operate_set_input_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView" />
+
+    <TextView
+        android:id="@+id/activity_take_box_take_operate_tv_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_take_box_take_operate_set_input_code"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        android:text="操作参数"
+        android:textColor="@color/text_white_color" />
+
+    <LinearLayout
+        android:id="@+id/activity_take_box_take_operate_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_take_box_take_operate_tv_label"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_normal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_take_box_take_operate_ltv_take_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_black_color"
+            app:labelText="外包装箱号(F2)"
+            app:size="@dimen/text_label_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_take_box_take_operate_tv_label_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_take_box_take_operate_group"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="装箱内容"
+            android:textColor="@color/text_white_color" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_take_box_take_operate_ltv_taking_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:color="@color/text_white_color"
+            app:labelText="装箱中"
+            app:size="12sp"
+            app:text="0" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_take_box_take_operate_ltv_over_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            app:color="@color/text_white_color"
+            app:labelText="完成"
+            app:size="12sp"
+            app:text="0" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_take_box_take_operate_ltv_untake_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            app:color="@color/text_white_color"
+            app:labelText="未装箱"
+            app:size="12sp"
+            app:text="0" />
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/activity_take_box_take_operate_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/activity_take_box_take_operate_btn_group"
+        android:layout_below="@+id/activity_take_box_take_operate_tv_label_1"
+        android:dividerHeight="4dp" />
+
+    <LinearLayout
+        android:id="@+id/activity_take_box_take_operate_btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/activity_take_box_take_operate_tv_submit_f1"
+            style="@style/bottomBtnStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/submitF1" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/activity_take_box_take_operate_tv_submit_over_f4"
+            style="@style/bottomBtnStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/takeBoxCompleteF4" />
+    </LinearLayout>
+</RelativeLayout>

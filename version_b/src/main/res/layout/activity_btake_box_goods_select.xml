@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_btake_box_goods_select"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shqtn.b.enter.ui.BTakeBoxGoodsSelectActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="装箱类型选择" />
+
+    <TextView
+        android:id="@+id/activity_take_box_goods_take_select_tv_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleView"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        android:text="货品详情"
+        android:textColor="@color/text_white_color" />
+
+    <LinearLayout
+        android:id="@+id/activity_take_box_goods_take_select_goods_details_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_take_box_goods_take_select_tv_label"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_normal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/take_box_plan_ltv_sku"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_black_color"
+            app:labelText="@string/sku"
+            app:size="@dimen/text_label_size"
+            app:textColor="@color/text_orange_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x1"
+            android:layout_marginBottom="@dimen/x4"
+            android:layout_marginTop="@dimen/x4"
+            android:background="@color/div_color" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/take_box_plan_ltv_name"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:color="@color/text_black_color"
+            app:labelText="@string/name"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/take_box_plan_ltv_qty"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_black_color"
+            app:labelText="数量"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/take_box_plan_ltv_batchNo"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/x4"
+            app:color="@color/text_black_color"
+            app:labelText="@string/batch_no"
+            app:size="@dimen/text_label_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/take_box_plan_ltv_std"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x4"
+                android:layout_weight="1"
+                app:color="@color/text_black_color"
+                app:labelText="@string/standard"
+                app:size="@dimen/text_label_size" />
+
+            <com.shqtn.base.widget.LabelTextView
+                android:id="@+id/take_box_plan_ltv_unit"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x4"
+                android:layout_weight="1"
+                app:color="@color/text_black_color"
+                app:labelText="@string/unit"
+                app:size="@dimen/text_label_size" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/activity_take_box_goods_take_select_tv_label_take_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_take_box_goods_take_select_goods_details_group"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:background="@color/colorBlue"
+        android:padding="@dimen/margin_normal"
+        android:text="装箱类型选择"
+        android:textColor="@color/text_white_color" />
+
+    <ListView
+        android:id="@+id/activity_take_box_goods_take_select_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/activity_take_box_goods_take_select_tv_label_take_select"
+        android:dividerHeight="4dp" />
+
+</RelativeLayout>

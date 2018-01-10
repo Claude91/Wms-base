@@ -47,7 +47,7 @@ public class FunctionLoadImpl implements IFunctionLoad {
             //装箱
             Bundle bundle = new Bundle();
             FunctionBean takeBoxMain = createFunctionBean("装箱", R.drawable.home_take_box
-                    , bundle, functionMainActivityLoad.getQualityInspectionMain(bundle));
+                    , bundle, functionMainActivityLoad.getTakeBoxMain(bundle));
             list.add(takeBoxMain);
         } catch (NullPointerException e) {
             e.printStackTrace();
