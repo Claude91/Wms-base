@@ -29,6 +29,15 @@ public class TakeBoxGoods extends IGoods implements Parcelable {
     private long ikey;
     private String std;
     private String batchNo;//批次号
+    private String serialFlag;//是否是序列号管控 Y
+
+    public String getSerialFlag() {
+        return serialFlag;
+    }
+
+    public void setSerialFlag(String serialFlag) {
+        this.serialFlag = serialFlag;
+    }
 
     @Override
     public double getGoodsQty() {
@@ -109,6 +118,9 @@ public class TakeBoxGoods extends IGoods implements Parcelable {
         this.batchNo = batchNo;
     }
 
+    public TakeBoxGoods() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -124,9 +136,7 @@ public class TakeBoxGoods extends IGoods implements Parcelable {
         dest.writeLong(this.ikey);
         dest.writeString(this.std);
         dest.writeString(this.batchNo);
-    }
-
-    public TakeBoxGoods() {
+        dest.writeString(this.serialFlag);
     }
 
     protected TakeBoxGoods(Parcel in) {
@@ -138,9 +148,10 @@ public class TakeBoxGoods extends IGoods implements Parcelable {
         this.ikey = in.readLong();
         this.std = in.readString();
         this.batchNo = in.readString();
+        this.serialFlag = in.readString();
     }
 
-    public static final Parcelable.Creator<TakeBoxGoods> CREATOR = new Parcelable.Creator<TakeBoxGoods>() {
+    public static final Creator<TakeBoxGoods> CREATOR = new Creator<TakeBoxGoods>() {
         @Override
         public TakeBoxGoods createFromParcel(Parcel source) {
             return new TakeBoxGoods(source);

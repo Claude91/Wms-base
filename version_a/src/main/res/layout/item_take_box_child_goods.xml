@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/item_take_box_child_goods"
     android:background="@drawable/shape_bg_blue"
     android:orientation="vertical"
     android:paddingBottom="@dimen/margin_top_or_bottom"
@@ -25,7 +26,6 @@
 
         <com.shqtn.base.widget.LabelTextView
             android:id="@+id/item_take_box_child_goods_ltv_sku"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"

@@ -124,7 +124,13 @@ public class SerialAddActivity extends BaseBActivity implements TitleView.OnRigh
     public void decodeGoods(CodeGoods goods) {
         super.decodeGoods(goods);
         cancelProgressDialog();
-        toAddSerial(goods.getSerialNo());
+        String serialNo = goods.getSerialNo();
+        if (StringUtils.isEmpty(serialNo)) {
+            displayMsgDialog("解码后该货品无序列号");
+            return;
+        }
+
+        toAddSerial(serialNo);
     }
 
     @Override

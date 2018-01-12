@@ -14,6 +14,7 @@ import com.shqtn.b.BaseBActivity;
 import com.shqtn.b.R;
 import com.shqtn.b.SerialAddActivity;
 import com.shqtn.b.enter.BTakeChildGoodsImpl;
+import com.shqtn.b.enter.BTakeChildLpnImpl;
 import com.shqtn.b.enter.ViewInfo;
 import com.shqtn.base.C;
 import com.shqtn.base.bean.LpnCheck;
@@ -54,6 +55,8 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
     private LabelTextView ltvTakeBoxNo, ltvTakingQty, ltvTakeOverQty, ltvUntakeQty;
     private TextView tvSubmitF1, tvTakeOverF4;
     private ViewGroup bottomBtnGroup;
+
+    private ViewGroup boxNoGroup;
 
     private ListView lv;
     private SystemEditText setInputCode;
@@ -204,7 +207,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
         if (isTakeChildGoods) {
             takeBoxChildOperate = new BTakeChildGoodsImpl(mOperateTakeBoxPlan, mOperateGoods, this);
         } else {
-            takeBoxChildOperate = new TakeChildLpnImpl(mOperateTakeBoxPlan, mOperateGoods, this);
+            takeBoxChildOperate = new BTakeChildLpnImpl(mOperateTakeBoxPlan, mOperateGoods, this);
         }
 
         takeBoxChildOperate.setManifest(mOperateManifest);
@@ -232,6 +235,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
         tvSubmitF1.setOnClickListener(this);
         tvTakeOverF4.setOnClickListener(this);
 
+        boxNoGroup = (ViewGroup) findViewById(R.id.activity_take_box_take_operate_group);
         bottomBtnGroup = (ViewGroup) findViewById(R.id.activity_take_box_take_operate_btn_group);
 
         lv = (ListView) findViewById(R.id.activity_take_box_take_operate_lv);
@@ -268,7 +272,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
             toScanningBoxNo();
         } else if (i == R.id.btn_serial) {
             Bundle b = new Bundle();
-            SerialAddActivity.put(null, mAddSerials, takeBoxChildOperate.getTakeingQty(), b);
+            SerialAddActivity.put(null, mAddSerials, takeBoxChildOperate.getAddSerialSize(), b);
             startActivity(SerialAddActivity.class, b, REQUEST_ADD_SERIAL);
         }
     }
@@ -277,6 +281,8 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
         scanningType = SCANNING_BOX;
         setInputCode.setHintText("请扫描箱子编码");
         mCodePresenter.setDecodeType(CodeCallback.TAG_LPN);
+        boxNoGroup.setSelected(true);
+        lv.setSelected(false);
         ToastUtils.show(this, "请扫描外包装编号");
     }
 
@@ -284,6 +290,8 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
         scanningType = SCANNING_CHILDREN;
         setInputCode.setHintText(takeBoxChildOperate.getHintText());
         mCodePresenter.setDecodeType(takeBoxChildOperate.getDecodeType());
+        boxNoGroup.setSelected(false);
+        lv.setSelected(true);
         ToastUtils.show(this, takeBoxChildOperate.getHintText());
     }
 

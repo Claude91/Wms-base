@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by android on 2017/11/21.
  */
 
-public abstract class AbstractTakeBoxChild<T> {
+public abstract class AbstractTakeBoxChild<T, P extends TakeBoxSubmitParams> {
     private String boxNo;//最外层包装 编码
     private ArrayList<T> childs = new ArrayList<>();
     public TakeBoxPlan operateGoodsPlan;
@@ -85,9 +85,9 @@ public abstract class AbstractTakeBoxChild<T> {
 
     public abstract boolean isCanAdd(T t);
 
-    public abstract TakeBoxSubmitParams getOverSubmit();
+    public abstract P getOverSubmit();
 
-    public abstract TakeBoxSubmitParams getSubmit();
+    public abstract P getSubmit();
 
     public void setChilds(ArrayList chlids) {
         this.childs = chlids;
@@ -99,6 +99,10 @@ public abstract class AbstractTakeBoxChild<T> {
 
     public void setManifest(String manifest) {
         this.manifest = manifest;
+    }
+
+    public boolean isAddSerial() {
+        return false;
     }
 
     /**
@@ -114,5 +118,18 @@ public abstract class AbstractTakeBoxChild<T> {
         this.childsSerials = childsSerials;
     }
 
+    public ArrayList<String> getAddSerial() {
+        return childsSerials;
+    }
+
     public abstract void addOverChild(LpnCheck lpnStatus);
+
+    /**
+     * 可添加序列号数量
+     *
+     * @return
+     */
+    public double getAddSerialSize() {
+        return 0.0d;
+    }
 }

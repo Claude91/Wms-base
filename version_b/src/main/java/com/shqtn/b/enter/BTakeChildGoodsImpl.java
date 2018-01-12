@@ -1,5 +1,6 @@
 package com.shqtn.b.enter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.shqtn.b.enter.params.BTakeBoxSubmitParams;
+import com.shqtn.b.enter.params.Stockserial;
 import com.shqtn.base.BaseApp;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.DepotBean;
@@ -27,6 +30,7 @@ import com.shqtn.enter.R;
 import com.shqtn.enter.presenter.AbstractTakeBoxChild;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 创建时间:2018/1/10
@@ -36,10 +40,11 @@ import java.util.ArrayList;
  * @author ql
  */
 
-public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBoxSubmitParams> implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private CommonAdapter<CodeGoods> adapter;
     private IDialogView dialogView;
+
 
     private int operatePosition = -1;
     private EditQuantityDialog.OnResultListener onResultListener = new EditQuantityDialog.OnResultListener() {
@@ -116,22 +121,33 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> impleme
     @Override
     public boolean isAddSerialButton() {
         // TODO: 2018/1/10 设置是否是序列号管控
-        return false;
+        return isAddSerial();
     }
 
     @Override
-    public TakeBoxSubmitParams getOverSubmit() {
+    public boolean isAddSerial() {
+        return "Y".equals(operateGoods.getSerialFlag());
+    }
+
+    @Override
+    public BTakeBoxSubmitParams getOverSubmit() {
         return createSubmitParams(TakeBoxSubmitParams.SUBMIT_FLAG_TAKE_OVER);
     }
 
     @Nullable
-    private TakeBoxSubmitParams createSubmitParams(String flag) {
+    private BTakeBoxSubmitParams createSubmitParams(String flag) {
+
+
         int conversionRate = operateGoodsPlan.getConversionRate();
         double submitQty = 0.0d;
 
         ArrayList<CodeGoods> childs1 = getChilds();
-
+        if (getChilds().size() > operateGoods.getQuantity()) {
+            dialogView.displayMsgDialog("超过装箱计划数量，请检查装箱数量");
+            return null;
+        }
         double totalQty = 0.0d;
+        boolean isHasTakeOverQty = false;
         for (CodeGoods codeGoods : childs1) {
             double quantity = codeGoods.getQuantity();
             totalQty = totalQty + quantity;
@@ -141,10 +157,37 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> impleme
             }
             if (!codeGoods.isTag()) {
                 submitQty = submitQty + codeGoods.getQuantity();
+            } else {
+                isHasTakeOverQty = true;
             }
         }
 
-        TakeBoxSubmitParams params = new TakeBoxSubmitParams();
+        BTakeBoxSubmitParams params = new BTakeBoxSubmitParams();
+        if (isAddSerial()) {
+            boolean isNowAddSerial = !(childsSerials == null || childsSerials.size() == 0);
+            if (!isHasTakeOverQty) {
+                if (!isNowAddSerial) {
+                    dialogView.displayMsgDialog("请添加序列号");
+                    return null;
+                }
+            }
+            if (isNowAddSerial) {
+                List<Stockserial> serialList = new ArrayList<>(childsSerials.size());
+                for (String serial : childsSerials) {
+                    Stockserial e = new Stockserial();
+                    e.setSkuCode(operateGoods.getSkuCode());
+                    e.setBatchNo(operateGoods.getBatchNo());
+                    e.setPackNo(getBoxNo());
+                    e.setUdf01(manifest);
+                    e.setSerialNo(serial);
+                    serialList.add(e);
+                }
+                params.setSerialList(serialList);
+            }
+
+        }
+
+
         params.setOverFlag(flag);
         DepotBean depot = DepotUtils.getDepot(BaseApp.getInstance());
         params.setWhCode(depot.getWhcode());
@@ -158,7 +201,7 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> impleme
     }
 
     @Override
-    public TakeBoxSubmitParams getSubmit() {
+    public BTakeBoxSubmitParams getSubmit() {
         return createSubmitParams(TakeBoxSubmitParams.SUBMIT_FLAG_TAKE_SUBMIT);
     }
 
@@ -213,6 +256,9 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> impleme
         if (getChilds().get(position).isTag()) {
             return;
         }
+        if (isAddSerial()) {
+            return;
+        }
         dialogView.displayEditQty(onResultListener);
     }
 
@@ -256,12 +302,17 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> impleme
     }
 
     private void changeSerials(ArrayList<String> childsSerials) {
-        if (!isAddSerialButton()) {
+        if (!isAddSerial()) {
             return;
         }
         ArrayList<CodeGoods> childs = getChilds();
+        for (CodeGoods child : childs) {
+            if (!child.isTag()) {
+                childs.remove(child);
+            }
+        }
+
         if (childsSerials == null) {
-            childs.clear();
             adapter.setNewData(childs);
             adapter.notifyDataSetChanged();
             return;
@@ -285,9 +336,23 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> impleme
             goods.setSkuCode(operateGoods.getSkuCode());
         }
         goods.setQuantity(childsSerials.size());
-        childs.clear();
         childs.add(goods);
         adapter.setNewData(childs);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public double getAddSerialSize() {
+        ArrayList<CodeGoods> childs = getChilds();
+        double takeOverQty = 0; //提交过得  数量;
+
+        for (CodeGoods child : childs) {
+            if (child.isTag()) {
+                double quantity = child.getQuantity();
+                takeOverQty = takeOverQty + quantity;
+            }
+        }
+        double addSerialSize = operateGoodsPlan.getConversionRate() - takeOverQty;
+        return NumberUtils.getDouble(addSerialSize);
     }
 }

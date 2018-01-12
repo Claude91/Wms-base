@@ -34,7 +34,7 @@ import java.util.List;
  * @author ql
  */
 
-public class TakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class TakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods,TakeBoxSubmitParams> implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private CommonAdapter<CodeGoods> adapter;
     private IDialogView dialogView;
@@ -43,7 +43,7 @@ public class TakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods> implemen
     private EditQuantityDialog.OnResultListener onResultListener = new EditQuantityDialog.OnResultListener() {
         @Override
         public void clickOk(double quantity) {
-            CodeGoods codeGoods = getChilds().get(operatePosition);
+            CodeGoods codeGoods = (CodeGoods) getChilds().get(operatePosition);
             codeGoods.setQuantity(quantity);
             adapter.update(getChilds());
         }

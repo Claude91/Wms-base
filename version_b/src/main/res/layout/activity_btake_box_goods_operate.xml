@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_btake_box_goods_operate"
     android:layout_width="match_parent"
+    android:background="@color/colorWhite"
     android:layout_height="match_parent"
     tools:context="com.shqtn.b.enter.ui.BTakeBoxGoodsOperateActivity">
 
@@ -34,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_take_box_take_operate_tv_label"
-        android:background="@color/colorWhite"
+        android:background="@drawable/s_select_white_org"
         android:orientation="vertical"
         android:padding="@dimen/margin_normal">
 
@@ -95,6 +96,9 @@
 
 
     <ListView
+        android:padding="10dp"
+        android:background="@drawable/s_select_white_org"
+        android:layout_marginTop="@dimen/margin_top_normal"
         android:id="@+id/activity_take_box_take_operate_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -103,6 +107,7 @@
         android:dividerHeight="4dp" />
 
     <LinearLayout
+        android:layout_marginTop="@dimen/margin_top_normal"
         android:id="@+id/activity_take_box_take_operate_btn_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
