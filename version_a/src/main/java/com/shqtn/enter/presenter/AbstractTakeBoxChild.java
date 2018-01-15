@@ -52,6 +52,7 @@ public abstract class AbstractTakeBoxChild<T, P extends TakeBoxSubmitParams> {
 
     public void removeChildren(int position) {
         childs.remove(position);
+
     }
 
     public void removeChildren(T t) {

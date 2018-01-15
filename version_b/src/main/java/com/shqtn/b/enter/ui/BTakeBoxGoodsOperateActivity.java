@@ -31,6 +31,7 @@ import com.shqtn.base.info.code.AllotBean;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.info.code.help.CodeCallback;
+import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
 import com.shqtn.base.widget.SystemEditText;
@@ -89,7 +90,6 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
                     goods.setQuantity(1);
                 }
                 if (!takeBoxChildOperate.isCanAdd(goods)) {
-
                     return;
                 }
                 takeBoxChildOperate.addChildren(goods);
@@ -272,7 +272,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
             toScanningBoxNo();
         } else if (i == R.id.btn_serial) {
             Bundle b = new Bundle();
-            SerialAddActivity.put(null, mAddSerials, takeBoxChildOperate.getAddSerialSize(), b);
+            SerialAddActivity.put(null, takeBoxChildOperate.getAddSerial(), takeBoxChildOperate.getAddSerialSize(), b);
             startActivity(SerialAddActivity.class, b, REQUEST_ADD_SERIAL);
         }
     }
@@ -363,6 +363,10 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
 
     @Override
     public void onSearchText(String content) {
+
+        if (StringUtils.isEmpty(content)) {
+            return;
+        }
         displayProgressDialog("解码中");
         mCodePresenter.toDecode(content);
     }

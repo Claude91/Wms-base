@@ -264,6 +264,11 @@ public class SerialAddActivity extends BaseBActivity implements TitleView.OnRigh
     }
 
     private boolean isCanAdd(String content) {
+        if (StringUtils.isEmpty(content)) {
+            toast("序列号不存在，请重新扫描");
+            return false;
+        }
+
         if (noSerials != null) {
             for (int i = 0; i < noSerials.size(); i++) {
                 String s = noSerials.get(i);
@@ -310,10 +315,6 @@ public class SerialAddActivity extends BaseBActivity implements TitleView.OnRigh
     @Override
     public void widgetClick(View v) {
         if (v.getId() == R.id.activity_add_serial_tv_yes) {
-            if (addSerials.size() == 0) {
-                displayMsgDialog("请添加序列号");
-                return;
-            }
             Intent intent = new Intent();
             intent.putStringArrayListExtra(RESULT_ADD_SERIALS, addSerials);
             setResult(Activity.RESULT_OK, intent);

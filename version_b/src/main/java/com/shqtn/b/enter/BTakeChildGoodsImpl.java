@@ -27,6 +27,7 @@ import com.shqtn.base.utils.NumberUtils;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.widget.dialog.EditQuantityDialog;
 import com.shqtn.enter.R;
+import com.shqtn.enter.info.IFunctionLoad;
 import com.shqtn.enter.presenter.AbstractTakeBoxChild;
 
 import java.util.ArrayList;
@@ -110,8 +111,22 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
 
     @Override
     public boolean isCanAdd(CodeGoods goods) {
+        int addMaxQty = getAddMaxQty();
+        double nowAddQty = getNowAddQty();
+        if (addMaxQty <= nowAddQty) {
+            dialogView.toast("已经达到装箱最大数量不可添加");
+            return false;
+        }
+        if (isAddSerial()) {
+            String serialNo = goods.getSerialNo();
+            if (StringUtils.isEmpty(serialNo)) {
+                dialogView.toast("该货品编码中不包含序列号，请重新扫描");
+                return false;
+            }
+        }
         return true;
     }
+
 
     /**
      * 是否是序列号管理
@@ -120,7 +135,6 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
      */
     @Override
     public boolean isAddSerialButton() {
-        // TODO: 2018/1/10 设置是否是序列号管控
         return isAddSerial();
     }
 
@@ -138,7 +152,7 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
     private BTakeBoxSubmitParams createSubmitParams(String flag) {
 
 
-        int conversionRate = operateGoodsPlan.getConversionRate();
+        int conversionRate = getAddMaxQty();
         double submitQty = 0.0d;
 
         ArrayList<CodeGoods> childs1 = getChilds();
@@ -200,6 +214,10 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
         return params;
     }
 
+    private int getAddMaxQty() {
+        return operateGoodsPlan.getConversionRate();
+    }
+
     @Override
     public BTakeBoxSubmitParams getSubmit() {
         return createSubmitParams(TakeBoxSubmitParams.SUBMIT_FLAG_TAKE_SUBMIT);
@@ -248,6 +266,37 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
         int tag = (int) v.getTag();
         removeChildren(tag);
         adapter.update(getChilds());
+    }
+
+    @Override
+    public void removeChildren(int position) {
+
+
+        getChilds().remove(position);
+        if (isAddSerial()) {
+            ArrayList<String> addSerial = getAddSerial();
+            if (addSerial != null) {
+                addSerial.clear();
+            }
+        }
+
+    }
+
+    @Override
+    public void removeChildren(CodeGoods goods) {
+        getChilds().remove(goods);
+        if (isAddSerial()) {
+            String serialNo = goods.getSerialNo();
+            if (StringUtils.isEmpty(serialNo)) {
+                return;
+            }
+            ArrayList<String> addSerial = getAddSerial();
+            for (String s : addSerial) {
+                if (serialNo.equals(s)) {
+                    addSerial.remove(s);
+                }
+            }
+        }
     }
 
     @Override
@@ -312,7 +361,13 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
             }
         }
 
-        if (childsSerials == null) {
+        if (childsSerials == null|| childsSerials.size() == 0) {
+            for (CodeGoods child : childs) {
+                if (!child.isTag()) {
+                    childs.remove(child);
+                    break;
+                }
+            }
             adapter.setNewData(childs);
             adapter.notifyDataSetChanged();
             return;
@@ -352,7 +407,16 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
                 takeOverQty = takeOverQty + quantity;
             }
         }
-        double addSerialSize = operateGoodsPlan.getConversionRate() - takeOverQty;
+        double addSerialSize = getAddMaxQty() - takeOverQty;
         return NumberUtils.getDouble(addSerialSize);
+    }
+
+    public double getNowAddQty() {
+        ArrayList<CodeGoods> childs = getChilds();
+        double nowAddQty = 0.0d;
+        for (CodeGoods child : childs) {
+            nowAddQty = nowAddQty + child.getQuantity();
+        }
+        return nowAddQty;
     }
 }
