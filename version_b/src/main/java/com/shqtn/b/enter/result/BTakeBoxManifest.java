@@ -10,7 +10,6 @@ import com.shqtn.base.bean.base.IManifest;
  */
 
 public class BTakeBoxManifest implements IManifest {
-    // TODO: 2018/1/10 未编写返回值
     private String docNo;
 
     public String getDocNo() {

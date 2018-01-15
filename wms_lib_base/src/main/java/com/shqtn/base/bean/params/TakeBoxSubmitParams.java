@@ -6,7 +6,7 @@ import java.util.List;
  * Created by android on 2017/7/31.
  */
 
-public class TakeBoxSubmitParams {
+public class  TakeBoxSubmitParams {
     /**
      * 装箱完成
      */
