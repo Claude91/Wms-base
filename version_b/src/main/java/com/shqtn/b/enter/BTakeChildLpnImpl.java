@@ -79,10 +79,16 @@ public class BTakeChildLpnImpl extends AbstractTakeBoxChild<CodeLpn,TakeBoxSubmi
 
     @Override
     public boolean isCanAdd(CodeLpn lpn) {
-        if (getChilds().contains(lpn)) {
-            strAppend.delete(0, strAppend.length());
-            strAppend.append("箱子:").append(lpn.getLpnNo()).append("\r\n").append("不能重复添加");
-            dialogView.displayMsgDialog(strAppend.toString());
+        for (CodeLpn codeLpn : getChilds()) {
+            if (codeLpn.getLpnNo().equals(lpn.getLpnNo())) {
+                strAppend.delete(0, strAppend.length());
+                strAppend.append("箱子:").append(lpn.getLpnNo()).append("\r\n").append("不能重复添加");
+                dialogView.displayMsgDialog(strAppend.toString());
+                return false;
+            }
+        }
+        if (getChilds().size() > getAddMaxSize()) {
+            dialogView.displayMsgDialog("箱子已经达到最大数量");
             return false;
         }
         return true;
@@ -97,6 +103,10 @@ public class BTakeChildLpnImpl extends AbstractTakeBoxChild<CodeLpn,TakeBoxSubmi
     @Override
     public TakeBoxSubmitParams getOverSubmit() {
         return createSubmitParams(TakeBoxSubmitParams.SUBMIT_FLAG_TAKE_OVER);
+    }
+
+    private double getAddMaxSize(){
+        return operateGoodsPlan.getConversionRate();
     }
 
 
@@ -149,6 +159,7 @@ public class BTakeChildLpnImpl extends AbstractTakeBoxChild<CodeLpn,TakeBoxSubmi
     public void addOverChild(LpnCheck lpnStatus) {
 
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

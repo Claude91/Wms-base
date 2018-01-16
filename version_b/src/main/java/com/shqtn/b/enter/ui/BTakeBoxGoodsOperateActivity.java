@@ -75,6 +75,10 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
             cancelProgressDialog();
             //检测当前扫描的是否是child
             if (SCANNING_CHILDREN == scanningType && CodeCallback.TAG_LPN == takeBoxChildOperate.getDecodeType()) {
+                if (!takeBoxChildOperate.isCanAdd(lpn)) {
+                    displayMsgDialog(String.format("箱子:%s不能重复添加", lpn.getLpnNo()));
+                    return;
+                }
                 checkChildLpn(lpn);
             } else if (SCANNING_BOX == scanningType) {
                 checkLpnBox(lpn);
