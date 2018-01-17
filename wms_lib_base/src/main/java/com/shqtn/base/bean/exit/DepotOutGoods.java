@@ -96,6 +96,21 @@ public class DepotOutGoods extends IGoods implements Parcelable {
         this.serialNoFlag = serialNoFlag;
     }
 
+    @Override
+    public double getGoodsQty() {
+        return quantity - deliveryQty;
+    }
+
+    @Override
+    public String getGoodsBatchNo() {
+        return batchNo;
+    }
+
+    @Override
+    public String getGoodsSku() {
+        return skuCode;
+    }
+
     public DepotOutGoods() {
     }
 

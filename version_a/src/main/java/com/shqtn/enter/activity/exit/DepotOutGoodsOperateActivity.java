@@ -85,6 +85,7 @@ public class DepotOutGoodsOperateActivity extends BaseActivity implements MaxQua
         loadIkey();
         ltvName.setText(mOperateGoods.getSkuName());
         ltvSku.setText(mOperateGoods.getSkuCode());
+        ltvBatchNo.setText(mOperateGoods.getBatchNo());
         double quantity = getCanSubmitMaxQty();
         mqEtInputQty.setMaxQuantity(quantity);
         if (scanningGoodsQty <= 0) {

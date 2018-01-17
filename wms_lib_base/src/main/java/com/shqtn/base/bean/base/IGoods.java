@@ -32,6 +32,9 @@ public abstract class IGoods {
     }
 
     public double getGoodsQty() {
+        if (skuQty == null) {
+            return 0;
+        }
         return skuQty;
     }
 

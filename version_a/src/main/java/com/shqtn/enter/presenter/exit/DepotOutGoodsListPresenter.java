@@ -117,7 +117,7 @@ public class DepotOutGoodsListPresenter extends AbstractListActivityPresenter {
             double qty = getGoodsQty(goods);
             ArrayList<DepotOutGoods> sameGoods = GoodsUtils.getManifestOfGoodsSame(mGoodsList, goods);
             for (DepotOutGoods sameGood : sameGoods) {
-                if (0 > sameGood.getGoodsQty()) {
+                if (0 < sameGood.getGoodsQty()) {
                     toGoodsDetailsOperateActivity(sameGood, qty);
                     return;
                 }
