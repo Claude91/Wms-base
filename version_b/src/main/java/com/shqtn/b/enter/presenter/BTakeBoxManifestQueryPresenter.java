@@ -4,15 +4,18 @@ import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.shqtn.b.enter.EnterUrl;
+import com.shqtn.b.enter.params.BTakeBoxQueryManifestParams;
 import com.shqtn.b.enter.result.BTakeBoxManifest;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
+import com.shqtn.base.bean.DepotBean;
 import com.shqtn.base.bean.ResultBean;
 import com.shqtn.base.bean.enter.TakeBoxGoods;
 import com.shqtn.base.http.ModelService;
 import com.shqtn.base.http.ResultCallback;
 import com.shqtn.base.info.code.CodeManifest;
 import com.shqtn.base.info.code.help.CodeCallback;
+import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.enter.ListActivity;
 import com.shqtn.enter.controller.ListActivityController;
@@ -111,7 +114,10 @@ public class BTakeBoxManifestQueryPresenter extends AbstractListActivityPresente
 
     @Override
     public void refresh() {
-        ModelService.post(EnterUrl.take_box_manifest, null, mCallback);
+        BTakeBoxQueryManifestParams params = new BTakeBoxQueryManifestParams();
+        DepotBean depot = DepotUtils.getDepot(getAty().getContext());
+        params.setWhCode(depot.getWhcode());
+        ModelService.post(EnterUrl.take_box_manifest, params, mCallback);
     }
 
 
