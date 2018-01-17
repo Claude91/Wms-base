@@ -114,10 +114,8 @@ public class BTakeBoxManifestQueryPresenter extends AbstractListActivityPresente
 
     @Override
     public void refresh() {
-        BTakeBoxQueryManifestParams params = new BTakeBoxQueryManifestParams();
         DepotBean depot = DepotUtils.getDepot(getAty().getContext());
-        params.setWhCode(depot.getWhcode());
-        ModelService.post(EnterUrl.take_box_manifest, params, mCallback);
+        ModelService.post(String.format("%s/%s", EnterUrl.take_box_manifest, depot.getWhcode()), null, mCallback);
     }
 
 

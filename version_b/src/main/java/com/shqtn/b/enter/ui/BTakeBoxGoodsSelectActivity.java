@@ -96,19 +96,116 @@ public class BTakeBoxGoodsSelectActivity extends BaseBActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                /**
+                 * 服务端 陈伟 描述 计划装箱 是已经排序过得，
+                 *  服务端 陈伟 要求 ，计划装箱 进行操作时，上一层必须全部包装完成；
+                 *  即  包装等级 level 3  那么包装等级 为 level 2  必须全部包装完成,才可进行 level 3 的操作;
+                 */
+
                 TakeBoxPlan takeBoxPlan = mPlanList.get(i);
+                if (!isCanOperate(takeBoxPlan)) {
+
+                    TakeBoxPlan lastLevel = getLastLevel(takeBoxPlan);
+                    String hint;
+                    String nowUnitName = takeBoxPlan.getUnitName();
+                    if (nowUnitName == null) {
+                        nowUnitName = "未知名称";
+                    }
+                    if (lastLevel != null) {
+                        String lastUnitName = lastLevel.getUnitName();
+                        if (lastUnitName == null) {
+                            lastUnitName = "未知名称";
+                        }
+                        hint = String.format("包装形式:%s \r\n 未全部装箱，不可进行包装:%s", lastUnitName, nowUnitName);
+                    } else {
+                        hint = String.format("获得上级包装形式失败,当前包装形式：%s，请联系管理员", nowUnitName);
+                    }
+
+                    displayMsgDialog(hint);
+                    return;
+                }
                 toTakeOperateActivity(takeBoxPlan);
             }
         });
 
+    }
 
+    /**
+     * 用于判断是否可以进行操作 当前等级
+     * 条件  上衣等级包装，必须全部包装完成
+     * <p>
+     * 服务端 陈伟 告诉我 最低包装等级为 2
+     *
+     * @return
+     */
+    private boolean isCanOperate(TakeBoxPlan plan) {
+
+        String packLevel = plan.getPackLevel();
+        int level = replaceLevel(packLevel);
+
+        if (level == 2) {
+            return true;
+        }
+
+        int lastL = level - 1;
+
+        for (TakeBoxPlan takeBoxPlan : mPlanList) {
+            int lastLevel = replaceLevel(takeBoxPlan.getPackLevel());
+            //判断上一级别 是否 全部装箱完成；
+            if (lastL == lastLevel && isPlanTakeBoxOperateOver(plan)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private TakeBoxPlan getLastLevel(TakeBoxPlan plan) {
+        String packLevel = plan.getPackLevel();
+        int level = replaceLevel(packLevel);
+
+        if (level == 2) {
+            return null;
+        }
+
+        int lastL = level - 1;
+
+        for (TakeBoxPlan takeBoxPlan : mPlanList) {
+            int lastLevel = replaceLevel(takeBoxPlan.getPackLevel());
+            //判断上一级别 是否 全部装箱完成；
+            if (lastL == lastLevel) {
+                return takeBoxPlan;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 判断当前计划是否操作完成
+     * 装箱中数量 = 0 ，未装箱数量 = 0；
+     *
+     * @return
+     */
+    private boolean isPlanTakeBoxOperateOver(TakeBoxPlan plan) {
+        return (plan.getInBoxingQty() == 0) && (plan.getUnBoxedQty() == 0);
+    }
+
+    private int replaceLevel(String level) {
+        int l;
+        try {
+            l = Integer.parseInt(level);
+        } catch (Exception e) {
+            l = -1;
+        }
+        return l;
     }
 
     private void toTakeOperateActivity(TakeBoxPlan takeBoxPlan) {
         Bundle bundle = getBundle();
         bundle.putParcelable(C.TAKE_BOX_PLAN, takeBoxPlan);
-        bundle.putParcelable(C.OPERATE_GOODS,mOperateGoods);
-        bundle.putString(C.MANIFEST_STR,mOperateManifest);
+        bundle.putParcelable(C.OPERATE_GOODS, mOperateGoods);
+        bundle.putString(C.MANIFEST_STR, mOperateManifest);
 
         startActivity(BTakeBoxGoodsOperateActivity.class, bundle, REQUEST_OPERATE_CODE);
     }
