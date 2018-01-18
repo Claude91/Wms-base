@@ -1,14 +1,21 @@
 package com.shqtn.base;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -32,6 +39,9 @@ import com.shqtn.base.widget.SystemEditText;
 import com.shqtn.base.widget.TitleView;
 import com.shqtn.base.widget.dialog.AskMsgDialog;
 import com.shqtn.base.widget.dialog.EditQuantityDialog;
+import com.shqtn.base.widget.i.IOpenDecodeCamera;
+import com.shqtn.base.widget.i.OnCameraResultCallback;
+import com.shqtn.base.zxing.activity.CaptureActivity;
 
 
 /**
@@ -39,11 +49,16 @@ import com.shqtn.base.widget.dialog.EditQuantityDialog;
  * @e-mail strive_bug@yeah.net
  * 基准Activity
  */
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, IDialogView, TitleView.OnClickToBackListener, IAty {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, IDialogView, TitleView.OnClickToBackListener, IAty, IOpenDecodeCamera {
     public static final int RESULT_CODE_CLOSE = 0x11;
     public static final String INTENT_BUNDLE = "bundle";
     private ProgressDialog mProgressDialog;
     private AskMsgDialog mAskMsgDialog;
+
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0x22113;
+
+    public static final int REQUEST_SCANNING_DECODE = 956;
+
 
     private EditQuantityDialog mEditQuantityDialog;
     private AlertDialog mMsgDialog;
@@ -55,6 +70,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public SystemEditText setInputCode;
 
     public TitleView titleView;
+
+    private OnCameraResultCallback mOnCameraResultCallback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -389,6 +406,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return intent.getBundleExtra(INTENT_BUNDLE);
     }
 
+    @Override
+    public void setOnCameraCallback(OnCameraResultCallback cameraCallback) {
+        this.mOnCameraResultCallback = cameraCallback;
+    }
+
     /**
      * 带有返回值
      *
@@ -515,7 +537,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (activityResultCallback != null) {
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_SCANNING_DECODE) {
+            if (mOnCameraResultCallback != null) {
+                mOnCameraResultCallback.cameraResultListener(CaptureActivity.getDecode(data));
+            }
+        } else if (activityResultCallback != null) {
             activityResultCallback.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -537,5 +563,73 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         mEditQuantityDialog.hideBtnDelete();
         mEditQuantityDialog.setOnClickDeleteListener(null);
     }
+
+    @Override
+    public void openDecodeCamera() {
+        checkOpensScanningDecodeCamera();
+    }
+
+    private void checkOpensScanningDecodeCamera() {
+        //检查版本是否大于M
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+            } else {
+                openScanningDecode();
+            }
+        } else {
+            openScanningDecode();
+        }
+
+    }
+
+    private void openScanningDecode() {
+        startActivity(CaptureActivity.class, REQUEST_SCANNING_DECODE);
+    }
+
+
+    /**
+     * 没有打开相册权限
+     */
+    public void openCameraErrorPermissions() {
+        displayMsgDialog("抱歉没有获得到相机权限，不能打开相机");
+    }
+
+    @Override
+    public boolean isCanOpenCamera() {
+        PackageManager pm = getPackageManager();
+        boolean hasACamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)
+                || Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD
+                || Camera.getNumberOfCameras() > 0;
+        if (!hasACamera) {
+            toast("请检查当前设备是否拥有相机功能");
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        if (requestCode == MY_PERMISSIONS_REQUEST_CAMERA) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                openScanningDecode();
+
+            } else {
+                boolean showRequestPermission = ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0]);
+                if (showRequestPermission) {
+                    //点击了拒绝访问
+                } else {
+                    openCameraErrorPermissions();
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
 
 }

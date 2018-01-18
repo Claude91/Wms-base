@@ -152,7 +152,7 @@ public class BTakeBoxGoodsSelectActivity extends BaseBActivity {
         for (TakeBoxPlan takeBoxPlan : mPlanList) {
             int lastLevel = replaceLevel(takeBoxPlan.getPackLevel());
             //判断上一级别 是否 全部装箱完成；
-            if (lastL == lastLevel && isPlanTakeBoxOperateOver(plan)) {
+            if (lastL == lastLevel && isPlanTakeBoxOperateOver(takeBoxPlan)) {
                 return true;
             }
         }

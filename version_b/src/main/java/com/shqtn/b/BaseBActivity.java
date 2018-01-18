@@ -1,5 +1,10 @@
 package com.shqtn.b;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.shqtn.base.BaseActivity;
@@ -20,6 +25,8 @@ import com.shqtn.enter.controller.CodeController;
  */
 
 public abstract class BaseBActivity extends BaseActivity implements CodeController.DecodeCallback {
+
+
 
     @Override
     public void otherInit() {
@@ -59,4 +66,8 @@ public abstract class BaseBActivity extends BaseActivity implements CodeControll
     public void decodeOther(AllotBean code) {
         displayMsgDialog("扫描类型不匹配");
     }
+
+
+
+
 }

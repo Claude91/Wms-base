@@ -36,4 +36,7 @@ dependencies {
     compile project(':bindview')
     compile 'com.android.support:support-annotations:26.0.0-alpha1'
     compile project(':qmui')
+    compile 'com.google.zxing:core:3.3.0'
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
+    compile 'com.android.support:support-annotations:26.0.0-alpha1'
 }

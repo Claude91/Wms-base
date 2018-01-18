@@ -3,12 +3,11 @@ package com.shqtn.base.widget;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
-import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.KeyListener;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,16 +17,19 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.shqtn.base.widget.i.IOpenDecodeCamera;
 import com.shqtn.base.R;
 import com.shqtn.base.clipboard.ClipBoardManager;
 import com.shqtn.base.clipboard.TextChangeManager;
 import com.shqtn.base.utils.SystemEditModeUtils;
+import com.shqtn.base.widget.i.OnCameraResultCallback;
 
 /**
  * 功能：用于系统录入的输入框
  * Created by Administrator on 2016-12-20.
  */
-public class SystemEditText extends FrameLayout implements View.OnClickListener, TextChangeManager.IChangeView, TextChangeManager.OnTimeAfterTextChangeListener, ClipBoardManager.OnClipListener {
+public class SystemEditText extends FrameLayout implements View.OnClickListener, TextChangeManager.IChangeView
+        , TextChangeManager.OnTimeAfterTextChangeListener, ClipBoardManager.OnClipListener, OnCameraResultCallback {
     public final static long FLITE_DOUBLE_CLICK_TIME = 600;
     private TextView vInputMode;
     private View vInputModeGroup;
@@ -49,6 +51,8 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
     private String text;
     private OnTextChangeListener mOnTextChangeListener;
 
+    private IOpenDecodeCamera iOpenDecodeCamera;
+
     private boolean focusActivity;//附在当前Activity中是否 有焦点
 
     public SystemEditText(Context context) {
@@ -69,6 +73,11 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         mModeType = SystemEditModeUtils.getMode(context, MODE_AUTO);
+        if (context instanceof IOpenDecodeCamera) {
+            iOpenDecodeCamera = (IOpenDecodeCamera) context;
+            iOpenDecodeCamera.setOnCameraCallback(this);
+        }
+
         createTextChangeManager();
         initChildrenView(context);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SystemEditText, defStyleAttr, 0);
@@ -142,6 +151,10 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         mOnTextChangeListener = l;
     }
 
+    public void setOpenDecodeCamera(IOpenDecodeCamera iOpenDecodeCamera) {
+        this.iOpenDecodeCamera = iOpenDecodeCamera;
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -162,7 +175,8 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = li.inflate(R.layout.view_system_edit, null, false);
 
-
+        View viewById = view.findViewById(R.id.view_system_edit_iv_to_decode_camera);
+        viewById.setOnClickListener(this);
         et = view.findViewById(R.id.view_system_edit_et);
         vInputMode = view.findViewById(R.id.view_system_edit_tv_input_mode);
         vInputModeGroup = view.findViewById(R.id.view_system_edit_input_mode);
@@ -222,6 +236,11 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
                         .show();
             } else {
                 mModeSelectDialog.show();
+            }
+
+        } else if (id == R.id.view_system_edit_iv_to_decode_camera) {
+            if (iOpenDecodeCamera != null && iOpenDecodeCamera.isCanOpenCamera()) {
+                iOpenDecodeCamera.openDecodeCamera();
             }
         }
 
@@ -308,6 +327,11 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
 
     }
 
+    @Override
+    public void cameraResultListener(String decode) {
+        mOnToTextSearchListener.onSearchText(decode);
+    }
+
     public interface OnToTextSearchListener {
         void onSearchText(String content);
     }
@@ -315,4 +339,5 @@ public class SystemEditText extends FrameLayout implements View.OnClickListener,
     public interface OnTextChangeListener {
         void afterTextChanged(String text);
     }
+
 }
