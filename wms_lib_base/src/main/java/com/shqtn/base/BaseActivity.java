@@ -622,6 +622,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                 boolean showRequestPermission = ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0]);
                 if (showRequestPermission) {
                     //点击了拒绝访问
+                    displayMsgDialog("请到应用管理中，给予本产品的照相机权限，否则有些功能不可使用");
                 } else {
                     openCameraErrorPermissions();
                 }
