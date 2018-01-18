@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Build;
@@ -16,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -55,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private ProgressDialog mProgressDialog;
     private AskMsgDialog mAskMsgDialog;
 
-    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0x22113;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 954;
 
     public static final int REQUEST_SCANNING_DECODE = 956;
 
@@ -572,17 +574,41 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private void checkOpensScanningDecodeCamera() {
         //检查版本是否大于M
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (!selfPermissionGranted(Manifest.permission.CAMERA, getTargetSdkVersion())) {
+
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.CAMERA},
                         MY_PERMISSIONS_REQUEST_CAMERA);
             } else {
                 openScanningDecode();
             }
-        } else {
+        } else
+
+        {
             openScanningDecode();
         }
 
+    }
+
+    public boolean selfPermissionGranted(String permission, int targetSdkVersion) {
+        // For Android < Android M, self permissions are always granted.
+        boolean result = true;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (targetSdkVersion >= Build.VERSION_CODES.M) {
+                // targetSdkVersion >= Android M, we can
+                // use Context#checkSelfPermission
+                result = checkSelfPermission(permission)
+                        == PackageManager.PERMISSION_GRANTED;
+            } else {
+                // targetSdkVersion < Android M, we have to use PermissionChecker
+                result = PermissionChecker.checkSelfPermission(this, permission)
+                        == PermissionChecker.PERMISSION_GRANTED;
+            }
+        }
+
+        return result;
     }
 
     private void openScanningDecode() {
@@ -612,14 +638,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
+        boolean showRequestPermission = ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0]);
         if (requestCode == MY_PERMISSIONS_REQUEST_CAMERA) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 openScanningDecode();
-
             } else {
-                boolean showRequestPermission = ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0]);
                 if (showRequestPermission) {
                     //点击了拒绝访问
                     displayMsgDialog("请到应用管理中，给予本产品的照相机权限，否则有些功能不可使用");
@@ -630,6 +653,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    public int getTargetSdkVersion() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    getPackageName(), 0);
+            return info.applicationInfo.targetSdkVersion;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 
 

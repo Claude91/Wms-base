@@ -1,5 +1,12 @@
 package com.shqtn.enter;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +39,7 @@ public class LoginActivity extends BaseActivity {
 
     public LoginUser mLastLoginUser;//上次登录的账号和密码；
     public LoginUser mSaveLoginUser;//记录这次登陆的账号和密码，并保存
+    private int MY_PERMISSIONS_REQUEST_CAMERA = 30;
 
     @Override
     protected void setRootView() {
@@ -72,7 +80,42 @@ public class LoginActivity extends BaseActivity {
     public void initWidget() {
         super.initWidget();
         ActivityUtils.getInstance().closeOther(this);
+
+        //检查版本是否大于M
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!selfPermissionGranted(Manifest.permission.CAMERA, getTargetSdkVersion())) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+            } else {
+                toast("获得权限成功");
+            }
+        } else {
+            toast("获得权限成功");
+        }
+
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        boolean showRequestPermission = ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0]);
+        if (requestCode == MY_PERMISSIONS_REQUEST_CAMERA) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                toast("获得权限成功");
+            } else {
+
+                if (showRequestPermission) {
+                    //点击了拒绝访问
+                    displayMsgDialog("请到应用管理中，给予本产品的照相机权限，否则有些功能不可使用");
+                } else {
+                    openCameraErrorPermissions();
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
 
     @Override
     public void widgetClick(View v) {

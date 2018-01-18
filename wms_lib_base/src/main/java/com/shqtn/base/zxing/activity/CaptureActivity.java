@@ -283,6 +283,7 @@ public final class CaptureActivity extends BaseActivity implements SurfaceHolder
 
             @Override
             public void onCancel(DialogInterface dialog) {
+                dialog.cancel();
                 finish();
             }
         });
