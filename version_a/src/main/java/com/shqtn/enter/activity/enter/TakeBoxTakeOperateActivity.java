@@ -235,6 +235,19 @@ public class TakeBoxTakeOperateActivity extends BaseActivity implements SystemEd
         setInputCode.setOnToTextSearchListener(this);
     }
 
+
+    @Override
+    public boolean onKeyF4() {
+        toOverSubmit();
+        return true;
+    }
+
+    @Override
+    public boolean onKeyF1() {
+        toSubmit();
+        return true;
+    }
+
     @Override
     public void initWidget() {
         super.initWidget();

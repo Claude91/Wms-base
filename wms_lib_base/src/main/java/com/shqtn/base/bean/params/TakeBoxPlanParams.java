@@ -9,6 +9,15 @@ public class TakeBoxPlanParams {
     private String skuCode;//当前货品的SKU；
     private String batchNo;//货品的批次属性
     private String whCode;//仓库
+    private Long ikey;
+
+    public Long getIkey() {
+        return ikey;
+    }
+
+    public void setIkey(Long ikey) {
+        this.ikey = ikey;
+    }
 
     public String getDocNo() {
         return docNo;

@@ -28,7 +28,7 @@ public class ViewInfo {
      */
     public static View createAddSerialButton(BaseActivity aty) {
         TextView tvSerial = new TextView(aty);
-        tvSerial.setText("添加序列号F4");
+        tvSerial.setText("添加序列号");
         tvSerial.setOnClickListener(aty);
         tvSerial.setId(R.id.btn_serial);
         tvSerial.setGravity(Gravity.CENTER);

@@ -242,6 +242,7 @@ public class BTakeBoxGoodsSelectActivity extends BaseBActivity {
         params.setBatchNo(mOperateGoods.getBatchNo());
         params.setWhCode(depotBean.getWhcode());
         params.setDocNo(mOperateManifest);
+        params.setIkey(mOperateManifestBean.getIkey());
         ModelService.post(ApiUrl.URL_TAKE_BOX_QUERY_PACK_LIST, params, new ResultCallback() {
             @Override
             public void onFailed(String msg) {

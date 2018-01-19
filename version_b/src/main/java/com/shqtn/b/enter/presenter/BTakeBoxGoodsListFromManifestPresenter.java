@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.shqtn.b.enter.params.BTakeBoxGoodsListFromManifestParams;
 import com.shqtn.b.enter.result.BTakeBoxManifest;
 import com.shqtn.b.enter.ui.BTakeBoxGoodsSelectActivity;
 import com.shqtn.base.C;
@@ -67,6 +68,7 @@ public class BTakeBoxGoodsListFromManifestPresenter extends AbstractListActivity
     private ArrayList<TakeBoxGoods> mGoodsList;
     private String mManifest;
     private BTakeBoxManifest mOperaetManifestBean;
+    private BTakeBoxGoodsListFromManifestParams params;
 
     @Override
     public void init() {
@@ -84,7 +86,7 @@ public class BTakeBoxGoodsListFromManifestPresenter extends AbstractListActivity
                         .setLabelText(R.id.item_goods_take_box_ltv_unit, takeBoxGoods.getUnitName());
             }
         };
-
+        params = new BTakeBoxGoodsListFromManifestParams();
         mOperaetManifestBean = getBundle().getParcelable(C.MANIFEST_BEAN);
         mManifest = mOperaetManifestBean.getDocNo();
         ListActivityController.View view = getView();
@@ -156,7 +158,10 @@ public class BTakeBoxGoodsListFromManifestPresenter extends AbstractListActivity
 
     private void queryManifestOfGoodsList(String manifest) {
         getView().displayProgressDialog("查询中");
-        ModelService.post(ApiUrl.URL_TAKE_BOX_QUERY_PRODUCT_LIST + manifest, null, mCallback);
+
+        params.setIkey(mOperaetManifestBean.getIkey());
+        params.setDocNo(mOperaetManifestBean.getDocNo());
+        ModelService.post(ApiUrl.URL_TAKE_BOX_QUERY_PRODUCT_LIST, params, mCallback);
     }
 
     @Override

@@ -32,6 +32,11 @@ public class EnterUrl {
     public static String take_del_submit;
 
     /**
+     * 装箱 通过 manifest code 所要装箱的内容
+     */
+    public static String take_box_goods_list_from_manifest;
+
+    /**
      * 装箱任务单号列表
      */
     public static String take_box_manifest;
@@ -45,5 +50,6 @@ public class EnterUrl {
 
         take_box_manifest = String.format("%s%s%s", ApiUrl.BASE_URL, base_take_box, "docList");
 
+        take_box_goods_list_from_manifest = String.format("%s%s", ApiUrl.BASE_URL, "rk/packing/get");
     }
 }

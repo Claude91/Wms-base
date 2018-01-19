@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_btake_box_goods_operate"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context="com.shqtn.b.enter.ui.BTakeBoxGoodsOperateActivity">
 
     <com.shqtn.base.widget.TitleView
@@ -96,22 +96,22 @@
 
 
     <ListView
-        android:padding="10dp"
-        android:background="@drawable/s_select_white_org"
-        android:layout_marginTop="@dimen/margin_top_normal"
         android:id="@+id/activity_take_box_take_operate_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/activity_take_box_take_operate_btn_group"
         android:layout_below="@+id/activity_take_box_take_operate_tv_label_1"
-        android:dividerHeight="4dp" />
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@drawable/s_select_white_org"
+        android:dividerHeight="4dp"
+        android:padding="10dp" />
 
     <LinearLayout
-        android:layout_marginTop="@dimen/margin_top_normal"
         android:id="@+id/activity_take_box_take_operate_btn_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/margin_top_normal"
         android:orientation="horizontal">
 
         <TextView
@@ -127,11 +127,11 @@
             android:layout_height="0dp" />
 
         <TextView
-            android:id="@+id/activity_take_box_take_operate_tv_submit_over_f4"
+            android:id="@+id/activity_take_box_take_operate_tv_submit_over_f3"
             style="@style/bottomBtnStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/takeBoxCompleteF4" />
+            android:text="装箱完成F3" />
     </LinearLayout>
 </RelativeLayout>

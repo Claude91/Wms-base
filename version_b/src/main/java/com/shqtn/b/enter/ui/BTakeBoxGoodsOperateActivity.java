@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.shqtn.b.BaseBActivity;
 import com.shqtn.b.R;
 import com.shqtn.b.SerialAddActivity;
+import com.shqtn.b.enter.AbstractBTakeBoxChild;
 import com.shqtn.b.enter.BTakeBoxChildGoodsImpl;
 import com.shqtn.b.enter.BTakeBoxChildLpnImpl;
 import com.shqtn.b.enter.ViewInfo;
@@ -39,7 +40,6 @@ import com.shqtn.base.widget.TitleView;
 import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
 import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
-import com.shqtn.enter.presenter.AbstractTakeBoxChild;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
 
     private TitleView titleView;
     private LabelTextView ltvTakeBoxNo, ltvTakingQty, ltvTakeOverQty, ltvUntakeQty;
-    private TextView tvSubmitF1, tvTakeOverF4;
+    private TextView tvSubmitF1, tvTakeOverF3;
     private ViewGroup bottomBtnGroup;
 
     private ViewGroup boxNoGroup;
@@ -62,7 +62,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
     private TakeBoxPlan mOperateTakeBoxPlan;
     private TakeBoxGoods mOperateGoods;
 
-    private AbstractTakeBoxChild takeBoxChildOperate;
+    private AbstractBTakeBoxChild takeBoxChildOperate;
 
     private CodeController.Presenter mCodePresenter;
     private ResultCallback mCheckBoxCallback;
@@ -139,7 +139,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
             mTakeBoxCheckingBoxStatusParams = new TakeBoxCheckingBoxStatusParams();
         }
         mTakeBoxCheckingBoxStatusParams.setFlag(flag);
-        mTakeBoxCheckingBoxStatusParams.setIkey(mOperateGoods.getIkey());
+        mTakeBoxCheckingBoxStatusParams.setIkey(mOperateManifestBean.getIkey());
         mTakeBoxCheckingBoxStatusParams.setLpnNo(lpnNo);
         mTakeBoxCheckingBoxStatusParams.setPackLevel(level);
         displayProgressDialog("检测箱子状态 ");
@@ -220,7 +220,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
         }
 
         takeBoxChildOperate.setManifest(mOperateManifest);
-
+        takeBoxChildOperate.setOpearetManifest(mOperateManifestBean);
         mCodePresenter = new CodePresenterImpl(this);
 
 
@@ -240,9 +240,9 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
         ltvTakeOverQty = (LabelTextView) findViewById(R.id.activity_take_box_take_operate_ltv_over_qty);
         ltvUntakeQty = (LabelTextView) findViewById(R.id.activity_take_box_take_operate_ltv_untake_qty);
         tvSubmitF1 = (TextView) findViewById(R.id.activity_take_box_take_operate_tv_submit_f1);
-        tvTakeOverF4 = (TextView) findViewById(R.id.activity_take_box_take_operate_tv_submit_over_f4);
+        tvTakeOverF3 = (TextView) findViewById(R.id.activity_take_box_take_operate_tv_submit_over_f3);
         tvSubmitF1.setOnClickListener(this);
-        tvTakeOverF4.setOnClickListener(this);
+        tvTakeOverF3.setOnClickListener(this);
 
         boxNoGroup = (ViewGroup) findViewById(R.id.activity_take_box_take_operate_group);
         bottomBtnGroup = (ViewGroup) findViewById(R.id.activity_take_box_take_operate_btn_group);
@@ -275,7 +275,7 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
         int i = v.getId();
         if (i == R.id.activity_take_box_take_operate_tv_submit_f1) {
             toSubmit();
-        } else if (i == R.id.activity_take_box_take_operate_tv_submit_over_f4) {
+        } else if (i == R.id.activity_take_box_take_operate_tv_submit_over_f3) {
             toOverSubmit();
         } else if (i == R.id.activity_take_box_take_operate_ltv_take_box) {
             toScanningBoxNo();
@@ -318,6 +318,23 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
                 super.onActivityResult(requestCode, resultCode, data);
         }
 
+    }
+
+    @Override
+    public boolean onKeyF3() {
+        toOverSubmit();
+        return true;
+    }
+
+    @Override
+    public boolean onKeyF4() {
+        return true;
+    }
+
+    @Override
+    public boolean onKeyF1() {
+        toSubmit();
+        return true;
     }
 
     private void toOverSubmit() {

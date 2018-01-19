@@ -221,7 +221,7 @@
     <string name="ownerUser">货主</string>
     <string name="customerUser">客户</string>
     <string name="InvoiceNoName">发货单号</string>
-    <string name="submitF1">提交(F1)</string>
+    <string name="submitF1">提交F1</string>
     <string name="depotName">仓库</string>
     <string name="realQtyF4">实际数量(F4):</string>
     <string name="skuName">sku</string>

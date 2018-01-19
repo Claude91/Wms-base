@@ -153,10 +153,6 @@ public class BTakeBoxChildGoodsImpl extends AbstractBTakeBoxChild<CodeGoods, BTa
         double submitQty = 0.0d;
 
         ArrayList<CodeGoods> childs1 = getChilds();
-        if (getChilds().size() > operateGoods.getQuantity()) {
-            dialogView.displayMsgDialog("超过装箱计划数量，请检查装箱数量");
-            return null;
-        }
         double totalQty = 0.0d;
         boolean isHasTakeOverQty = false;
         for (CodeGoods codeGoods : childs1) {
@@ -360,7 +356,7 @@ public class BTakeBoxChildGoodsImpl extends AbstractBTakeBoxChild<CodeGoods, BTa
             }
         }
 
-        if (childsSerials == null|| childsSerials.size() == 0) {
+        if (childsSerials == null || childsSerials.size() == 0) {
             for (CodeGoods child : childs) {
                 if (!child.isTag()) {
                     childs.remove(child);
