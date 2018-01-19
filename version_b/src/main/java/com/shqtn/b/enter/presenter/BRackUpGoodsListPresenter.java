@@ -1,9 +1,10 @@
-package com.shqtn.enter.presenter.enter;
+package com.shqtn.b.enter.presenter;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.shqtn.b.enter.result.BRackUpGoods;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.DepotBean;
@@ -31,12 +32,12 @@ import java.util.ArrayList;
  * Created by android on 2017/9/27.
  */
 
-public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
+public class BRackUpGoodsListPresenter extends AbstractListActivityPresenter {
 
 
-    private CommonAdapter<RackUpGoods> mRackUpGoodsAdapter;
+    private CommonAdapter<BRackUpGoods> mRackUpGoodsAdapter;
     private RackUpGoodsListParams mGoodsListParams = new RackUpGoodsListParams();
-    private ArrayList<RackUpGoods> mGoodsList;
+    private ArrayList<BRackUpGoods> mGoodsList;
     /**
      * 用于刷新列表
      */
@@ -56,7 +57,7 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
         @Override
         public void onSuccess(ResultBean response) {
 
-            mGoodsList = getRows(response.getData(), RackUpGoods.class);
+            mGoodsList = getRows(response.getData(), BRackUpGoods.class);
             mRackUpGoodsAdapter.update(mGoodsList);
             if (mGoodsList == null || mGoodsList.size() == 0) {
                 getView().displayMsgDialog("当前仓库没有要上架的货品");
@@ -70,11 +71,11 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
     public void init() {
         super.init();
 
-        mRackUpGoodsAdapter = new CommonAdapter<RackUpGoods>(getAty().getContext(), null, R.layout.item_goods_or_lpn) {
+        mRackUpGoodsAdapter = new CommonAdapter<BRackUpGoods>(getAty().getContext(), null, R.layout.item_goods_or_lpn) {
             StringBuilder sb = new StringBuilder();
 
             @Override
-            public void setItemContent(ViewHolder holder, RackUpGoods rackUpGoods, int position) {
+            public void setItemContent(ViewHolder holder, BRackUpGoods rackUpGoods, int position) {
                 View goodsGroup = holder.getViewById(R.id.item_goods_or_lpn_goods_group);
                 View lpnGroup = holder.getViewById(R.id.item_goods_or_lpn_lpn_group);
 
@@ -126,7 +127,7 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
 
     @Override
     public void clickItem(int position) {
-        RackUpGoods rackUpGoods = mGoodsList.get(position-1);
+        BRackUpGoods rackUpGoods = mGoodsList.get(position-1);
         if (RackUpGoods.TAG_LPN.equals(rackUpGoods.getPalletflag())) {
             toRackUpLpnOperateActivity(rackUpGoods);
         } else {
@@ -135,23 +136,23 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
 
     }
 
-    private void toRackUpLpnOperateActivity(RackUpGoods rackUpGoods) {
+    private void toRackUpLpnOperateActivity(BRackUpGoods rackUpGoods) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.OPERATE_LPN, rackUpGoods);
-        getAty().startActivity(InfoLoadUtils.getInstance().getInActivityLoad().getRackUpLpnOperateActivity(bundle), bundle, 12);
+        getAty().startActivity(InfoLoadUtils.getInstance().getEnterActivityLoad().getRackUpLpnOperateActivity(bundle), bundle, 12);
     }
 
-    private void toRackUpGoodsOperateActivity(RackUpGoods rackUpGoods) {
+    private void toRackUpGoodsOperateActivity(BRackUpGoods rackUpGoods) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(C.OPERATE_GOODS, rackUpGoods);
-        getAty().startActivity(InfoLoadUtils.getInstance().getInActivityLoad().getRackUpGoodsOperateActivity(bundle),bundle, 12);
+        getAty().startActivity(InfoLoadUtils.getInstance().getEnterActivityLoad().getRackUpGoodsOperateActivity(bundle),bundle, 12);
     }
 
     @Override
     public void decodeGoods(CodeGoods goods) {
         super.decodeGoods(goods);
         getView().displayProgressDialog("匹配中");
-        ArrayList<RackUpGoods> manifestOfGoodsSame = GoodsUtils.getManifestOfGoodsSame(mGoodsList, goods);
+        ArrayList<BRackUpGoods> manifestOfGoodsSame = GoodsUtils.getManifestOfGoodsSame(mGoodsList, goods);
         if (manifestOfGoodsSame == null || manifestOfGoodsSame.size() == 0) {
             StringBuffer sb = new StringBuffer();
             sb.append("当前仓库没有找到该货品")
@@ -166,7 +167,7 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
         }
         //如果只有一个那么直接跳转
         if (manifestOfGoodsSame.size() == 1) {
-            RackUpGoods rackUpGoods = manifestOfGoodsSame.get(0);
+            BRackUpGoods rackUpGoods = manifestOfGoodsSame.get(0);
             toRackUpGoodsOperateActivity(rackUpGoods);
             return;
         }
@@ -182,7 +183,7 @@ public class RackUpGoodsListPresenter extends AbstractListActivityPresenter {
     public void decodeLpn(CodeLpn lpn) {
         super.decodeLpn(lpn);
         getView().displayProgressDialog("匹配中");
-        for (RackUpGoods rackUpGoods : mGoodsList) {
+        for (BRackUpGoods rackUpGoods : mGoodsList) {
             if (RackUpGoods.TAG_LPN.equals(rackUpGoods.getPalletflag())) {
                 if (lpn.getLpnNo().equals(rackUpGoods.getPalletno())) {
                     toRackUpLpnOperateActivity(rackUpGoods);

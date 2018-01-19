@@ -154,6 +154,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     protected void onDestroy() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+
+            mProgressDialog.cancel();
+        }
+        if (mMsgDialog != null && mMsgDialog.isShowing()) {
+            mMsgDialog.cancel();
+        }
+        if (mEditQuantityDialog != null && mEditQuantityDialog.isShowing()) {
+            mEditQuantityDialog.cancel();
+        }
+
         super.onDestroy();
     }
 

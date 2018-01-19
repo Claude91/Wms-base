@@ -1,5 +1,8 @@
 package com.shqtn.base.bean.params;
 
+import com.shqtn.base.bean.SerialNoVo;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +51,34 @@ public class RackUpGoodsSubmitParams {
         private double iquantity;
         private String poscode;//上架的货位
 
+        private String rdcode; // 入库类型
+        private String ccode; // 理货单号
+        private ArrayList<SerialNoVo> serialList;
+
+        public ArrayList<SerialNoVo> getSerialList() {
+            return serialList;
+        }
+
+        public void setSerialList(ArrayList<SerialNoVo> serialList) {
+            this.serialList = serialList;
+        }
+
+
+        public String getRdcode() {
+            return rdcode;
+        }
+
+        public void setRdcode(String rdcode) {
+            this.rdcode = rdcode;
+        }
+
+        public String getCcode() {
+            return ccode;
+        }
+
+        public void setCcode(String ccode) {
+            this.ccode = ccode;
+        }
 
         public long getIkey() {
             return ikey;

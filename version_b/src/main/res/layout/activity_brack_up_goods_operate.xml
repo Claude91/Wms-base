@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_brack_up_goods_operate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shqtn.b.enter.ui.BRackUpGoodsOperateActivity">
+
+    <com.shqtn.base.widget.TitleView
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titleHeight"
+        app:title="上架货品操作" />
+
+    <com.shqtn.base.widget.SystemEditText
+        android:id="@+id/activity_brack_up_goods_operate_set_input_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleView"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        app:hintContent="请输入货品或货位" />
+
+    <com.shqtn.base.widget.LabelTextView
+
+        android:id="@+id/activity_brack_up_goods_operate_ltv_manifest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_brack_up_goods_operate_set_input_code"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/margin_normal"
+        app:labelText="任务单号"
+        app:size="@dimen/text_label_size" />
+
+    <LinearLayout
+        android:id="@+id/activity_brack_up_goods_operate_rack_code_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/activity_brack_up_goods_operate_ltv_manifest"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_top_normal"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingRight="@dimen/margin_normal"
+        android:paddingTop="@dimen/margin_top_normal">
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_brack_up_goods_operate_ltv_recommend_rack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelText="推荐货位"
+            app:size="@dimen/text_label_size" />
+
+        <com.shqtn.base.widget.LabelTextView
+            android:id="@+id/activity_brack_up_goods_operate_ltv_target_rack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:labelText="目标货位"
+            app:size="@dimen/text_label_size" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/activity_brack_up_goods_operate_bottom_group"
+        android:layout_below="@id/activity_brack_up_goods_operate_rack_code_group">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/activity_brack_up_goods_operate_goods_tv_label"
+                style="@style/label_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/activity_brack_up_goods_operate_rack_code_group"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:text="货品详情"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/activity_brack_up_goods_operate_goods_group"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:background="@color/colorBlue"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_normal"
+                android:paddingBottom="@dimen/margin_top_normal"
+                android:paddingTop="@dimen/margin_top_normal">
+
+                <com.shqtn.base.widget.LabelTextView
+                    android:id="@+id/activity_brack_up_goods_operate_goods_ltv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:color="@color/text_white_color"
+                    app:labelText="@string/name"
+                    app:size="@dimen/text_label_size" />
+
+                <com.shqtn.base.widget.LabelTextView
+                    android:id="@+id/activity_brack_up_goods_operate_goods_ltv_sku"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_normal"
+                    app:color="@color/text_white_color"
+                    app:labelText="@string/sku"
+                    app:size="@dimen/text_label_size" />
+
+                <com.shqtn.base.widget.LabelTextView
+                    android:id="@+id/activity_brack_up_goods_operate_goods_ltv_batch_no"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_normal"
+                    app:color="@color/text_white_color"
+                    app:labelText="@string/batch_no"
+                    app:size="@dimen/text_label_size" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.shqtn.base.widget.LabelTextView
+                        android:id="@+id/activity_brack_up_goods_operate_goods_ltv_std"
+
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top_normal"
+                        android:layout_weight="1"
+                        app:color="@color/text_white_color"
+                        app:labelText="@string/std"
+                        app:size="@dimen/text_label_size" />
+
+                    <com.shqtn.base.widget.LabelTextView
+                        android:id="@+id/activity_brack_up_goods_operate_goods_ltv_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top_normal"
+                        android:layout_weight="1"
+                        app:color="@color/text_white_color"
+                        app:labelText="@string/unit"
+                        app:size="@dimen/text_label_size" />
+                </LinearLayout>
+
+                <com.shqtn.base.widget.LabelTextView
+                    android:id="@+id/activity_brack_up_goods_operate_goods_ltv_plan_qty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_normal"
+                    app:color="@color/text_white_color"
+                    app:labelText="@string/plan_qty"
+                    app:size="@dimen/text_label_size" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/label_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:text="上架操作"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:background="@color/colorBlue"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_normal">
+
+                <com.shqtn.base.widget.LabelTextView
+                    android:id="@+id/activity_brack_up_goods_operate_ltv_can_up_qty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:color="@color/text_white_color"
+                    app:labelText="可上架数量"
+                    app:size="@dimen/text_label_size" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.shqtn.base.widget.LabelTextView
+                        android:id="@+id/activity_brack_up_goods_operate_ltv_operate_qty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        app:color="@color/text_white_color"
+                        app:labelText="@string/operateQty"
+                        app:size="@dimen/text_label_size"
+                        app:text="0" />
+
+                    <TextView
+                        style="@style/label_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(F2)" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/activity_brack_up_goods_operate_bottom_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="6dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/activity_brack_up_goods_operate_tv_submit"
+            style="@style/bottomBtnStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/submitF1" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

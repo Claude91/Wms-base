@@ -11,7 +11,8 @@
         <activity android:name=".SerialSrcActivity" />
         <activity android:name=".enter.ui.BQualityInspectionGoodsOperateActivity" />
         <activity android:name=".enter.ui.BTakeBoxGoodsSelectActivity" />
-        <activity android:name=".enter.ui.BTakeBoxGoodsOperateActivity"></activity>
+        <activity android:name=".enter.ui.BTakeBoxGoodsOperateActivity" />
+        <activity android:name=".enter.ui.BRackUpGoodsOperateActivity"></activity>
     </application>
 
 </manifest>

@@ -6,11 +6,12 @@ import android.os.Parcelable;
 /**
  * 创建时间:2017/12/26
  * 描述:
- *
+ *{"ikey":11965,"createdBy":"张三","createdDate":1516347528000,"modifyBy":"张三","modifyDate":1516347565000,"saasid":"SYSTEM","orgnIkey":0,"orgn":"SYSTEM","skuCode":"18011001","batchNo":"LOT20180119021","serialNo":"012018011900000191","whCode":"ALL","locCode":"ALLJH","ownerCode":"ALL","qty":1,"status":"2","resourceIkey":19744,"sourceIkey":14961,"sourceCode":"0000065955"}
  * @author ql
  */
 
 public class SerialNoVo implements Parcelable {
+
     private String serialNo; // 序列号
 
     public String getSerialNo() {
@@ -21,16 +22,6 @@ public class SerialNoVo implements Parcelable {
         this.serialNo = serialNo;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.serialNo);
-    }
 
     public SerialNoVo() {
     }
@@ -65,11 +56,21 @@ public class SerialNoVo implements Parcelable {
         return serialNo != null ? serialNo.hashCode() : 0;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.serialNo);
+    }
+
     protected SerialNoVo(Parcel in) {
         this.serialNo = in.readString();
     }
 
-    public static final Parcelable.Creator<SerialNoVo> CREATOR = new Parcelable.Creator<SerialNoVo>() {
+    public static final Creator<SerialNoVo> CREATOR = new Creator<SerialNoVo>() {
         @Override
         public SerialNoVo createFromParcel(Parcel source) {
             return new SerialNoVo(source);

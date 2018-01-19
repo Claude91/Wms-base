@@ -282,15 +282,4 @@ public class RackUpGoods extends IGoods implements Parcelable {
         this.palletflag = in.readString();
     }
 
-    public static final Creator<RackUpGoods> CREATOR = new Creator<RackUpGoods>() {
-        @Override
-        public RackUpGoods createFromParcel(Parcel source) {
-            return new RackUpGoods(source);
-        }
-
-        @Override
-        public RackUpGoods[] newArray(int size) {
-            return new RackUpGoods[size];
-        }
-    };
 }

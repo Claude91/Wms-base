@@ -3,6 +3,7 @@ package com.shqtn.b.info;
 import android.os.Bundle;
 
 import com.shqtn.b.enter.presenter.BQualityInspectionQueryGoodsController;
+import com.shqtn.b.enter.presenter.BRackUpGoodsListPresenter;
 import com.shqtn.b.enter.presenter.BTakeBoxManifestQueryPresenter;
 import com.shqtn.b.enter.presenter.BTakeDeliveryManifestPresenter;
 import com.shqtn.enter.ListActivity;
@@ -40,6 +41,19 @@ public class BFunctionMainActivityLoadImpl extends FunctionMainActivityLoadImpl 
     @Override
     public Class getTakeBoxMain(Bundle bundle) {
         Bundle listActivityBundle = ListActivity.createListActivityBundle(BTakeBoxManifestQueryPresenter.class);
+        bundle.putAll(listActivityBundle);
+        return ListActivity.class;
+    }
+
+    /**
+     * 接口修改，对应服务端 鲍国军
+     *
+     * @param bundle
+     * @return
+     */
+    @Override
+    public Class getRackUpMainActivity(Bundle bundle) {
+        Bundle listActivityBundle = ListActivity.createListActivityBundle(BRackUpGoodsListPresenter.class);
         bundle.putAll(listActivityBundle);
         return ListActivity.class;
     }
