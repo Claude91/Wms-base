@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.shqtn.b.BaseBActivity;
 import com.shqtn.b.R;
 import com.shqtn.b.SerialAddActivity;
-import com.shqtn.b.enter.BTakeChildGoodsImpl;
-import com.shqtn.b.enter.BTakeChildLpnImpl;
+import com.shqtn.b.enter.BTakeBoxChildGoodsImpl;
+import com.shqtn.b.enter.BTakeBoxChildLpnImpl;
 import com.shqtn.b.enter.ViewInfo;
+import com.shqtn.b.enter.result.BTakeBoxManifest;
 import com.shqtn.base.C;
 import com.shqtn.base.bean.LpnCheck;
 import com.shqtn.base.bean.LpnStatus;
@@ -40,8 +40,6 @@ import com.shqtn.enter.controller.CodeController;
 import com.shqtn.enter.controller.impl.CodePresenterImpl;
 import com.shqtn.enter.controller.impl.DecodeCallbackImpl;
 import com.shqtn.enter.presenter.AbstractTakeBoxChild;
-import com.shqtn.enter.presenter.TakeChildLpnImpl;
-import com.shqtn.enter.print.bean.Decode;
 
 import java.util.ArrayList;
 
@@ -68,6 +66,9 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
 
     private CodeController.Presenter mCodePresenter;
     private ResultCallback mCheckBoxCallback;
+
+    private BTakeBoxManifest mOperateManifestBean;
+
     private CodeController.DecodeCallback mDecodeCallback = new DecodeCallbackImpl() {
         @Override
         public void decodeLpn(CodeLpn lpn) {
@@ -203,15 +204,19 @@ public class BTakeBoxGoodsOperateActivity extends BaseBActivity implements Syste
     @Override
     public void initData() {
         super.initData();
-        mOperateTakeBoxPlan = getBundle().getParcelable(C.TAKE_BOX_PLAN);
-        mOperateGoods = getBundle().getParcelable(C.OPERATE_GOODS);
-        mOperateManifest = getBundle().getString(C.MANIFEST_STR);
+        Bundle bundle = getBundle();
+        mOperateTakeBoxPlan = bundle.getParcelable(C.TAKE_BOX_PLAN);
+        mOperateGoods = bundle.getParcelable(C.OPERATE_GOODS);
+        mOperateManifest = bundle.getString(C.MANIFEST_STR);
+
+        mOperateManifestBean = bundle.getParcelable(C.MANIFEST_BEAN);
+
         String packLevel = mOperateTakeBoxPlan.getPackLevel();
         isTakeChildGoods = OPERATE_LEVEL.equals(packLevel);
         if (isTakeChildGoods) {
-            takeBoxChildOperate = new BTakeChildGoodsImpl(mOperateTakeBoxPlan, mOperateGoods, this);
+            takeBoxChildOperate = new BTakeBoxChildGoodsImpl(mOperateTakeBoxPlan, mOperateGoods, this);
         } else {
-            takeBoxChildOperate = new BTakeChildLpnImpl(mOperateTakeBoxPlan, mOperateGoods, this);
+            takeBoxChildOperate = new BTakeBoxChildLpnImpl(mOperateTakeBoxPlan, mOperateGoods, this);
         }
 
         takeBoxChildOperate.setManifest(mOperateManifest);

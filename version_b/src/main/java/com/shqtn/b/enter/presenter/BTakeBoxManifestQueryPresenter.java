@@ -25,6 +25,9 @@ import java.util.ArrayList;
 
 /**
  * 装箱任务单列表页面
+ * 描述：
+ * 制作接口人：陈伟
+ * 2018-1-19 ，查询任务单列表中 获得任务单IKEY，并在最后提交接口中添加 ikey，
  * Created by android on 2017/10/12.
  */
 
@@ -106,7 +109,7 @@ public class BTakeBoxManifestQueryPresenter extends AbstractListActivityPresente
      */
     private void toGoodsListFromManifest(BTakeBoxManifest takeBoxManifest) {
         Bundle bundle = new Bundle();
-        bundle.putString(C.MANIFEST_STR, takeBoxManifest.getManifest());
+        bundle.putParcelable(C.MANIFEST_BEAN, takeBoxManifest);
         Bundle listActivityBundle = ListActivity.createListActivityBundle(BTakeBoxGoodsListFromManifestPresenter.class);
         bundle.putAll(listActivityBundle);
         getAty().startActivity(ListActivity.class, bundle);

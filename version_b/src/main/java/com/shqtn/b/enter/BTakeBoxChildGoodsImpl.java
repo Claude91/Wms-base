@@ -1,6 +1,5 @@
 package com.shqtn.b.enter;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -27,8 +26,6 @@ import com.shqtn.base.utils.NumberUtils;
 import com.shqtn.base.utils.StringUtils;
 import com.shqtn.base.widget.dialog.EditQuantityDialog;
 import com.shqtn.enter.R;
-import com.shqtn.enter.info.IFunctionLoad;
-import com.shqtn.enter.presenter.AbstractTakeBoxChild;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +38,7 @@ import java.util.List;
  * @author ql
  */
 
-public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBoxSubmitParams> implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class BTakeBoxChildGoodsImpl extends AbstractBTakeBoxChild<CodeGoods, BTakeBoxSubmitParams> implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private CommonAdapter<CodeGoods> adapter;
     private IDialogView dialogView;
@@ -62,7 +59,7 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
         }
     };
 
-    public BTakeChildGoodsImpl(@NonNull TakeBoxPlan takeBoxGoodsPlan, @NonNull final TakeBoxGoods takeBoxGoods, IDialogView dialogView) {
+    public BTakeBoxChildGoodsImpl(@NonNull TakeBoxPlan takeBoxGoodsPlan, @NonNull final TakeBoxGoods takeBoxGoods, IDialogView dialogView) {
         super(takeBoxGoodsPlan, takeBoxGoods);
         this.dialogView = dialogView;
         adapter = new CommonAdapter<CodeGoods>(R.layout.item_take_box_child_goods) {
@@ -77,7 +74,7 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
                 }
 
                 delView.setTag(position);
-                delView.setOnClickListener(BTakeChildGoodsImpl.this);
+                delView.setOnClickListener(BTakeBoxChildGoodsImpl.this);
                 holder.setLabelText(R.id.item_take_box_child_goods_ltv_name, operateGoods.getSkuName())
                         .setLabelText(R.id.item_take_box_child_goods_ltv_qty, String.valueOf(codeGoods.getGoodsQty()))
                         .setLabelText(R.id.item_take_box_child_goods_ltv_batch_no, codeGoods.getBatchNo())
@@ -211,6 +208,8 @@ public class BTakeChildGoodsImpl extends AbstractTakeBoxChild<CodeGoods, BTakeBo
         params.setBatchNo(operateGoods.getBatchNo());
         params.setDocNo(manifest);
         params.setfLpnNo(getBoxNo());
+        params.setIkey(mOpearetManifest.getIkey());
+        params.setIkey(operateGoods.getIkey());
         return params;
     }
 

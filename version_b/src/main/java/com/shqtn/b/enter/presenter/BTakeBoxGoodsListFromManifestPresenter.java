@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.shqtn.b.enter.result.BTakeBoxManifest;
 import com.shqtn.b.enter.ui.BTakeBoxGoodsSelectActivity;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
@@ -65,6 +66,7 @@ public class BTakeBoxGoodsListFromManifestPresenter extends AbstractListActivity
     };
     private ArrayList<TakeBoxGoods> mGoodsList;
     private String mManifest;
+    private BTakeBoxManifest mOperaetManifestBean;
 
     @Override
     public void init() {
@@ -83,8 +85,8 @@ public class BTakeBoxGoodsListFromManifestPresenter extends AbstractListActivity
             }
         };
 
-        mManifest = getBundle().getString(C.MANIFEST_STR);
-
+        mOperaetManifestBean = getBundle().getParcelable(C.MANIFEST_BEAN);
+        mManifest = mOperaetManifestBean.getDocNo();
         ListActivityController.View view = getView();
         view.setTitle("装箱货品列表");
         view.setEditTextHint("请输入货品");
@@ -125,6 +127,7 @@ public class BTakeBoxGoodsListFromManifestPresenter extends AbstractListActivity
 
         bundle.putString(C.MANIFEST_STR, mManifest);
         bundle.putParcelable(C.OPERATE_GOODS, takeBoxGoods);
+        bundle.putParcelable(C.MANIFEST_BEAN, mOperaetManifestBean);
 
         getAty().startActivity(BTakeBoxGoodsSelectActivity.class, bundle);
     }

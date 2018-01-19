@@ -6,6 +6,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.shqtn.b.enter.params.BTakeBoxSubmitParams;
 import com.shqtn.base.BaseApp;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.DepotBean;
@@ -18,7 +19,6 @@ import com.shqtn.base.info.code.CodeLpn;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
 import com.shqtn.enter.R;
-import com.shqtn.enter.presenter.AbstractTakeBoxChild;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +29,11 @@ import java.util.List;
  *
  * @author ql
  */
-public class BTakeChildLpnImpl extends AbstractTakeBoxChild<CodeLpn,TakeBoxSubmitParams> implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class BTakeBoxChildLpnImpl extends AbstractBTakeBoxChild<CodeLpn,TakeBoxSubmitParams> implements View.OnClickListener, AdapterView.OnItemClickListener {
     private CommonAdapter<CodeLpn> adapter;
     private IDialogView dialogView;
 
-    public BTakeChildLpnImpl(@NonNull TakeBoxPlan takeBoxGoodsPlan, @NonNull TakeBoxGoods takeBoxGoods, IDialogView dialog) {
+    public BTakeBoxChildLpnImpl(@NonNull TakeBoxPlan takeBoxGoodsPlan, @NonNull TakeBoxGoods takeBoxGoods, IDialogView dialog) {
         super(takeBoxGoodsPlan, takeBoxGoods);
         this.dialogView = dialog;
         adapter = new CommonAdapter<CodeLpn>(R.layout.item_take_box_child_lpn) {
@@ -47,7 +47,7 @@ public class BTakeChildLpnImpl extends AbstractTakeBoxChild<CodeLpn,TakeBoxSubmi
                     delView.setVisibility(View.VISIBLE);
                 }
                 delView.setTag(position);
-                delView.setOnClickListener(BTakeChildLpnImpl.this);
+                delView.setOnClickListener(BTakeBoxChildLpnImpl.this);
 
                 holder.setLabelText(R.id.item_take_box_child_lpn_ltv_no, lpn.getLpnNo());
 
@@ -117,7 +117,7 @@ public class BTakeChildLpnImpl extends AbstractTakeBoxChild<CodeLpn,TakeBoxSubmi
 
     @NonNull
     private TakeBoxSubmitParams createSubmitParams(String flag) {
-        TakeBoxSubmitParams params = new TakeBoxSubmitParams();
+        BTakeBoxSubmitParams params = new BTakeBoxSubmitParams();
         params.setOverFlag(flag);
         DepotBean depot = DepotUtils.getDepot(BaseApp.getInstance());
         params.setWhCode(depot.getWhcode());
@@ -137,6 +137,7 @@ public class BTakeChildLpnImpl extends AbstractTakeBoxChild<CodeLpn,TakeBoxSubmi
         params.setPackLevel(operateGoodsPlan.getPackLevel());
         params.setBatchNo(operateGoods.getBatchNo());
         params.setDocNo(manifest);
+        params.setIkey(mOpearetManifest.getIkey());
         params.setfLpnNo(getBoxNo());
         return params;
     }

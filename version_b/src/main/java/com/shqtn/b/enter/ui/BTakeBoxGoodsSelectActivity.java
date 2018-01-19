@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.shqtn.b.BaseBActivity;
 import com.shqtn.b.R;
+import com.shqtn.b.enter.result.BTakeBoxManifest;
 import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.bean.DepotBean;
@@ -39,6 +40,8 @@ public class BTakeBoxGoodsSelectActivity extends BaseBActivity {
     private CommonAdapter<TakeBoxPlan> mPlanAdapter;
     private ArrayList<TakeBoxPlan> mPlanList;
 
+    private BTakeBoxManifest mOperateManifestBean;
+
     @Override
     protected void setRootView() {
         setContentView(R.layout.activity_btake_box_goods_select);
@@ -48,8 +51,10 @@ public class BTakeBoxGoodsSelectActivity extends BaseBActivity {
     @Override
     public void initData() {
         super.initData();
-        mOperateGoods = getBundle().getParcelable(C.OPERATE_GOODS);
-        mOperateManifest = getBundle().getString(C.MANIFEST_STR);
+        Bundle bundle = getBundle();
+        mOperateManifestBean = bundle.getParcelable(C.MANIFEST_BEAN);
+        mOperateGoods = bundle.getParcelable(C.OPERATE_GOODS);
+        mOperateManifest = bundle.getString(C.MANIFEST_STR);
         mPlanAdapter = new CommonAdapter<TakeBoxPlan>(this, null, com.shqtn.enter.R.layout.item_take_box) {
             @Override
             public void setItemContent(ViewHolder holder, TakeBoxPlan takeBoxPlan, int position) {
@@ -206,6 +211,7 @@ public class BTakeBoxGoodsSelectActivity extends BaseBActivity {
         bundle.putParcelable(C.TAKE_BOX_PLAN, takeBoxPlan);
         bundle.putParcelable(C.OPERATE_GOODS, mOperateGoods);
         bundle.putString(C.MANIFEST_STR, mOperateManifest);
+        bundle.putParcelable(C.MANIFEST_BEAN, mOperateManifestBean);
 
         startActivity(BTakeBoxGoodsOperateActivity.class, bundle, REQUEST_OPERATE_CODE);
     }

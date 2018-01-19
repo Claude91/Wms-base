@@ -13,6 +13,15 @@ import java.util.List;
 
 public class BTakeBoxSubmitParams extends TakeBoxSubmitParams{
     private List<Stockserial> serialList;//序列号集合
+    private Long ikey;
+
+    public Long getIkey() {
+        return ikey;
+    }
+
+    public void setIkey(Long ikey) {
+        this.ikey = ikey;
+    }
 
     public List<Stockserial> getSerialList() {
         return serialList;
