@@ -6,6 +6,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.shqtn.base.BaseActivity;
+import com.shqtn.base.C;
 import com.shqtn.base.CommonAdapter;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.StringUtils;
@@ -52,7 +53,7 @@ public class LpnSubmitActivity extends BaseActivity implements SystemEditText.On
         super.initData();
         mLpnOperatePresenter = getLpnOperatePresenter();
         if (mLpnOperatePresenter == null) {
-            mLpnOperatePresenter = new AbstractLpnSubmitPresenterImpl(){
+            mLpnOperatePresenter = new AbstractLpnSubmitPresenterImpl() {
 
                 @Override
                 public void init() {
@@ -67,7 +68,7 @@ public class LpnSubmitActivity extends BaseActivity implements SystemEditText.On
 
     private LpnSubmitController.AbstractPresenter getLpnOperatePresenter() {
         Bundle bundle = getBundle();
-        String presenter = bundle.getString(PRESENTER);
+        String presenter = bundle.getString(C.PRESENTER);
         try {
             return (LpnSubmitController.AbstractPresenter) Class.forName(presenter).newInstance();
         } catch (InstantiationException e) {
