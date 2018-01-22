@@ -171,13 +171,13 @@ public class BTakeBoxChildGoodsImpl extends AbstractBTakeBoxChild<CodeGoods, BTa
 
         BTakeBoxSubmitParams params = new BTakeBoxSubmitParams();
         if (isAddSerial()) {
-            boolean isNowAddSerial = !(childsSerials == null || childsSerials.size() == 0);
-            if (!isHasTakeOverQty) {
+            boolean isNowAddSerial = (!(childsSerials == null || childsSerials.size() == 0)) ;
+          /*  if (!isHasTakeOverQty) {
                 if (!isNowAddSerial) {
                     dialogView.displayMsgDialog("请添加序列号");
                     return null;
                 }
-            }
+            }*/
             if (isNowAddSerial) {
                 List<Stockserial> serialList = new ArrayList<>(childsSerials.size());
                 for (String serial : childsSerials) {
