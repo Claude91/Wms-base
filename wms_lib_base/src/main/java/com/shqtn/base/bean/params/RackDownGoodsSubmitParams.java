@@ -1,5 +1,9 @@
 package com.shqtn.base.bean.params;
 
+import com.shqtn.base.bean.SerialNoVo;
+
+import java.util.List;
+
 /**
  * Created by android on 2017/7/20.
  */
@@ -16,6 +20,7 @@ public class RackDownGoodsSubmitParams {
     private String areaCode;//区域编码
     private double downQuantity;//计划数量
     private String ownerId;//货主编码
+
 
     public long getPickingIkey() {
         return pickingIkey;

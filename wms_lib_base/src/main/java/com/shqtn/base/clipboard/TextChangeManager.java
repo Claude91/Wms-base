@@ -58,7 +58,8 @@ public class TextChangeManager {
                         return;
                     }
                     if (StringUtils.isEmpty(lastText)) {
-                        if (text.length() > SYSTEM_MIN_LENGTH) {
+                        if (text.length() > SYSTEM_MIN_LENGTH && mOnTimeAfterTextChangeListener != null) {
+
                             mOnTimeAfterTextChangeListener.onTextChange(text);
                         }
                     } else {
@@ -76,7 +77,10 @@ public class TextChangeManager {
                         }
 
                         String systemInputText = text.substring(lastTextLength, nowTextLength);
-                        mOnTimeAfterTextChangeListener.onTextChange(systemInputText);
+                        if (mOnTimeAfterTextChangeListener != null) {
+                            mOnTimeAfterTextChangeListener.onTextChange(systemInputText);
+                        }
+
                     }
                 }
             };
@@ -98,8 +102,10 @@ public class TextChangeManager {
     public void textChange(CharSequence s, int start, int end, int count) {
         if (count > SYSTEM_MIN_LENGTH) {
             CharSequence charSequence = s.subSequence(start, s.length());
+            if (mOnTimeAfterTextChangeListener != null) {
+                mOnTimeAfterTextChangeListener.onTextChange(charSequence.toString());
+            }
 
-            mOnTimeAfterTextChangeListener.onTextChange(charSequence.toString());
             isTextInputSearch = true;
             mIChangeView.clearText();
             readText = charSequence.toString();

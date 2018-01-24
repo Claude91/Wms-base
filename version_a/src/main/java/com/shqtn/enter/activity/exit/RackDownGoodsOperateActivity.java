@@ -16,6 +16,7 @@ import com.shqtn.base.info.code.AllotBean;
 import com.shqtn.base.info.code.CodeGoods;
 import com.shqtn.base.info.code.help.CodeCallback;
 import com.shqtn.base.utils.DepotUtils;
+import com.shqtn.base.utils.GoodsUtils;
 import com.shqtn.base.utils.NumberUtils;
 import com.shqtn.base.utils.ToastUtils;
 import com.shqtn.base.widget.LabelTextView;
@@ -43,7 +44,19 @@ public class RackDownGoodsOperateActivity extends BaseActivity implements CodeCo
         @Override
         public void decodeGoods(CodeGoods goods) {
             super.decodeGoods(goods);
+            if (!GoodsUtils.isSame(mOperateGoods, goods)) {
+                displayMsgDialog("货品不匹配不能进行添加");
+                return;
+            }
 
+            double quantity = goods.getQuantity();
+            if (quantity == 0) {
+                quantity = 1;
+            }
+            double inputQty = getInputQty();
+            inputQty = inputQty + quantity;
+
+            etInputQty.setText(String.valueOf(inputQty));
         }
 
         @Override
@@ -106,7 +119,7 @@ public class RackDownGoodsOperateActivity extends BaseActivity implements CodeCo
     public void initWidget() {
         super.initWidget();
         double inputQty = scanningQty;
-        double canInputMaxQty =mOperateGoods.getQuantity();
+        double canInputMaxQty = mOperateGoods.getQuantity();
         if (scanningQty <= 0) {
             inputQty = canInputMaxQty;
         }

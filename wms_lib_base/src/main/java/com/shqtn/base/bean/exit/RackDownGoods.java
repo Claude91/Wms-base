@@ -219,15 +219,4 @@ public class RackDownGoods extends IGoods implements Parcelable {
         this.ownerId = in.readString();
     }
 
-    public static final Creator<RackDownGoods> CREATOR = new Creator<RackDownGoods>() {
-        @Override
-        public RackDownGoods createFromParcel(Parcel source) {
-            return new RackDownGoods(source);
-        }
-
-        @Override
-        public RackDownGoods[] newArray(int size) {
-            return new RackDownGoods[size];
-        }
-    };
 }
