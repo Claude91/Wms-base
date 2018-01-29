@@ -84,18 +84,28 @@ public class BRackDownGoodsOperateActivity extends BaseBActivity implements Code
                     addSerial = new ArrayList<>();
                 }
 
-                for (String s : addSerial) {
-                    if (serialNo.equals(s)) {
-                        displayMsgDialog(String.format("序列号：%s已经添加过，不可重复添加", s));
-                        return;
-                    }
+                if (srcSerials == null) {
+                    displayMsgDialog("当前无序列号可提交");
+                    return;
                 }
-                addSerial.add(serialNo);
 
+                if (!isHasSerialFromSrc(serialNo)) {
+                    displayMsgDialog(String.format("序列号：%s不可添加", serialNo));
+                    return;
+                }
+
+                if (isAddSerial(serialNo)) {
+                    displayMsgDialog(String.format("序列号：%s已经添加过，不可重复添加", serialNo));
+                    return;
+                }
+
+                addSerial.add(serialNo);
 
                 tvInputQty.setText(String.valueOf(addSerial.size()));
                 toast("添加成功");
                 return;
+
+
             }
 
             CharSequence text = tvInputQty.getText();
@@ -116,6 +126,24 @@ public class BRackDownGoodsOperateActivity extends BaseBActivity implements Code
         }
 
     };
+
+    private boolean isAddSerial(String serialNo) {
+        for (String s : addSerial) {
+            if (serialNo.equals(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isHasSerialFromSrc(String serialNo) {
+        for (String srcSerial : srcSerials) {
+            if (serialNo.equals(srcSerial)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public CodeController.Presenter mCodePresenter = new CodePresenterImpl(this);
