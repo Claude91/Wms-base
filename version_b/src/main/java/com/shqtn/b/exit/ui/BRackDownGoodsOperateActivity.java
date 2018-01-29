@@ -90,12 +90,24 @@ public class BRackDownGoodsOperateActivity extends BaseBActivity implements Code
                         return;
                     }
                 }
+                addSerial.add(serialNo);
+
 
                 tvInputQty.setText(String.valueOf(addSerial.size()));
-
+                toast("添加成功");
                 return;
             }
 
+            CharSequence text = tvInputQty.getText();
+            double nowQty = NumberUtils.getDouble(text.toString());
+            double goodsQty = goods.getGoodsQty();
+            if (goodsQty <= 0) {
+                goodsQty = 1;
+            }
+            nowQty = nowQty + goodsQty;
+
+            tvInputQty.setText(String.format("%.2f", nowQty));
+            toast("添加成功");
         }
 
         @Override

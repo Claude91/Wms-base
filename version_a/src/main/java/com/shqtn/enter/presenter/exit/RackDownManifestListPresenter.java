@@ -80,7 +80,7 @@ public class RackDownManifestListPresenter extends AbstractListActivityPresenter
         view.setScanningType(CodeCallback.TAG_MANIFEST);
 
         getView().setListViewModel(PullToRefreshBase.Mode.BOTH);
-
+        getView().setEditTextHint("请扫描任务单号");
         mManifestParams = new RackDownManifestParams();
         mManifestParams.setPage(C.PAGE);
         mManifestParams.setPageSize(C.PAGE_SIZE);
