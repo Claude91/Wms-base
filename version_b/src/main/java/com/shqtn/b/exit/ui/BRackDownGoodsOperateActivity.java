@@ -128,6 +128,9 @@ public class BRackDownGoodsOperateActivity extends BaseBActivity implements Code
     };
 
     private boolean isAddSerial(String serialNo) {
+        if (addSerial == null) {
+            addSerial = new ArrayList<>();
+        }
         for (String s : addSerial) {
             if (serialNo.equals(s)) {
                 return true;
@@ -137,6 +140,9 @@ public class BRackDownGoodsOperateActivity extends BaseBActivity implements Code
     }
 
     private boolean isHasSerialFromSrc(String serialNo) {
+        if (srcSerials == null) {
+            return false;
+        }
         for (String srcSerial : srcSerials) {
             if (serialNo.equals(srcSerial)) {
                 return true;
