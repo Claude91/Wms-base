@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -64,5 +65,7 @@ public abstract class BaseApp extends Application {
 
 
     public abstract void init();
+
+
 
 }

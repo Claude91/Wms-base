@@ -58,6 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private AskMsgDialog mAskMsgDialog;
 
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 954;
+    public static final int MY_WRITER = 955;
 
     public static final int REQUEST_SCANNING_DECODE = 956;
 
@@ -106,6 +107,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initData();
         bindView();
         initWidget();
+        //检查版本是否大于M
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!selfPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE, getTargetSdkVersion())) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_WRITER);
+            }
+        }
     }
 
     public void bindView() {

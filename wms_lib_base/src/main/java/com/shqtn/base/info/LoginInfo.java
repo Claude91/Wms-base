@@ -20,7 +20,7 @@ public class LoginInfo {
      * @param time
      * @param token
      */
-    public void initLoginAfterHeaderParams(Context applicationContext, long time, String token) {
+    public static void initLoginAfterHeaderParams(Context applicationContext, long time, String token) {
         AppHeaderParamsInfo.InitParams.init(applicationContext, time, token);
         Map<String, String> headerParams = AppHeaderParamsInfo.getInstance().getHeaderParams();
         OkHttpUtils.addHeaderParams(headerParams);

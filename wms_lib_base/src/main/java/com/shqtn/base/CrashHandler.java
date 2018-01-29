@@ -1,6 +1,7 @@
 package com.shqtn.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -8,6 +9,11 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.shqtn.base.bean.UserClientBean;
+import com.shqtn.base.info.LoginInfo;
+import com.shqtn.base.utils.UserClientUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,8 +35,8 @@ import java.util.Map;
 
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,有该类来接管程序,并记录发送错误报告.
- *
- *  需要在Application中注册，为了要在程序启动器就监控整个程序。
+ * <p>
+ * 需要在Application中注册，为了要在程序启动器就监控整个程序。
  */
 public class CrashHandler implements UncaughtExceptionHandler {
 
@@ -48,12 +54,17 @@ public class CrashHandler implements UncaughtExceptionHandler {
     //用于格式化日期,作为日志文件名的一部分
     private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 
-    /** 保证只有一个CrashHandler实例 */
-    private CrashHandler() {}
+    /**
+     * 保证只有一个CrashHandler实例
+     */
+    private CrashHandler() {
+    }
 
-    /** 获取CrashHandler实例 ,单例模式 */
+    /**
+     * 获取CrashHandler实例 ,单例模式
+     */
     public static CrashHandler getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new CrashHandler();
         return instance;
     }
@@ -77,6 +88,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
         if (!handleException(ex) && mDefaultHandler != null) {
             //如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
+            UserClientBean user = UserClientUtils.getLoginUser(mContext);
+            LoginInfo.initLoginAfterHeaderParams(mContext, user.getTs(), user.getToken());
+            android.os.Process.killProcess(android.os.Process.myPid());
         } else {
             try {
                 Thread.sleep(3000);
@@ -110,6 +124,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     /**
      * 收集设备参数信息
+     *
      * @param ctx
      */
     public void collectDeviceInfo(Context ctx) {
@@ -141,7 +156,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * 保存错误信息到文件中
      *
      * @param ex
-     * @return  返回文件名称,便于将文件传送到服务器
+     * @return 返回文件名称, 便于将文件传送到服务器
      */
     private String saveCatchInfo2File(Throwable ex) {
 
@@ -166,17 +181,23 @@ public class CrashHandler implements UncaughtExceptionHandler {
         try {
             long timestamp = System.currentTimeMillis();
             String time = formatter.format(new Date());
-            String fileName = "crash-" + time + "-" + timestamp + ".log";
+            String fileName = "crash-" + time + "-" + timestamp + ".txt";
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                String path = "/mnt/sdcard/crash/";
+                String path = String.format("%s/wms_bug_catch/", Environment.getExternalStorageDirectory().getAbsolutePath());
+                Log.i(TAG, "saveCatchInfo2File: 保存的地址:" + path);
                 File dir = new File(path);
                 if (!dir.exists()) {
-                    dir.mkdirs();
+                    boolean isCreateDirSuccess = dir.mkdirs();
+                    Log.i(TAG, "saveCatchInfo2File: createFileDirSuccess = " + isCreateDirSuccess);
                 }
-                FileOutputStream fos = new FileOutputStream(path + fileName);
+                File file = new File(path, fileName);
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                FileOutputStream fos = new FileOutputStream(file);
                 fos.write(sb.toString().getBytes());
                 //发送给开发人员
-                sendCrashLog2PM(path+fileName);
+                sendCrashLog2PM(path + fileName);
                 fos.close();
             }
             return fileName;
@@ -188,11 +209,11 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     /**
      * 将捕获的导致崩溃的错误信息发送给开发人员
-     *
+     * <p>
      * 目前只将log日志保存在sdcard 和输出到LogCat中，并未发送给后台。
      */
-    private void sendCrashLog2PM(String fileName){
-        if(!new File(fileName).exists()){
+    private void sendCrashLog2PM(String fileName) {
+        if (!new File(fileName).exists()) {
             Toast.makeText(mContext, "日志文件不存在！", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -202,9 +223,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
         try {
             fis = new FileInputStream(fileName);
             reader = new BufferedReader(new InputStreamReader(fis, "GBK"));
-            while(true){
+            while (true) {
                 s = reader.readLine();
-                if(s == null) break;
+                if (s == null) break;
                 //由于目前尚未确定以何种方式发送，所以先打出log日志。
                 Log.i("info", s.toString());
             }
@@ -212,7 +233,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally{   // 关闭流
+        } finally {   // 关闭流
             try {
                 reader.close();
                 fis.close();
